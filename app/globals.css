@@ -24,9 +24,14 @@
     font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
-  /* When document dir is RTL (Urdu mode), use Nastaliq font prioritisation */
+  /* When document dir is RTL (Urdu mode), scale base font size & set Nastaliq typography */
+  html[dir="rtl"] {
+    font-size: 112.5%; /* Boost base font size by 12.5% in Urdu mode */
+  }
+
   html[dir="rtl"] body {
     font-family: "Aslam Nastaleeq", "Nafees Noori Nastaleeq", "Noto Nastaliq Urdu", "Jameel Noori Nastaliq", "Georgia", serif;
+    line-height: 1.8;
   }
 }
 

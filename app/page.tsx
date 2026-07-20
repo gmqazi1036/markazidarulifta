@@ -357,10 +357,14 @@ export default function Home() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="inline-flex items-center justify-center px-4 py-1.5 bg-islamic-gold/10 text-islamic-gold rounded-full text-xs font-semibold tracking-wider uppercase border border-islamic-gold/20 min-h-[34px]"
+            className={`inline-flex items-center justify-center bg-islamic-gold/10 text-islamic-gold rounded-full border border-islamic-gold/20 ${
+              language === 'ur' 
+                ? 'text-base sm:text-lg md:text-xl font-bold px-6 py-2 min-h-[44px] font-urdu' 
+                : 'text-xs font-semibold px-4 py-1.5 min-h-[34px] tracking-wider uppercase'
+            }`}
           >
             <span>{typedText}</span>
-            <span className="animate-pulse border-r-2 border-islamic-gold h-3 ml-1"></span>
+            <span className="animate-pulse border-r-2 border-islamic-gold h-4 ml-1"></span>
           </motion.div>
           
           <motion.h2 
@@ -375,7 +379,11 @@ export default function Home() {
                 }
               }
             }}
-            className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-800 leading-tight flex flex-wrap justify-center gap-x-2 md:gap-x-3 cursor-default select-none"
+            className={`font-extrabold tracking-tight text-slate-800 flex flex-wrap justify-center cursor-default select-none ${
+              language === 'ur'
+                ? 'text-3xl sm:text-4xl md:text-5xl font-urdu leading-normal gap-x-1 sm:gap-x-1.5 md:gap-x-2'
+                : 'text-3xl md:text-5xl leading-tight gap-x-2 md:gap-x-3'
+            }`}
           >
             {(language === 'en' ? 'Authentic Islamic Fatwas & Religious Guidance' : 'مستند اسلامی فتاویٰ اور شرعی رہنمائی').split(' ').map((word, idx) => (
               <motion.span 
@@ -404,7 +412,11 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-slate-600 max-w-3xl mx-auto text-sm md:text-base leading-relaxed"
+            className={`text-slate-600 max-w-3xl mx-auto leading-relaxed ${
+              language === 'ur'
+                ? 'text-base sm:text-lg md:text-xl font-urdu'
+                : 'text-sm md:text-base'
+            }`}
           >
             {language === 'en' 
               ? 'Your trusted source for authentic Islamic fatwas, scholarly religious guidance, and verified Islamic publications. Search our extensive fatwa collection, submit your religious questions, and benefit from the guidance of qualified Muftis according to the Hanafi school of Islamic jurisprudence.'

@@ -126,7 +126,11 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             {mounted && pathname === '/' && (
               <>
                 <span className="text-stone-300 hidden sm:inline">|</span>
-                <div className="flex items-center space-x-1.5 rtl:space-x-reverse text-slate-500 font-medium text-[11px] sm:text-xs">
+                <div className={`flex items-center space-x-1.5 rtl:space-x-reverse ${
+                  language === 'ur' 
+                    ? 'text-sm sm:text-base font-bold text-slate-700 font-urdu' 
+                    : 'text-slate-500 font-medium text-[11px] sm:text-xs'
+                }`}>
                   <span>{getHijriDateString()}</span>
                 </div>
               </>
@@ -137,7 +141,7 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             {/* Language Switcher */}
             <button 
               onClick={() => setLanguage(language === 'en' ? 'ur' : 'en')}
-              className="flex items-center space-x-1 rtl:space-x-reverse text-slate-600 hover:text-islamic-green transition-colors font-medium"
+              className="flex items-center space-x-1 rtl:space-x-reverse text-slate-600 hover:text-islamic-green transition-colors font-medium text-xs sm:text-sm"
             >
               <Globe className="w-4 h-4 text-slate-500" />
               <span>{language === 'en' ? 'اردو (Urdu)' : 'English'}</span>
@@ -182,7 +186,11 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-[11px] sm:text-sm font-medium transition-all ${
+                    className={`inline-flex items-center px-1 pt-1 border-b-2 transition-all ${
+                      language === 'ur'
+                        ? 'text-sm sm:text-base md:text-lg font-bold font-urdu'
+                        : 'text-[11px] sm:text-sm font-medium'
+                    } ${
                       active
                         ? 'border-islamic-gold text-islamic-green font-bold'
                         : 'border-transparent text-slate-600 hover:text-islamic-green hover:border-islamic-gold/50'
