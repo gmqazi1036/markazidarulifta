@@ -784,22 +784,7 @@ export default function Home() {
               ></textarea>
             </div>
 
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-600">{t('lblAttachment')}</label>
-              <div className="border-2 border-dashed border-stone-300 hover:border-islamic-gold rounded-lg p-4 flex flex-col items-center bg-stone-50 cursor-pointer transition-colors relative">
-                <input 
-                  type="file" 
-                  accept=".pdf,.doc,.docx,.jpg,.png"
-                  onChange={handleFileChange}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                />
-                <FileText className="w-8 h-8 text-stone-400 mb-2" />
-                <span className="text-xs text-slate-500 font-semibold">
-                  {attachment ? `Selected: ${attachment.name}` : "Click or drag to upload document (Max 5MB)"}
-                </span>
-                <span className="text-[10px] text-slate-400 mt-1">Supported formats: PDF, DOC, DOCX, JPG, PNG</span>
-              </div>
-            </div>
+            {/* Document upload option hidden as requested */}
 
             <div className="flex justify-end">
               <button 
@@ -1001,7 +986,7 @@ export default function Home() {
         </div>
         <div className="space-y-1">
           <div className="text-3xl md:text-4xl font-extrabold text-islamic-green">
-            <ContinuousCounter target={15000} suffix="+" />
+            <ContinuousCounter target={5990} suffix="+" />
           </div>
           <div className="text-xs md:text-sm font-semibold text-slate-600 uppercase tracking-wider font-sans">Questions Answered</div>
         </div>

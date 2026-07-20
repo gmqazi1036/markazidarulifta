@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLanguage, LanguageProvider } from '../context/LanguageContext';
-import { Globe, BookOpen, MapPin, Info, Home as HomeIcon, LogIn, LogOut, CheckCircle, User } from 'lucide-react';
+import { Globe, BookOpen, MapPin, Info, Home as HomeIcon, LogIn, LogOut, CheckCircle, User, Sparkles } from 'lucide-react';
 import { getMe, UserSession } from '../actions/auth';
 import { getGlobalHijriOffset } from '../actions/public';
 
@@ -69,6 +69,7 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     { nameKey: 'navHome', href: '/', icon: HomeIcon },
     { nameKey: 'navIntro', href: '/introduction', icon: Info },
     { nameKey: 'navPublishing', href: '/publishing', icon: BookOpen },
+    { nameKey: 'navWazaif', href: '/wazaif', icon: Sparkles },
     { nameKey: 'navContact', href: '/contact', icon: MapPin }
   ];
 
@@ -140,7 +141,7 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </div>
       </header>
 
-      {/* Sticky Navigation Menu (Strictly ONLY 4 Menus) */}
+      {/* Sticky Navigation Menu */}
       <nav className="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur shadow-md border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between h-14">
