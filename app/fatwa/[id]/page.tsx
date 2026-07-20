@@ -145,12 +145,15 @@ export default function FatwaDetails({ params }: { params: { id: string } }) {
       {/* ========================================================================= */}
       {/* 1. ON-SCREEN INTERACTIVE VIEW / URDU SHEET VIEW (When not in English print) */}
       {/* ========================================================================= */}
-      <article className={`bg-white rounded-xl border border-stone-200 shadow-lg p-6 md:p-10 space-y-8 relative overflow-hidden print:border-0 print:shadow-none print:p-0 ${
-        selectedPrintLanguage === 'en' ? 'print:hidden' : 'block'
-      }`}>
+      <article 
+        dir="rtl"
+        className={`bg-white rounded-xl border border-stone-200 shadow-lg p-6 md:p-10 space-y-8 relative overflow-hidden print:border-0 print:shadow-none print:p-0 text-right font-urdu ${
+          selectedPrintLanguage === 'en' ? 'print:hidden' : 'block'
+        }`}
+      >
         
         {/* Certificate Stamp Emblem (Watermark) */}
-        <div className="absolute top-6 right-6 opacity-5 print:opacity-10 pointer-events-none w-28 h-28 border-4 border-double border-islamic-gold rounded-full flex items-center justify-center">
+        <div className="absolute top-6 left-6 opacity-5 print:opacity-10 pointer-events-none w-28 h-28 border-4 border-double border-islamic-gold rounded-full flex items-center justify-center">
           <span className="text-2xl font-bold font-urdu text-islamic-gold">مفتی</span>
         </div>
 
@@ -199,7 +202,7 @@ export default function FatwaDetails({ params }: { params: { id: string } }) {
 
         {/* Question Section */}
         <div className="space-y-3 print-avoid-break">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-islamic-gold border-l-2 border-islamic-gold pl-2 rtl:border-l-0 rtl:border-r-2 rtl:border-islamic-gold rtl:pl-0 rtl:pr-2 font-urdu">
+          <h3 className="text-sm font-bold uppercase tracking-wider text-islamic-gold border-r-2 border-islamic-gold pr-2 font-urdu">
             الاستفتاء (سوال)
           </h3>
           <div className="bg-stone-50 p-5 rounded-lg border border-stone-100 italic text-slate-800 leading-relaxed font-urdu text-base md:text-lg">
@@ -212,7 +215,7 @@ export default function FatwaDetails({ params }: { params: { id: string } }) {
 
         {/* Urdu Answer Section */}
         <div className="space-y-4 print-avoid-break">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-islamic-gold border-l-2 border-islamic-gold pl-2 rtl:border-l-0 rtl:border-r-2 rtl:border-islamic-gold rtl:pl-0 rtl:pr-2 font-urdu">
+          <h3 className="text-sm font-bold uppercase tracking-wider text-islamic-gold border-r-2 border-islamic-gold pr-2 font-urdu">
             الجواب بعون الملک الوہاب (اردو فتویٰ)
           </h3>
           
@@ -226,7 +229,7 @@ export default function FatwaDetails({ params }: { params: { id: string } }) {
         {/* References Section */}
         {fatwa.references && fatwa.references.length > 0 && (
           <div className="space-y-3 border-t border-stone-200 pt-6 print-avoid-break">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-islamic-gold flex items-center space-x-2 rtl:space-x-reverse font-urdu">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-islamic-gold flex items-center space-x-2 font-urdu">
               <BookOpen className="w-4 h-4" />
               <span>مآخذ و مراجع (Theological References)</span>
             </h3>
@@ -276,13 +279,16 @@ export default function FatwaDetails({ params }: { params: { id: string } }) {
       {/* ========================================================================= */}
       {/* 2. ENGLISH FATWA PRINT SHEET (With Required Translation Declaration) */}
       {/* ========================================================================= */}
-      <article className={`bg-white rounded-xl border border-stone-200 shadow-lg p-6 md:p-10 space-y-8 relative overflow-hidden print:border-0 print:shadow-none print:p-0 ${
-        selectedPrintLanguage === 'en' 
-          ? 'block' 
-          : selectedPrintLanguage === 'both' 
-            ? 'block print:break-before-page mt-12' 
-            : 'hidden print:hidden'
-      }`}>
+      <article 
+        dir="ltr"
+        className={`bg-white rounded-xl border border-stone-200 shadow-lg p-6 md:p-10 space-y-8 relative overflow-hidden print:border-0 print:shadow-none print:p-0 text-left font-sans ${
+          selectedPrintLanguage === 'en' 
+            ? 'block' 
+            : selectedPrintLanguage === 'both' 
+              ? 'block print:break-before-page mt-12' 
+              : 'hidden print:hidden'
+        }`}
+      >
         
         {/* Document Header */}
         <div className="border-b-2 border-double border-islamic-gold/40 pb-6 text-center space-y-2">
