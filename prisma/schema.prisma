@@ -1,0 +1,158 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  passwordHash String
+  role         String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  activityLogs ActivityLog[]
+  muftiProfile Mufti?
+}
+
+model Mufti {
+  id             String    @id @default(uuid())
+  userId         String    @unique
+  nameEn         String
+  nameUr         String
+  employeeId     String    @unique
+  designation    String
+  joiningDate    DateTime
+  resignDate     DateTime?
+  status         String
+  photoUrl       String?
+  bio            String?
+  qualification  String
+  specialization String
+  mobile         String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  fatwas         Fatwa[]
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id            String        @id @default(uuid())
+  nameEn        String        @unique
+  nameUr        String        @unique
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  fatwas        Fatwa[]
+  subCategories SubCategory[]
+}
+
+model SubCategory {
+  id         String   @id @default(uuid())
+  categoryId String
+  nameEn     String
+  nameUr     String
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  fatwas     Fatwa[]
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, nameEn])
+  @@unique([categoryId, nameUr])
+}
+
+model Question {
+  id             String   @id @default(uuid())
+  trackingNumber String   @unique
+  name           String
+  phone          String
+  email          String?
+  city           String
+  questionText   String
+  attachmentUrl  String?
+  status         String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  fatwa          Fatwa?
+}
+
+model Fatwa {
+  id            String      @id @default(uuid())
+  fatwaNumber   String      @unique
+  questionId    String      @unique
+  answeredById  String
+  titleEn       String
+  titleUr       String
+  answerEn      String
+  answerUr      String
+  categoryId    String
+  subCategoryId String
+  visibility    String
+  views         Int         @default(0)
+  publishedAt   DateTime?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  answeredBy    Mufti       @relation(fields: [answeredById], references: [id])
+  category      Category    @relation(fields: [categoryId], references: [id])
+  question      Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
+  references    Reference[]
+}
+
+model Reference {
+  id        String   @id @default(uuid())
+  fatwaId   String
+  type      String
+  bookTitle String
+  volume    String?
+  page      String?
+  text      String
+  createdAt DateTime @default(now())
+  fatwa     Fatwa    @relation(fields: [fatwaId], references: [id], onDelete: Cascade)
+}
+
+model Wazifa {
+  id            String   @id @default(uuid())
+  title         String
+  arabicText    String
+  translationUr String
+  translationEn String
+  benefits      String
+  method        String
+  references    String?
+  category      String
+  publishDate   DateTime @default(now())
+  imageUrl      String?
+  createdAt     DateTime @default(now())
+}
+
+model Book {
+  id            String   @id @default(uuid())
+  title         String
+  coverUrl      String?
+  downloadUrl   String?
+  category      String
+  publishedDate DateTime
+  type          String
+  description   String?
+  createdAt     DateTime @default(now())
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  action    String
+  details   String
+  timestamp DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}

@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'Aslam Nastaleeq';
+  src: url('/fonts/AslamNastaleeq.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pak Lotus';
+  src: url('/fonts/PakLotus.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-stone-50 text-slate-800 antialiased selection:bg-islamic-gold selection:text-white;
+    font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  /* When document dir is RTL (Urdu mode), use Nastaliq font prioritisation */
+  html[dir="rtl"] body {
+    font-family: "Aslam Nastaleeq", "Nafees Noori Nastaleeq", "Noto Nastaliq Urdu", "Jameel Noori Nastaliq", "Georgia", serif;
+  }
+}
+
+/* Custom scrollbars for elegant premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c29b38;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b45309;
+}
+
+/* Custom glassmorphism and card animations */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(194, 155, 56, 0.2);
+}
+
+.dark .glass-panel {
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(194, 155, 56, 0.15);
+}
+
+.islamic-pattern {
+  background-image: radial-gradient(rgba(194, 155, 56, 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.gold-glow {
+  box-shadow: 0 4px 20px -2px rgba(194, 155, 56, 0.25);
+}
+
+.gold-border {
+  border-image: linear-gradient(to right, #c29b38, #fbbf24, #b45309) 1;
+}
+
+/* Keyframes for calligraphic transitions */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Custom Calligraphy Font Classes */
+.font-urdu {
+  font-family: "Aslam Nastaleeq", "Nafees Noori Nastaleeq", "Noto Nastaliq Urdu", "Jameel Noori Nastaliq", serif !important;
+}
+
+.font-arabic {
+  font-family: "Pak Lotus", "Quranic Muhammdi", "Scheherazade New", "Traditional Arabic", serif !important;
+}
