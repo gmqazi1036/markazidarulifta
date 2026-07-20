@@ -911,7 +911,7 @@ export default function Home() {
           <div className="w-16 h-1 bg-islamic-gold mx-auto mt-2"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           <div className="bg-white p-5 rounded-lg border border-stone-200 shadow-sm space-y-3">
             <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
               <Check className="w-4 h-4" />
@@ -929,16 +929,6 @@ export default function Home() {
             <h4 className="font-bold text-sm text-slate-800">Hanafi Jurisprudence</h4>
             <p className="text-xs text-slate-500 leading-relaxed">
               Strictly based upon the Qur’an, Sunnah, Ijma, and Hanafi school of thought.
-            </p>
-          </div>
-
-          <div className="bg-white p-5 rounded-lg border border-stone-200 shadow-sm space-y-3">
-            <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <Check className="w-4 h-4" />
-            </div>
-            <h4 className="font-bold text-sm text-slate-800">Verified Publications</h4>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Access trusted Islamic books and scholarly monthly research journals.
             </p>
           </div>
 

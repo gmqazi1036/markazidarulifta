@@ -4,9 +4,38 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLanguage, LanguageProvider } from '../context/LanguageContext';
-import { Globe, BookOpen, MapPin, Info, Home as HomeIcon, LogIn, LogOut, CheckCircle, User, Sparkles } from 'lucide-react';
+import { Globe, BookOpen, MapPin, Info, Home as HomeIcon, LogIn, LogOut, CheckCircle, User } from 'lucide-react';
 import { getMe, UserSession } from '../actions/auth';
 import { getGlobalHijriOffset } from '../actions/public';
+
+const TasbeehIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="4" r="1.2" fill="currentColor" />
+    <circle cx="15.5" cy="5.2" r="1.2" fill="currentColor" />
+    <circle cx="18" cy="8" r="1.2" fill="currentColor" />
+    <circle cx="18.5" cy="11.5" r="1.2" fill="currentColor" />
+    <circle cx="17" cy="15" r="1.2" fill="currentColor" />
+    <circle cx="14" cy="17.5" r="1.2" fill="currentColor" />
+    <circle cx="10" cy="17.5" r="1.2" fill="currentColor" />
+    <circle cx="7" cy="15" r="1.2" fill="currentColor" />
+    <circle cx="5.5" cy="11.5" r="1.2" fill="currentColor" />
+    <circle cx="6" cy="8" r="1.2" fill="currentColor" />
+    <circle cx="8.5" cy="5.2" r="1.2" fill="currentColor" />
+    <path d="M12 18.7v2.8" />
+    <path d="M10 21.5l2 2 2-2" />
+  </svg>
+);
 
 const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { language, setLanguage, t, isRtl } = useLanguage();
@@ -69,7 +98,7 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     { nameKey: 'navHome', href: '/', icon: HomeIcon },
     { nameKey: 'navIntro', href: '/introduction', icon: Info },
     { nameKey: 'navPublishing', href: '/publishing', icon: BookOpen },
-    { nameKey: 'navWazaif', href: '/wazaif', icon: Sparkles },
+    { nameKey: 'navWazaif', href: '/wazaif', icon: TasbeehIcon },
     { nameKey: 'navContact', href: '/contact', icon: MapPin }
   ];
 
