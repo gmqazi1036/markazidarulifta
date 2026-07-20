@@ -381,7 +381,7 @@ export default function Home() {
             }}
             className={`font-extrabold tracking-tight text-slate-800 flex flex-wrap justify-center cursor-default select-none ${
               language === 'ur'
-                ? 'text-3xl sm:text-4xl md:text-5xl font-urdu leading-normal gap-x-1 sm:gap-x-1.5 md:gap-x-2'
+                ? 'text-3xl sm:text-4xl md:text-5xl font-urdu leading-normal gap-x-0.5 sm:gap-x-1 [word-spacing:-0.12em]'
                 : 'text-3xl md:text-5xl leading-tight gap-x-2 md:gap-x-3'
             }`}
           >
@@ -401,7 +401,7 @@ export default function Home() {
                     }
                   }
                 }}
-                className="inline-block"
+                className="inline-block px-0.5"
               >
                 {word}
               </motion.span>
