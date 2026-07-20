@@ -219,13 +219,26 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <p className="text-xs md:text-sm text-stone-300 leading-relaxed font-urdu">
               {t('trustName')}
             </p>
-            <div className="text-xs text-stone-400 mt-3 space-y-2">
-              <div><strong>Address 1:</strong> No 82, Dargah Aala Hazrat, Saudagaran, Bareilly Shareef India</div>
-              <div><strong>Address 2:</strong> Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly Shareef India</div>
+            <div className={`text-stone-400 mt-3 space-y-2 ${language === 'ur' ? 'text-sm font-urdu' : 'text-xs'}`}>
+              {language === 'en' ? (
+                <>
+                  <div><strong>Address 1:</strong> No 82, Dargah Aala Hazrat, Saudagaran, Bareilly Shareef India</div>
+                  <div><strong>Address 2:</strong> Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly Shareef India</div>
+                </>
+              ) : (
+                <>
+                  <div><strong>پتہ ۱:</strong> مکان نمبر ۸۲، درگاہ اعلیٰ حضرت، سوداگران، بریلی شریف انڈیا</div>
+                  <div><strong>پتہ ۲:</strong> جامعۃ الرضا اسلامی ریسرچ سینٹر، مٹھوراپور، سی بی گنج، بریلی شریف انڈیا</div>
+                </>
+              )}
             </div>
           </div>
           <div>
-            <h4 className="text-sm font-semibold text-islamic-gold uppercase tracking-wider mb-3">Quick Navigation</h4>
+            <h4 className={`font-semibold text-islamic-gold uppercase tracking-wider mb-3 ${
+              language === 'ur' ? 'text-base font-urdu' : 'text-sm'
+            }`}>
+              {language === 'en' ? 'Quick Navigation' : 'فوری روابط'}
+            </h4>
             <ul className="space-y-2 text-xs md:text-sm text-stone-300">
               <li><Link href="/" className="hover:text-islamic-gold transition-colors">{t('navHome')}</Link></li>
               <li><Link href="/introduction" className="hover:text-islamic-gold transition-colors">{t('navIntro')}</Link></li>
@@ -235,24 +248,38 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-semibold text-islamic-gold uppercase tracking-wider mb-3">Preservation & Authority</h4>
-            <p className="text-xs text-stone-400 leading-relaxed">
-              Every Fatwa issued through Markazi Darul Ifta is reviewed and approved by certified Hanafi Muftis. The database is designed for permanent preservation, authentication, organization, and public dissemination.
+            <h4 className={`font-semibold text-islamic-gold uppercase tracking-wider mb-3 ${
+              language === 'ur' ? 'text-base font-urdu' : 'text-sm'
+            }`}>
+              {language === 'en' ? 'Preservation & Authority' : 'تحفظ فتاویٰ اور مستند سند'}
+            </h4>
+            <p className={`text-stone-400 leading-relaxed ${
+              language === 'ur' ? 'text-sm font-urdu' : 'text-xs'
+            }`}>
+              {language === 'en'
+                ? 'Every Fatwa issued through Markazi Darul Ifta is reviewed and approved by certified Hanafi Muftis. The database is designed for permanent preservation, authentication, organization, and public dissemination.'
+                : 'مرکزی دارالافتاء سے جاری ہونے والا ہر فتویٰ تصدیق شدہ حنفی مفتیانِ کرام کے زیر نگرانی تیار کیا جاتا ہے۔ تمام فتاویٰ کو مستقل ڈیجیٹل تحفظ اور عوامی رہنمائی کے لیے منظم کیا گیا ہے۔'
+              }
             </p>
             <div className="flex items-center space-x-2 rtl:space-x-reverse mt-4 text-islamic-gold text-xs">
               <CheckCircle className="w-4 h-4" />
-              <span>Certified Hanafi Jurisprudence (Bareilly Shareef)</span>
+              <span>
+                {language === 'en' 
+                  ? 'Certified Hanafi Jurisprudence (Bareilly Shareef)' 
+                  : 'مستند فقہ حنفی (بریلی شریف)'
+                }
+              </span>
             </div>
           </div>
         </div>
         <div className="max-w-7xl mx-auto border-t border-islamic-gold/20 mt-8 pt-6 text-center text-xs text-stone-400 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p>© {new Date().getFullYear()} Markazi Darul Ifta, Bareilly Shareef. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} {language === 'en' ? 'Markazi Darul Ifta, Bareilly Shareef. All Rights Reserved.' : 'مرکزی دارالافتاء، بریلی شریف۔ جملہ حقوق محفوظ ہیں۔'}</p>
           <Link 
             href="/portal/login" 
             className="flex items-center space-x-1 rtl:space-x-reverse text-stone-400 hover:text-islamic-gold transition-colors font-medium text-[11px]"
           >
             <User className="w-3.5 h-3.5" />
-            <span>Portal Login</span>
+            <span>{t('portalLogin')}</span>
           </Link>
         </div>
       </footer>

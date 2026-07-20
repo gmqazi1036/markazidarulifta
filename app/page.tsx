@@ -478,16 +478,34 @@ export default function Home() {
         </div>
         <div className="bg-gradient-to-b from-stone-50 to-stone-100 p-6 rounded-lg border border-stone-200 flex flex-col justify-between h-full space-y-4">
           <div>
-            <h4 className="font-bold text-islamic-green border-b border-stone-200 pb-2 mb-3">Office Details</h4>
-            <div className="space-y-2.5 text-[11px] text-slate-600">
-              <p><strong>Address 1:</strong> No 82, Dargah Aala Hazrat, Saudagaran, Bareilly Shareef India</p>
-              <p><strong>Address 2:</strong> Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly Shareef India</p>
-              <p><strong>Timings:</strong> 9:00 AM - 5:00 PM (Friday Closed)</p>
+            <h4 className={`font-bold text-islamic-green border-b border-stone-200 pb-2 mb-3 ${
+              language === 'ur' ? 'text-base font-urdu' : 'text-sm'
+            }`}>
+              {language === 'en' ? 'Office Details' : 'دفتر کی تفصیلات'}
+            </h4>
+            <div className={`space-y-2.5 text-slate-600 ${
+              language === 'ur' ? 'text-sm font-urdu leading-relaxed' : 'text-[11px]'
+            }`}>
+              {language === 'en' ? (
+                <>
+                  <p><strong>Address 1:</strong> No 82, Dargah Aala Hazrat, Saudagaran, Bareilly Shareef India</p>
+                  <p><strong>Address 2:</strong> Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly Shareef India</p>
+                  <p><strong>Timings:</strong> 9:00 AM - 5:00 PM (Friday Closed)</p>
+                </>
+              ) : (
+                <>
+                  <p><strong>پتہ ۱:</strong> مکان نمبر ۸۲، درگاہ اعلیٰ حضرت، سوداگران، بریلی شریف انڈیا</p>
+                  <p><strong>پتہ ۲:</strong> جامعۃ الرضا اسلامی ریسرچ سینٹر، مٹھوراپور، سی بی گنج، بریلی شریف انڈیا</p>
+                  <p><strong>اوقات:</strong> صبح ۹:۰۰ بجے سے شام ۵:۰۰ بجے تک (جمعہ تعطیل)</p>
+                </>
+              )}
             </div>
           </div>
           <div className="pt-2 border-t border-stone-200">
-            <Link href="/introduction" className="text-xs font-bold text-islamic-gold hover:text-amber-700 flex items-center space-x-1 rtl:space-x-reverse">
-              <span>Read Full History</span>
+            <Link href="/introduction" className={`font-bold text-islamic-gold hover:text-amber-700 flex items-center space-x-1 rtl:space-x-reverse ${
+              language === 'ur' ? 'text-sm font-urdu' : 'text-xs'
+            }`}>
+              <span>{language === 'en' ? 'Read Full History' : 'مکمل تاریخ پڑھیں'}</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -588,7 +606,7 @@ export default function Home() {
               disabled={searchLoading}
               className="px-6 py-2.5 bg-islamic-green hover:bg-islamic-darkGreen text-white rounded font-bold shadow text-sm transition-colors flex items-center space-x-2 rtl:space-x-reverse"
             >
-              <span>{searchLoading ? 'Searching...' : 'Search Fatwas →'}</span>
+              <span>{language === 'en' ? (searchLoading ? 'Searching...' : 'Search Fatwas →') : (searchLoading ? 'تلاش جاری ہے...' : 'فتاویٰ تلاش کریں ←')}</span>
             </button>
           </div>
         </form>
@@ -658,8 +676,11 @@ export default function Home() {
           <h3 className="text-2xl font-bold text-slate-800">
             {language === 'en' ? 'Browse Fatwas by Category' : 'زمرہ جات کے لحاظ سے فتاویٰ تلاش کریں'}
           </h3>
-          <p className="text-slate-500 text-sm">
-            Select an Islamic topic below to instantly load and search rulings in our archive.
+          <p className={`text-slate-500 ${language === 'ur' ? 'text-base font-urdu' : 'text-sm'}`}>
+            {language === 'en'
+              ? 'Select an Islamic topic below to instantly load and search rulings in our archive.'
+              : 'ہمارے آرکائیو میں موجود فتاویٰ و احکام فوری طور پر دیکھنے اور تلاش کرنے کے لیے نیچے دیے گئے شرعی موضوع کا انتخاب کریں۔'
+            }
           </p>
         </div>
         
@@ -815,9 +836,11 @@ export default function Home() {
       {/* 6. Status Tracking Box */}
       <section className="bg-white rounded-xl shadow-sm border border-stone-200 overflow-hidden">
         <div className="bg-stone-50 p-5 border-b border-stone-200">
-          <h3 className="font-bold text-slate-800 flex items-center space-x-2 rtl:space-x-reverse">
+          <h3 className={`font-bold text-slate-800 flex items-center space-x-2 rtl:space-x-reverse ${
+            language === 'ur' ? 'text-lg font-urdu' : 'text-base'
+          }`}>
             <Clock className="w-5 h-5 text-islamic-gold" />
-            <span>Track Submitted Question Status</span>
+            <span>{language === 'en' ? 'Track Submitted Question Status' : 'ارسال کردہ سوال کی حیثیت معلوم کریں'}</span>
           </h3>
         </div>
         <div className="p-6">
@@ -827,15 +850,22 @@ export default function Home() {
               required
               value={trackNumber}
               onChange={(e) => setTrackNumber(e.target.value)}
-              placeholder="Enter your tracking number (e.g. MDI-2026-1234)..."
-              className="flex-grow border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-islamic-gold"
+              placeholder={language === 'en' ? 'Enter your tracking number (e.g. MDI-2026-1234)...' : 'اپنا ٹریکنگ نمبر درج کریں (مثلاً MDI-2026-1234)...'}
+              className={`flex-grow border border-stone-300 rounded px-3 py-2 focus:outline-none focus:border-islamic-gold ${
+                language === 'ur' ? 'text-sm font-urdu' : 'text-sm'
+              }`}
             />
             <button 
               type="submit"
               disabled={trackLoading}
-              className="px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded font-bold shadow text-sm transition-colors"
+              className={`px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded font-bold shadow transition-colors ${
+                language === 'ur' ? 'text-base font-urdu' : 'text-sm'
+              }`}
             >
-              {trackLoading ? 'Searching...' : 'Track Status'}
+              {language === 'en' 
+                ? (trackLoading ? 'Searching...' : 'Track Status') 
+                : (trackLoading ? 'تلاش جاری ہے...' : 'حیثیت معلوم کریں')
+              }
             </button>
           </form>
 
