@@ -98,3 +98,26 @@
 .font-arabic {
   font-family: "Pak Lotus", "Quranic Muhammdi", "Scheherazade New", "Traditional Arabic", serif !important;
 }
+
+/* Print Media Utilities */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 15mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .print-avoid-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .print\:break-before-page {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+}

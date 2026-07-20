@@ -109,7 +109,7 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <div className={`min-h-screen flex flex-col islamic-pattern ${isRtl ? 'font-urdu' : 'font-sans'}`}>
       
       {/* Top Bar Branding */}
-      <div className="bg-stone-50 text-slate-600 py-2 px-4 text-xs md:text-sm border-b border-stone-200">
+      <div className="bg-stone-50 text-slate-600 py-2 px-4 text-xs md:text-sm border-b border-stone-200 print:hidden">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0">
           
           <div className="flex items-center space-x-3 rtl:space-x-reverse flex-wrap justify-center sm:justify-start">
@@ -162,7 +162,7 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </div>
 
       {/* Hero Header Banner */}
-      <header className="bg-white border-b border-stone-200 shadow-sm">
+      <header className="bg-white border-b border-stone-200 shadow-sm print:hidden">
         <div className="max-w-7xl mx-auto p-0">
           <Link href="/">
             <img 
@@ -175,7 +175,7 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </header>
 
       {/* Sticky Navigation Menu */}
-      <nav className="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur shadow-md border-b border-stone-200">
+      <nav className="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur shadow-md border-b border-stone-200 print:hidden">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between h-14">
             <div className="flex space-x-3 sm:space-x-6 md:space-x-8 rtl:space-x-reverse w-full justify-center md:justify-start">
@@ -212,7 +212,7 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-islamic-darkGreen text-stone-200 border-t-4 border-islamic-gold py-12 px-4 mt-auto">
+      <footer className="bg-islamic-darkGreen text-stone-200 border-t-4 border-islamic-gold py-12 px-4 mt-auto print:hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-lg font-bold text-islamic-gold mb-3">{t('brandName')}</h3>
