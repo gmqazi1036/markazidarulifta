@@ -546,7 +546,28 @@ export default function Home() {
         </div>
         
         <form onSubmit={handleSearch} className="p-6 space-y-4">
-               <div className="space-y-1">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="md:col-span-2 space-y-1">
+              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('searchFieldKeyword')}</label>
+              <input 
+                type="text" 
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                placeholder={t('searchPlaceholder')}
+                className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-islamic-gold"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('searchFieldFatwaNo')}</label>
+              <input 
+                type="text" 
+                value={fatwaNumber}
+                onChange={(e) => setFatwaNumber(e.target.value)}
+                placeholder="e.g. 1447-000001"
+                className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-islamic-gold"
+              />
+            </div>
+            <div className="space-y-1">
               <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{language === 'en' ? 'Sort By' : 'ترتیب:'}</label>
               <select 
                 value={sortBy}
