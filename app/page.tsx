@@ -533,12 +533,12 @@ export default function Home() {
               <h3 className={`text-slate-800 ${
                 language === 'ur' ? 'text-2xl md:text-3xl font-normal font-urdu' : 'text-lg font-bold'
               }`}>
-                {language === 'en' ? 'Find Authentic Islamic Rulings' : 'مستند اسلامی احکام تلاش کریں'}
+                {language === 'en' ? 'Find Authentic Islamic Rulings' : 'مستند شرعی فتاویٰ تلاش کریں'}
               </h3>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className={`mt-1 ${language === 'ur' ? 'text-sm md:text-base font-normal font-urdu text-slate-600 leading-relaxed' : 'text-xs text-slate-500'}`}>
                 {language === 'en'
                   ? 'Search thousands of published fatwas using keyword, fatwa number, category, or subcategory. Quickly access reliable answers to your religious questions from our verified archive.'
-                  : 'مطلوبہ الفاظ، فتویٰ نمبر، یا زمرہ استعمال کرکے ہزاروں شائع شدہ فتاویٰ تلاش کریں۔ ہمارے تصدیق شدہ آرکائیو سے اپنے دینی سوالات کے قابل اعتماد جوابات حاصل کریں۔'
+                  : 'کلیدی الفاظ، فتویٰ نمبر، زمرہ (Category) یا ذیلی زمرہ (Subcategory) کے ذریعے ہزاروں شائع شدہ فتاویٰ میں آسانی سے تلاش کریں۔ ہمارے مستند اور تصدیق شدہ ذخیرۂ فتاویٰ سے اپنے دینی مسائل کے قابلِ اعتماد اور مستند شرعی جوابات فوری طور پر حاصل کریں۔'
                 }
               </p>
             </div>
