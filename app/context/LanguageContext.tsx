@@ -103,7 +103,33 @@ const translations: TranslationDict = {
   wazifaEngTrans: { en: "English Translation:", ur: "انگریزی ترجمہ:" },
   wazifaMethod: { en: "Recitation Method:", ur: "پڑھنے کا طریقہ:" },
   wazifaBenefits: { en: "Benefits & Virtue:", ur: "فضائل و برکات:" },
-  wazifaSource: { en: "Source Reference:", ur: "حوالہ و مآخذ:" }
+  wazifaSource: { en: "Source Reference:", ur: "حوالہ و مآخذ:" },
+
+  // Contact Page
+  contactSubtitle: { en: "Get in touch with the administrative office of Markazi Darul Ifta Bareilly Shareef.", ur: "مرکزی دارالافتاء بریلی شریف کے انتظامی دفتر سے رابطہ کریں۔" },
+  contactAddressTitle: { en: "Address", ur: "پتہ" },
+  contactAddr1Lbl: { en: "Address 1:", ur: "پتہ 1:" },
+  contactAddr1Txt: { en: "No 82, Dargah Aala Hazrat, Saudagaran, Bareilly Shareef India", ur: "نمبر 82، درگاہ اعلیٰ حضرت، سوداگران، بریلی شریف، انڈیا" },
+  contactAddr2Lbl: { en: "Address 2:", ur: "پتہ 2:" },
+  contactAddr2Txt: { en: "Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly Shareef India", ur: "جامعۃ الرضا ریسرچ سینٹر، مٹھوراپور، سی بی گنج، بریلی شریف، انڈیا" },
+  contactPhoneTitle: { en: "Phone & WhatsApp", ur: "فون و واٹس ایپ" },
+  contactEmailTitle: { en: "Email", ur: "ای میل ایڈریس" },
+  contactHoursTitle: { en: "Office Hours", ur: "دفتر کے اوقات" },
+  contactHoursTxt: { en: "Saturday - Thursday: 8:00 AM - 02:30 PM", ur: "ہفتہ تا جمعرات: صبح 8:00 بجے تا دوپہر 2:30 بجے" },
+  contactClosedTxt: { en: "(Friday Closed)", ur: "(جمعہ تعطیل)" },
+  contactFormTitle: { en: "Send us a Message", ur: "ہمیں پیغام بھیجیں" },
+  contactFormSubtitle: { en: "For general administrative inquiries, feedback, or publication requests.", ur: "عام انتظامی امور، فیڈ بیک یا مطبوعات کی درخواست کے لیے فارم پر کریں۔" },
+  contactSuccessMsg: { en: "Your message has been sent successfully. We will respond shortly!", ur: "آپ کا پیغام کامیابی کے ساتھ موصول ہو گیا ہے۔ ہم جلد از جلد آپ کو جواب دیں گے!" },
+  contactLblName: { en: "Your Name", ur: "آپ کا نام" },
+  contactLblEmail: { en: "Email Address", ur: "ای میل ایڈریس" },
+  contactLblSubject: { en: "Subject", ur: "موضوع" },
+  contactLblMessage: { en: "Message", ur: "پیغام" },
+  contactBtnSend: { en: "Send Message", ur: "پیغام ارسال کریں" },
+  contactBtnSending: { en: "Sending...", ur: "ارسال ہو رہا ہے..." },
+  contactLocationTitle: { en: "Office Location", ur: "دفتر کا مقام" },
+  contactLocationSub: { en: "Located near the holy shrine (Dargah) of Aala Hazrat Imam Ahmad Raza Khan in Bareilly.", ur: "بریلی شریف میں اعلٰی حضرت امام احمد رضا خان کے مزارِ اقدس کے نزدیک واقع ہے۔" },
+  contactLocationAddress: { en: "Saudagaran, Bareilly Shareef, Uttar Pradesh, India", ur: "سوداگران، بریلی شریف، اتر پردیش، انڈیا" },
+  contactOpenMaps: { en: "Open in Google Maps", ur: "گوگل میپس پر دیکھیں" }
 };
 
 interface LanguageContextType {

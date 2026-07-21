@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react';
 
 export default function Contact() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -17,7 +17,7 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !message) {
-      alert("Please fill all required fields.");
+      alert(language === 'ur' ? "براہ کرم تمام ضروری خانوں کو پر کریں۔" : "Please fill all required fields.");
       return;
     }
     setLoading(true);
@@ -35,56 +35,57 @@ export default function Contact() {
     <div className="space-y-8 animate-fade-in">
       {/* Header Banner */}
       <section className="bg-gradient-to-r from-islamic-green to-islamic-darkGreen text-white p-8 rounded-xl border-b border-islamic-gold shadow-md">
-        <h2 className="text-2xl md:text-3xl font-bold font-urdu text-islamic-gold">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium font-urdu text-islamic-gold leading-normal">
           {t('navContact')}
         </h2>
-        <p className="text-xs md:text-sm text-stone-300 mt-2">
-          Get in touch with the administrative office of Markazi Darul Ifta Bareilly Shareef.
+        <p className="text-base md:text-lg text-stone-200 mt-3 font-urdu leading-relaxed font-normal">
+          {t('contactSubtitle')}
         </p>
       </section>
 
       {/* Info Cards Grid */}
       <section className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white p-5 rounded-lg border border-stone-200 shadow-sm flex flex-col items-center text-center space-y-2">
-          <div className="w-10 h-10 rounded-full bg-islamic-gold/10 text-islamic-gold flex items-center justify-center">
-            <MapPin className="w-5 h-5" />
+        <div className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center space-y-3">
+          <div className="w-12 h-12 rounded-full bg-islamic-gold/10 text-islamic-gold flex items-center justify-center">
+            <MapPin className="w-6 h-6" />
           </div>
-          <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Address</h4>
-          <div className="text-[10px] text-slate-500 leading-relaxed text-center space-y-2">
-            <div><strong>Address 1:</strong> No 82, Dargah Aala Hazrat, Saudagaran, Bareilly Shareef India</div>
-            <div><strong>Address 2:</strong> Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly Shareef India</div>
+          <h4 className="font-medium text-slate-800 text-base md:text-lg font-urdu">{t('contactAddressTitle')}</h4>
+          <div className="text-xs md:text-sm text-slate-600 leading-relaxed text-center space-y-2 font-urdu font-normal">
+            <div><strong className="font-medium text-slate-800">{t('contactAddr1Lbl')}</strong> {t('contactAddr1Txt')}</div>
+            <div><strong className="font-medium text-slate-800">{t('contactAddr2Lbl')}</strong> {t('contactAddr2Txt')}</div>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-lg border border-stone-200 shadow-sm flex flex-col items-center text-center space-y-2">
-          <div className="w-10 h-10 rounded-full bg-islamic-gold/10 text-islamic-gold flex items-center justify-center">
-            <Phone className="w-5 h-5" />
+        <div className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center space-y-3">
+          <div className="w-12 h-12 rounded-full bg-islamic-gold/10 text-islamic-gold flex items-center justify-center">
+            <Phone className="w-6 h-6" />
           </div>
-          <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Phone & WhatsApp</h4>
-          <p className="text-xs text-slate-500 leading-relaxed font-mono">
-            9058879712 <br />
+          <h4 className="font-medium text-slate-800 text-base md:text-lg font-urdu">{t('contactPhoneTitle')}</h4>
+          {/* Phone numbers in English Numerals only */}
+          <p className="text-sm md:text-base text-slate-700 leading-relaxed font-sans font-medium tracking-wide">
+            +91 9058879712 <br />
             0581-2458543
           </p>
         </div>
 
-        <div className="bg-white p-5 rounded-lg border border-stone-200 shadow-sm flex flex-col items-center text-center space-y-2">
-          <div className="w-10 h-10 rounded-full bg-islamic-gold/10 text-islamic-gold flex items-center justify-center">
-            <Mail className="w-5 h-5" />
+        <div className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center space-y-3">
+          <div className="w-12 h-12 rounded-full bg-islamic-gold/10 text-islamic-gold flex items-center justify-center">
+            <Mail className="w-6 h-6" />
           </div>
-          <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Email</h4>
-          <p className="text-xs text-slate-500 leading-relaxed">
+          <h4 className="font-medium text-slate-800 text-base md:text-lg font-urdu">{t('contactEmailTitle')}</h4>
+          <p className="text-xs md:text-sm text-slate-700 leading-relaxed font-sans">
             askmuftijamiaturraza@gmail.com
           </p>
         </div>
 
-        <div className="bg-white p-5 rounded-lg border border-stone-200 shadow-sm flex flex-col items-center text-center space-y-2">
-          <div className="w-10 h-10 rounded-full bg-islamic-gold/10 text-islamic-gold flex items-center justify-center">
-            <Clock className="w-5 h-5" />
+        <div className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center space-y-3">
+          <div className="w-12 h-12 rounded-full bg-islamic-gold/10 text-islamic-gold flex items-center justify-center">
+            <Clock className="w-6 h-6" />
           </div>
-          <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Office Hours</h4>
-          <p className="text-xs text-slate-500 leading-relaxed">
-            Saturday - Thursday: 8:00 AM - 02:30 PM <br />
-            <span className="text-red-500 font-semibold">(Friday Closed)</span>
+          <h4 className="font-medium text-slate-800 text-base md:text-lg font-urdu">{t('contactHoursTitle')}</h4>
+          <p className="text-xs md:text-sm text-slate-700 leading-relaxed font-urdu font-normal">
+            {t('contactHoursTxt')} <br />
+            <span className="text-red-600 font-medium">{t('contactClosedTxt')}</span>
           </p>
         </div>
       </section>
@@ -92,90 +93,90 @@ export default function Contact() {
       {/* Map & Form Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         {/* Form */}
-        <div className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-4">
-          <h3 className="font-bold text-slate-800 text-lg">Send us a Message</h3>
-          <p className="text-xs text-slate-500">For general administrative inquiries, feedback, or publication requests.</p>
+        <div className="bg-white p-6 md:p-8 rounded-xl border border-stone-200 shadow-sm space-y-5">
+          <h3 className="font-medium text-slate-800 text-xl md:text-2xl font-urdu">{t('contactFormTitle')}</h3>
+          <p className="text-xs md:text-sm text-slate-600 font-urdu font-normal">{t('contactFormSubtitle')}</p>
           
           {success && (
-            <div className="bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs p-4 rounded flex items-center space-x-2 rtl:space-x-reverse">
+            <div className="bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs md:text-sm p-4 rounded-lg flex items-center space-x-2 rtl:space-x-reverse font-urdu font-normal">
               <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-              <span>Your message has been sent successfully. We will respond shortly!</span>
+              <span>{t('contactSuccessMsg')}</span>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="space-y-1">
-                <label className="text-[11px] font-bold text-slate-600">Your Name <span className="text-red-500">*</span></label>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="text-xs md:text-sm font-medium text-slate-700 font-urdu">{t('contactLblName')} <span className="text-red-500">*</span></label>
                 <input 
                   type="text" 
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full border border-stone-300 rounded px-3 py-1.5 text-xs focus:outline-none focus:border-islamic-gold"
+                  className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm md:text-base font-urdu focus:outline-none focus:border-islamic-gold"
                 />
               </div>
-              <div className="space-y-1">
-                <label className="text-[11px] font-bold text-slate-600">Email Address <span className="text-red-500">*</span></label>
+              <div className="space-y-1.5">
+                <label className="text-xs md:text-sm font-medium text-slate-700 font-urdu">{t('contactLblEmail')} <span className="text-red-500">*</span></label>
                 <input 
                   type="email" 
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full border border-stone-300 rounded px-3 py-1.5 text-xs focus:outline-none focus:border-islamic-gold"
+                  className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm md:text-base font-urdu focus:outline-none focus:border-islamic-gold"
                 />
               </div>
             </div>
-            <div className="space-y-1">
-              <label className="text-[11px] font-bold text-slate-600">Subject</label>
+            <div className="space-y-1.5">
+              <label className="text-xs md:text-sm font-medium text-slate-700 font-urdu">{t('contactLblSubject')}</label>
               <input 
                 type="text" 
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                className="w-full border border-stone-300 rounded px-3 py-1.5 text-xs focus:outline-none focus:border-islamic-gold"
+                className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm md:text-base font-urdu focus:outline-none focus:border-islamic-gold"
               />
             </div>
-            <div className="space-y-1">
-              <label className="text-[11px] font-bold text-slate-600">Message <span className="text-red-500">*</span></label>
+            <div className="space-y-1.5">
+              <label className="text-xs md:text-sm font-medium text-slate-700 font-urdu">{t('contactLblMessage')} <span className="text-red-500">*</span></label>
               <textarea 
                 required
                 rows={4}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-full border border-stone-300 rounded px-3 py-1.5 text-xs focus:outline-none focus:border-islamic-gold font-urdu"
+                className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm md:text-base font-urdu focus:outline-none focus:border-islamic-gold leading-relaxed"
               ></textarea>
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-end pt-2">
               <button 
                 type="submit" 
                 disabled={loading}
-                className="px-5 py-2 bg-islamic-green hover:bg-islamic-darkGreen text-white text-xs font-bold rounded shadow transition-colors flex items-center space-x-1.5 rtl:space-x-reverse"
+                className="px-6 py-2.5 bg-islamic-green hover:bg-islamic-darkGreen text-white text-xs md:text-sm font-normal font-urdu rounded-md shadow transition-colors flex items-center space-x-1.5 rtl:space-x-reverse"
               >
-                <Send className="w-3.5 h-3.5 text-islamic-gold" />
-                <span>{loading ? 'Sending...' : 'Send Message'}</span>
+                <Send className="w-4 h-4 text-islamic-gold" />
+                <span>{loading ? t('contactBtnSending') : t('contactBtnSend')}</span>
               </button>
             </div>
           </form>
         </div>
 
         {/* Map Mockup */}
-        <div className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-4 h-full flex flex-col">
-          <h3 className="font-bold text-slate-800 text-lg">Office Location</h3>
-          <p className="text-xs text-slate-500">Located near the holy shrine (Dargah) of Aala Hazrat Imam Ahmad Raza Khan in Bareilly.</p>
+        <div className="bg-white p-6 md:p-8 rounded-xl border border-stone-200 shadow-sm space-y-4 h-full flex flex-col">
+          <h3 className="font-medium text-slate-800 text-xl md:text-2xl font-urdu">{t('contactLocationTitle')}</h3>
+          <p className="text-xs md:text-sm text-slate-600 font-urdu font-normal">{t('contactLocationSub')}</p>
           <div className="flex-grow bg-stone-100 border border-stone-200 rounded-lg min-h-[250px] flex items-center justify-center relative overflow-hidden">
             {/* Visual representation of map */}
             <div className="absolute inset-0 bg-cover opacity-60 bg-center" style={{ backgroundImage: `radial-gradient(#c29b38 1px, transparent 0), radial-gradient(#064e3b 1px, transparent 0)`, backgroundSize: '20px 20px' }}></div>
-            <div className="relative z-10 text-center p-4 bg-white/90 backdrop-blur rounded border border-islamic-gold/30 shadow-md max-w-xs space-y-2">
+            <div className="relative z-10 text-center p-5 bg-white/95 backdrop-blur rounded-xl border border-islamic-gold/30 shadow-md max-w-xs space-y-2">
               <MapPin className="w-8 h-8 text-islamic-gold mx-auto" />
-              <h4 className="font-bold text-xs text-slate-800">Markazi Darul Ifta</h4>
-              <p className="text-[10px] text-slate-500 font-urdu">سوداگران، بریلی شریف، اتر پردیش، انڈیا</p>
+              <h4 className="font-medium text-sm md:text-base text-slate-800 font-urdu">{t('brandName')}</h4>
+              <p className="text-xs md:text-sm text-slate-600 font-urdu font-normal">{t('contactLocationAddress')}</p>
               <a 
                 href="https://maps.google.com" 
                 target="_blank" 
                 rel="noreferrer"
-                className="text-[10px] text-islamic-green hover:underline font-bold block"
+                className="text-xs md:text-sm text-islamic-green hover:underline font-normal font-urdu block pt-1"
               >
-                Open in Google Maps
+                {t('contactOpenMaps')}
               </a>
             </div>
           </div>
