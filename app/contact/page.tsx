@@ -61,11 +61,11 @@ export default function Contact() {
             <Phone className="w-6 h-6" />
           </div>
           <h4 className="font-medium text-slate-800 text-base md:text-lg font-urdu">{t('contactPhoneTitle')}</h4>
-          {/* Phone numbers in English Numerals only */}
-          <p className="text-sm md:text-base text-slate-700 leading-relaxed font-sans font-medium tracking-wide">
-            +91 9058879712 <br />
-            0581-2458543
-          </p>
+          {/* Phone numbers in English Numerals only with proper 2-line LTR alignment */}
+          <div dir="ltr" className="text-sm md:text-base text-slate-800 font-sans font-medium tracking-wide text-center space-y-1">
+            <p className="hover:text-islamic-green transition-colors">+91 9058879712</p>
+            <p className="hover:text-islamic-green transition-colors">0581-245854</p>
+          </div>
         </div>
 
         <div className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center space-y-3">
