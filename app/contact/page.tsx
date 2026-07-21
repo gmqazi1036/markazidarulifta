@@ -61,10 +61,14 @@ export default function Contact() {
             <Phone className="w-6 h-6" />
           </div>
           <h4 className="font-medium text-slate-800 text-base md:text-lg font-urdu">{t('contactPhoneTitle')}</h4>
-          {/* Phone numbers in English Numerals only with proper 2-line LTR alignment */}
-          <div dir="ltr" className="text-sm md:text-base text-slate-800 font-sans font-medium tracking-wide text-center space-y-1">
-            <p className="hover:text-islamic-green transition-colors">+91 9058879712</p>
-            <p className="hover:text-islamic-green transition-colors">0581-245854</p>
+          {/* Bi-Directional Isolation (<bdi dir="ltr">) forces +91 to stay on the left of mobile number */}
+          <div className="text-sm md:text-base text-slate-800 font-sans font-medium tracking-wide text-center space-y-1">
+            <p className="hover:text-islamic-green transition-colors">
+              <bdi dir="ltr" className="inline-block" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>+91 9058879712</bdi>
+            </p>
+            <p className="hover:text-islamic-green transition-colors">
+              <bdi dir="ltr" className="inline-block" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>0581-2458543</bdi>
+            </p>
           </div>
         </div>
 
