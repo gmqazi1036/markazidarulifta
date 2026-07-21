@@ -66,44 +66,44 @@ export default function Introduction() {
         <div className="md:col-span-2 space-y-6">
           <div className="flex items-center space-x-2 rtl:space-x-reverse text-islamic-green">
             <Landmark className="w-5 h-5 text-islamic-gold" />
-            <h3 className="text-lg font-bold">
-              {language === 'en' ? 'Historical Legacy & Academic Foundation' : 'تاریخی پس منظر اور علمی بنیاد'}
+            <h3 className={`text-slate-800 ${language === 'ur' ? 'text-2xl md:text-3xl font-normal font-urdu' : 'text-lg font-bold'}`}>
+              {language === 'en' ? 'Historical Heritage & Academic Foundation' : 'تاریخی ورثہ اور علمی بنیاد'}
             </h3>
           </div>
           
           <div className="space-y-4 text-slate-600 text-sm md:text-base leading-relaxed">
-            <p>
+            <p className={language === 'ur' ? 'font-urdu font-normal text-base md:text-lg text-slate-800 leading-loose' : ''}>
               {language === 'en' 
-                ? 'Markazi Darul Ifta, Bareilly Shareef is a distinguished institution dedicated to issuing authentic Islamic fatwas and providing reliable religious guidance in accordance with the Hanafi School of Islamic Jurisprudence (Fiqh-e-Hanafi). Established under the visionary patronage of Huzoor Tajush Shariah, Mufti Muhammad Akhtar Raza Khan Azhari (Rahmatullahi Ta’ala Alaih), the institution continues the glorious scholarly tradition of Aala Hazrat Imam Ahmad Raza Khan Al-Qadri (Rahmatullahi Ta’ala Alaih), whose unparalleled contributions to Islamic jurisprudence remain a guiding light for scholars across the world.'
-                : 'مرکزی دارالافتاء، بریلی شریف، فقہ حنفی کے مطابق مستند شرعی فتاویٰ جاری کرنے اور قابل بھروسہ شرعی رہنمائی فراہم کرنے والا ایک مقتدر ادارہ ہے۔ حضور تاج الشریعہ مفتی محمد اختر رضا خان ازہری علیہ الرحمہ کی سرپرستی میں قائم یہ ادارہ اعلٰی حضرت امام احمد رضا خان القادری علیہ الرحمہ کی عظیم الشان علمی روایت کو آگے بڑھا رہا ہے جن کے فقہ حنفی میں گراں قدر علمی کارنامے دنیا بھر کے علماء کے لیے مشعلِ راہ ہیں۔'
+                ? 'Markazi Darul Ifta, Bareilly Shareef is a premier Islamic institution established to issue authentic shariah fatwas and provide reliable religious guidance to the Muslim Ummah in accordance with Hanafi jurisprudence (Fiqh-e-Hanafi). The institution was founded under the visionary patronage of Huzoor Tajush Shariah, Hazrat Allama Mufti Muhammad Akhtar Raza Khan Azhari (Rahmatullahi Ta’ala Alaih), to uphold and preserve the grand scholarly and legal tradition of Aala Hazrat Imam Ahmad Raza Khan Al-Qadri (Rahmatullahi Ta’ala Alaih). Aala Hazrat’s unprecedented contributions in Islamic jurisprudence, legal research, and ijtihad remain a guiding beacon for scholars and jurists across the globe.'
+                : 'مرکزی دارالافتاء، بریلی شریف ایک ممتاز دینی ادارہ ہے جو فقہِ حنفی کی روشنی میں مستند شرعی فتاویٰ جاری کرنے اور امتِ مسلمہ کو قابلِ اعتماد دینی رہنمائی فراہم کرنے کے لیے قائم کیا گیا ہے۔ اس ادارے کی بنیاد حضور تاج الشریعہ حضرت علامہ مفتی محمد اختر رضا خان ازہری رحمۃ اللہ تعالیٰ علیہ کی بصیرت افروز سرپرستی میں رکھی گئی، تاکہ اعلیٰ حضرت امام احمد رضا خان قادری رحمۃ اللہ تعالیٰ علیہ کی عظیم علمی و فقہی روایت کو زندہ رکھا جائے۔ اعلیٰ حضرت کی فقہِ اسلامی، تحقیق اور اجتہاد کے میدان میں بے مثال خدمات آج بھی دنیا بھر کے علماء و مفتیانِ کرام کے لیے مشعلِ راہ ہیں۔'
               }
             </p>
 
-            <p>
+            <p className={language === 'ur' ? 'font-urdu font-normal text-base md:text-lg text-slate-800 leading-loose' : ''}>
               {language === 'en' 
-                ? 'To uphold the highest standards of Islamic legal research, Hazrat Allama Mufti Qazi Abdul Rahim Bastavi (Rahmatullahi Ta’ala Alaih) was entrusted with the distinguished responsibility of establishing and leading the academic foundation of Markazi Darul Ifta. Under his scholarly leadership, the institution earned recognition for its meticulous research, balanced legal reasoning, and authentic fatwa writing rooted in the classical Hanafi tradition.'
-                : 'شرعی تحقیق کے اعلٰی ترین معیار کو برقرار رکھنے کے لیے، حضرت علامہ مفتی قاضی عبدالرحیم بستوی علیہ الرحمہ کو مرکزی دارالافتاء کی علمی بنیاد رکھنے اور اس کی قیادت کرنے کی اہم ذمہ داری سونپی گئی۔ ان کی علمی سربراہی میں، اس ادارے نے کلاسیکی حنفی روایت پر مبنی باریک بین تحقیق اور متوازن شرعی استدلال کے لیے شہرت حاصل کی۔'
+                ? 'To fortify and consolidate the academic foundation of Markazi Darul Ifta, Hazrat Allama Mufti Qazi Abdul Rahim Bastavi (Rahmatullahi Ta’ala Alaih) was entrusted with the essential responsibility of its establishment and scholarly leadership. Under his erudite guidance and research insight, Markazi Darul Ifta attained a distinguished status in the fields of jurisprudential research, balanced legal reasoning, and authentic fatwa writing, establishing a solid foundation for research and Ifta rooted in classical Hanafi tradition.'
+                : 'مرکزی دارالافتاء کی علمی بنیاد کو مضبوط اور مستحکم کرنے کے لیے حضرت علامہ مفتی قاضی عبد الرحیم بستوی رحمۃ اللہ تعالیٰ علیہ کو اس ادارے کی تاسیس اور علمی قیادت کی ذمہ داری سونپی گئی۔ آپ کی عالمانہ نگرانی اور تحقیقی بصیرت کے نتیجے میں مرکزی دارالافتاء نے فقہی تحقیق، معتدل استدلال اور مستند فتویٰ نویسی کے میدان میں نمایاں مقام حاصل کیا، اور فقہِ حنفی کی کلاسیکی علمی روایت کے مطابق تحقیق و افتاء کی مضبوط بنیاد قائم ہوئی۔'
               }
             </p>
 
-            <p>
+            <p className={language === 'ur' ? 'font-urdu font-normal text-base md:text-lg text-slate-800 leading-loose' : ''}>
               {language === 'en' 
-                ? 'Since its establishment, Markazi Darul Ifta has been serving Muslims by answering religious queries on matters of worship, family, inheritance, finance, social affairs, and contemporary issues. Every fatwa is issued after thorough research based on the Holy Qur’an, Sunnah, Ijma’, Qiyas, and the authoritative classical texts of the Hanafi School, while remaining faithful to the creed of Ahl al-Sunnah wa al-Jama’ah.'
-                : 'اپنے قیام کے بعد سے ہی، مرکزی دارالافتاء عبادات، خاندانی معاملات، وراثت، فنانس، سماجی امور اور دیگر جدید شرعی مسائل کے جوابات فراہم کر کے امتِ مسلمہ کی خدمت کر رہا ہے۔ ہر فتویٰ قرآن و حدیث، اجماع، قیاس اور فقہ حنفی کے مستند کتب کی روشنی میں، مسلکِ اہل سنت و جماعت پر قائم رہتے ہوئے جاری کیا جاتا ہے۔'
+                ? 'Since its inception, Markazi Darul Ifta has been fulfilling the noble duty of guiding the Muslim Ummah in matters of worship, transactions, family law, inheritance, financial affairs, social issues, and modern contemporary challenges. Every fatwa issued here is compiled after thorough research and verification in light of the Holy Qur’an, Sunnah of the Prophet ﷺ, consensus (Ijma), analogical deduction (Qiyas), and authentic classical books of Hanafi jurisprudence, adhering strictly at every stage to the established creed and principles of Ahl al-Sunnah wa al-Jama’ah.'
+                : 'قیامِ ادارہ سے لے کر آج تک مرکزی دارالافتاء عبادات، معاملات، عائلی مسائل، وراثت، مالی امور، سماجی معاملات اور پیش آمدہ عصری مسائل میں امتِ مسلمہ کی شرعی رہنمائی کا فریضہ انجام دے رہا ہے۔ یہاں جاری ہونے والا ہر فتویٰ قرآنِ مجید، سنتِ نبوی ﷺ، اجماعِ امت، قیاسِ شرعی اور فقہِ حنفی کی معتبر و مستند کتب کی روشنی میں مکمل تحقیق و تدقیق کے بعد مرتب کیا جاتا ہے، جبکہ ہر مرحلے پر مسلکِ اہلِ سنت و جماعت کے مسلمہ عقائد و اصول کی مکمل پاسداری کی جاتی ہے۔'
               }
             </p>
 
-            <p>
+            <p className={language === 'ur' ? 'font-urdu font-normal text-base md:text-lg text-slate-800 leading-loose' : ''}>
               {language === 'en' 
-                ? 'With the blessings of Allah Almighty, the institution has become a trusted source of religious guidance for people from India and many parts of the world, preserving the rich heritage of Islamic scholarship while addressing the needs of the modern age.'
-                : 'اللہ تعالٰی کے فضل و کرم سے، یہ ادارہ بھارت اور دنیا بھر کے مسلمانوں کے لیے شرعی رہنمائی کا ایک انتہائی قابل اعتماد مرکز بن چکا ہے، جو جدید دور کے تقاضوں کو پورا کرتے ہوئے اسلامی علم کی قدیم علمی وراثت کا تحفظ کر رہا ہے۔'
+                ? 'By the grace and mercy of Allah Almighty, Markazi Darul Ifta has become a highly trusted center of authentic religious guidance for Muslims not only in India but across various countries worldwide. While striving to safeguard and promote Islamic scholarly and jurisprudential heritage, the institution simultaneously provides research-backed, insightful Shariah solutions for modern-day issues.'
+                : 'اللہ تعالیٰ کے فضل و کرم سے مرکزی دارالافتاء آج نہ صرف ہندوستان بلکہ دنیا کے مختلف ممالک میں بسنے والے مسلمانوں کے لیے مستند دینی رہنمائی کا معتبر مرکز بن چکا ہے۔ یہ ادارہ ایک جانب اسلامی علمی و فقہی ورثے کے تحفظ اور فروغ کے لیے کوشاں ہے، تو دوسری جانب جدید دور میں پیش آنے والے مسائل کا شرعی حل بھی تحقیق و بصیرت کے ساتھ پیش کرتا ہے۔'
               }
             </p>
 
-            <p className="font-semibold text-slate-700">
+            <p className={language === 'ur' ? 'font-urdu font-normal text-base md:text-lg text-slate-800 leading-loose' : 'font-semibold text-slate-700'}>
               {language === 'en' 
-                ? 'Today, through this digital platform, Markazi Darul Ifta extends its services globally by enabling users to search authentic fatwas, submit religious questions, and access valuable Islamic publications, ensuring that genuine Islamic knowledge remains accessible for generations to come.'
-                : 'آج، اس ڈیجیٹل پلیٹ فارم کے ذریعے، مرکزی دارالافتاء فتاویٰ کی تلاش، سوالات کی آن لائن جمع آوری اور علمی مطبوعات تک رسائی فراہم کر کے عالمی سطح پر اپنی خدمات کا دائرہ بڑھا رہا ہے، تاکہ مستند اسلامی علم آنے والی نسلوں کے لیے عام اور محفوظ رہے۔'
+                ? 'To further expand this mission, Markazi Darul Ifta has disseminated its services globally through this digital platform, where users can search authentic fatwas, submit their religious queries directly to qualified Muftis, and benefit from valuable Islamic books, journals, and research publications. Our steadfast commitment is to preserve authentic Islamic knowledge, propagate it widely, and pass it on effortlessly to future generations.'
+                : 'اسی مقصد کو مزید وسعت دینے کے لیے مرکزی دارالافتاء نے اپنی خدمات کو ڈیجیٹل پلیٹ فارم کے ذریعے عالمی سطح پر عام کیا ہے، جہاں صارفین مستند فتاویٰ تلاش کر سکتے ہیں، اپنے شرعی سوالات براہِ راست مفتیانِ کرام کو ارسال کر سکتے ہیں، اور قیمتی اسلامی کتب، رسائل اور تحقیقی مطبوعات سے استفادہ کر سکتے ہیں۔ ہمارا عزم ہے کہ مستند اسلامی علم کو محفوظ رکھا جائے، اسے عام کیا جائے، اور آنے والی نسلوں تک آسانی سے پہنچایا جائے۔'
               }
             </p>
           </div>
