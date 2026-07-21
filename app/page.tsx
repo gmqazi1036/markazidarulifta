@@ -1187,64 +1187,76 @@ export default function Home() {
               {language === 'en' ? 'Latest Publications & Books' : 'تازہ ترین مطبوعات و کتب'}
             </h3>
             <p className={`text-slate-500 mt-1 ${
-              language === 'ur' ? 'text-sm font-urdu' : 'text-xs'
+              language === 'ur' ? 'text-sm md:text-base font-normal font-urdu leading-relaxed' : 'text-xs'
             }`}>
               {language === 'en'
                 ? 'Read and download valuable Islamic literature prepared by renowned scholars.'
-                : 'نامور علمائے کرام کی تیار کردہ گراں قدر کتب و لٹریچر کا مطالعہ کریں اور ڈاؤن لوڈ کریں۔'
+                : 'نامور علمائے کرام کی تیار کردہ قیمتی اسلامی کتب، رسائل اور علمی تصنیفات کا مطالعہ کریں اور انہیں آسانی سے ڈاؤن لوڈ کریں۔'
               }
             </p>
           </div>
           <Link href="/publishing" className={`text-islamic-gold hover:underline flex items-center space-x-1 rtl:space-x-reverse ${
             language === 'ur' ? 'text-base font-normal font-urdu' : 'text-xs font-bold'
           }`}>
-            <span>{language === 'en' ? 'Explore All' : 'تمام مطبوعات دیکھیں'}</span>
+            <span>{language === 'en' ? 'Explore All' : 'تمام مطبوعات دیکھیں ←'}</span>
             <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {books.map((book) => (
-            <div key={book.id} className="bg-white rounded-lg border border-stone-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
-              <div className="bg-stone-50 p-6 flex justify-center border-b border-stone-100 relative overflow-hidden">
-                {/* Book Cover Mockup representation */}
-                <div className="w-28 h-36 bg-gradient-to-br from-islamic-green to-islamic-darkGreen rounded shadow-md flex flex-col justify-between p-3 text-white text-[9px] relative group-hover:scale-105 transition-transform duration-300">
-                  <div className="border border-white/20 p-1 flex-grow flex flex-col justify-between">
-                    <span className="font-urdu leading-tight line-clamp-3 text-[10px] text-center border-b border-white/10 pb-1">{book.title}</span>
-                    <div className="flex flex-col items-center">
-                      <BookMarked className="w-4 h-4 text-islamic-gold mb-1" />
-                      <span className="text-[7px] text-stone-300 font-urdu">مرکزی دارالافتاء</span>
+            <div key={book.id} className="bg-white rounded-xl border border-stone-200/90 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+              <div className="bg-gradient-to-br from-amber-50/40 via-stone-50 to-emerald-50/30 p-6 flex justify-center items-center border-b border-stone-100 relative overflow-hidden min-h-[190px]">
+                <div className="absolute inset-0 bg-cover opacity-[0.03] bg-center pointer-events-none" style={{ backgroundImage: `url('/images/islamic-pattern.svg')` }}></div>
+                
+                {/* 3D Realistic Book Cover Mockup */}
+                <div className="w-32 h-44 bg-gradient-to-br from-islamic-green via-emerald-800 to-islamic-darkGreen rounded-r-sm rounded-l-md shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] group-hover:shadow-[0_20px_35px_-5px_rgba(194,155,56,0.4)] border-l-4 border-l-islamic-gold/80 rtl:border-l-0 rtl:border-r-4 rtl:border-r-islamic-gold/80 flex flex-col justify-between p-3 text-white relative group-hover:scale-105 transition-all duration-300 select-none">
+                  <div className="border border-islamic-gold/40 p-2 flex-grow flex flex-col justify-between rounded-sm bg-black/10 backdrop-blur-[1px]">
+                    <div className="text-center space-y-1">
+                      <span className="font-urdu leading-tight line-clamp-3 text-xs text-center text-stone-100 border-b border-islamic-gold/30 pb-1.5 font-normal block">{book.title}</span>
+                    </div>
+                    <div className="flex flex-col items-center pt-2">
+                      <BookMarked className="w-5 h-5 text-islamic-gold mb-1 filter drop-shadow-sm" />
+                      <span className="text-[8px] text-amber-200/90 font-urdu font-normal tracking-wide">مرکزی دارالافتاء بریلی شریف</span>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="p-4 space-y-2">
-                <span className={`bg-amber-50 text-amber-700 px-2 py-0.5 rounded border border-amber-200/50 ${
-                  language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-[10px] font-semibold uppercase tracking-wider'
-                }`}>
-                  {language === 'en' ? book.type : (book.type === 'BOOK' ? 'کتاب' : 'رسالہ')}
-                </span>
-                <h4 className={`text-slate-800 line-clamp-1 ${
-                  language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'
-                }`}>
-                  {book.title}
-                </h4>
-                <p className={`text-slate-500 line-clamp-2 leading-relaxed ${
-                  language === 'ur' ? 'text-xs font-urdu' : 'text-xs'
-                }`}>
-                  {book.description || (language === 'en' ? 'Scholarly Islamic publication from Markazi Darul Ifta.' : 'مرکزی دارالافتاء سے شائع کردہ گراں قدر اسلامی کتاب۔')}
-                </p>
-                <div className="pt-2">
+              
+              <div className="p-5 space-y-3 flex-grow flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className={`px-2.5 py-0.5 rounded-full border ${
+                      language === 'ur' 
+                        ? 'text-xs font-normal font-urdu bg-amber-50 text-amber-900 border-amber-200/80' 
+                        : 'text-[10px] font-bold uppercase tracking-wider bg-stone-100 text-stone-700 border-stone-200'
+                    }`}>
+                      {language === 'en' ? book.type : (book.type === 'BOOK' ? 'کتاب' : 'رسالہ')}
+                    </span>
+                  </div>
+                  <h4 className={`text-slate-900 line-clamp-1 ${
+                    language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'
+                  }`}>
+                    {book.title}
+                  </h4>
+                  <p className={`text-slate-600 line-clamp-2 leading-relaxed ${
+                    language === 'ur' ? 'text-xs md:text-sm font-urdu font-normal' : 'text-xs'
+                  }`}>
+                    {book.description || (language === 'en' ? 'Scholarly Islamic publication from Markazi Darul Ifta.' : 'مرکزی دارالافتاء سے شائع کردہ گراں قدر اسلامی کتاب۔')}
+                  </p>
+                </div>
+                
+                <div className="pt-2 border-t border-stone-100">
                   <a 
                     href={book.downloadUrl || '#'} 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-full py-1.5 border border-stone-300 hover:border-islamic-gold text-slate-700 hover:text-islamic-green rounded flex items-center justify-center space-x-1 rtl:space-x-reverse transition-all ${
+                    className={`w-full py-2 bg-stone-50 group-hover:bg-islamic-green group-hover:text-white text-slate-700 border border-stone-300 group-hover:border-islamic-green rounded-lg shadow-sm transition-all duration-300 flex items-center justify-center space-x-1.5 rtl:space-x-reverse ${
                       language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'
                     }`}
                   >
                     <span>{language === 'en' ? 'Download PDF' : 'پی ڈی ایف ڈاؤن لوڈ کریں'}</span>
-                    <ExternalLink className="w-3 h-3" />
+                    <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 </div>
               </div>
