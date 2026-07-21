@@ -546,36 +546,15 @@ export default function Home() {
         </div>
         
         <form onSubmit={handleSearch} className="p-6 space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="md:col-span-2 space-y-1">
-              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('searchFieldKeyword')}</label>
-              <input 
-                type="text" 
-                value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
-                placeholder={t('searchPlaceholder')}
-                className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-islamic-gold"
-              />
-            </div>
-            <div className="space-y-1">
-              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('searchFieldFatwaNo')}</label>
-              <input 
-                type="text" 
-                value={fatwaNumber}
-                onChange={(e) => setFatwaNumber(e.target.value)}
-                placeholder="e.g. 1447-000001"
-                className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-islamic-gold"
-              />
-            </div>
-            <div className="space-y-1">
-              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>Sort By</label>
+               <div className="space-y-1">
+              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{language === 'en' ? 'Sort By' : 'ترتیب:'}</label>
               <select 
                 value={sortBy}
                 onChange={(e: any) => setSortBy(e.target.value)}
-                className="w-full border border-stone-300 rounded px-3 py-2 text-sm bg-white focus:outline-none focus:border-islamic-gold"
+                className={`w-full border border-stone-300 rounded px-3 py-2 text-sm bg-white focus:outline-none focus:border-islamic-gold ${language === 'ur' ? 'font-urdu' : ''}`}
               >
-                <option value="date">Latest Date</option>
-                <option value="views">Most Views</option>
+                <option value="date">{language === 'en' ? 'Latest Date' : 'تازہ ترین تاریخ'}</option>
+                <option value="views">{language === 'en' ? 'Most Views' : 'زیادہ دیکھے گئے'}</option>
               </select>
             </div>
           </div>
@@ -632,13 +611,18 @@ export default function Home() {
           <h4 className={`text-slate-700 mb-4 ${
             language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold uppercase tracking-wider'
           }`}>
-            {hasSearched ? t('searchResults') : 'Latest Answered Fatwas'}
+            {language === 'en' 
+              ? (hasSearched ? t('searchResults') : 'Latest Answered Fatwas') 
+              : (hasSearched ? 'تلاش کے نتائج' : 'تازہ ترین جواب شدہ فتاویٰ')
+            }
           </h4>
 
           {searchLoading ? (
-            <div className="text-center py-8 text-slate-500 text-sm">Searching the Fatwa archive...</div>
+            <div className={`text-center py-8 text-slate-500 ${language === 'ur' ? 'text-base font-urdu' : 'text-sm'}`}>
+              {language === 'en' ? 'Searching the Fatwa archive...' : 'فتاویٰ آرکائیو میں تلاش جاری ہے...'}
+            </div>
           ) : fatwaResults.length === 0 ? (
-            <div className="text-center py-8 text-slate-500 text-sm border border-dashed border-stone-300 rounded bg-white">
+            <div className={`text-center py-8 text-slate-500 border border-dashed border-stone-300 rounded bg-white ${language === 'ur' ? 'text-base font-urdu' : 'text-sm'}`}>
               {t('noResults')}
             </div>
           ) : (
@@ -652,7 +636,7 @@ export default function Home() {
                       <span className={`px-2 py-0.5 bg-islamic-gold/10 text-islamic-gold rounded-full ${
                         language === 'ur' ? 'text-sm font-normal font-urdu' : 'font-semibold'
                       }`}>
-                        Fatwa: {fatwa.fatwaNumber}
+                        {language === 'en' ? `Fatwa: ${fatwa.fatwaNumber}` : `فتویٰ نمبر: ${fatwa.fatwaNumber}`}
                       </span>
                     </div>
                     <div className="flex items-center space-x-1.5 rtl:space-x-reverse text-xs text-slate-600">
@@ -683,7 +667,7 @@ export default function Home() {
                         language === 'ur' ? 'text-base font-normal font-urdu' : 'text-xs font-bold'
                       }`}
                     >
-                      <span>Read Full Fatwa</span>
+                      <span>{language === 'en' ? 'Read Full Fatwa' : 'مکمل فتویٰ پڑھیں'}</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </Link>
                   </div>
