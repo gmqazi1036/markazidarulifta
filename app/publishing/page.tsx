@@ -60,15 +60,7 @@ export default function Publishing() {
             {t('pubLitText1')}
           </p>
           <p className="text-base md:text-lg text-slate-700 font-urdu leading-loose">
-            {language === 'ur' ? (
-              <>
-                مزید برآں، ہم ماہنامہ تحقیقی مجلہ <span className="font-semibold text-islamic-green">"ماہنامہ سنی دنیا"</span> شائع کرتے ہیں، جس میں علمی و تحقیقی مضامین اور عصر حاضر کے مسائل پر مبنی فتاویٰ شامل ہوتے ہیں۔
-              </>
-            ) : (
-              <>
-                Additionally, we publish the monthly research journal <span className="italic font-semibold text-islamic-green">"Monthly Sunni Duniya" Urdu Magazine</span>, containing peer-reviewed research papers and contemporary Fatwas addressing current affairs.
-              </>
-            )}
+            {t('pubLitText2')}
           </p>
         </div>
         <div className="bg-gradient-to-br from-islamic-green/10 to-islamic-gold/10 p-6 md:p-8 rounded-xl border border-islamic-gold/20 flex flex-col justify-between">
