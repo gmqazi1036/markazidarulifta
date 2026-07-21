@@ -993,23 +993,23 @@ export default function Home() {
           <h3 className={`text-slate-800 ${
             language === 'ur' ? 'text-3xl md:text-4xl font-normal font-urdu' : 'text-2xl font-bold'
           }`}>
-            {language === 'en' ? 'Why Choose Markazi Darul Ifta?' : 'مرکزی دارالافتاء کا انتخاب کیوں کریں؟'}
+            {language === 'en' ? 'Why Choose Markazi Darul Ifta?' : 'مرکزی دارالافتاء ہی کیوں؟'}
           </h3>
           <div className="w-16 h-1 bg-islamic-gold mx-auto mt-2"></div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           <div className="bg-white p-5 rounded-lg border border-stone-200 shadow-sm space-y-3">
             <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
               <Check className="w-4 h-4" />
             </div>
             <h4 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'}`}>
-              {language === 'en' ? 'Authentic Fatwas' : 'مستند فتاویٰ'}
+              {language === 'en' ? 'Authentic Fatwas' : 'مستند شرعی فتاویٰ'}
             </h4>
             <p className={`text-slate-500 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu' : 'text-xs'}`}>
               {language === 'en'
                 ? 'Issued by qualified Muftis after detailed research and verification.'
-                : 'معتبر و مستند مفتیانِ کرام کی تفصیلی تحقیق اور تصدیق کے بعد جاری کردہ فتاویٰ۔'
+                : 'ہر فتویٰ ماہر اور مستند مفتیانِ کرام کی جانب سے مکمل تحقیق، غور و خوض اور شرعی تصدیق کے بعد جاری کیا جاتا ہے۔'
               }
             </p>
           </div>
@@ -1019,12 +1019,27 @@ export default function Home() {
               <Check className="w-4 h-4" />
             </div>
             <h4 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'}`}>
-              {language === 'en' ? 'Hanafi Jurisprudence' : 'فقہ حنفی کے مطابق'}
+              {language === 'en' ? 'Hanafi Jurisprudence' : 'فقہِ حنفی کی روشنی میں'}
             </h4>
             <p className={`text-slate-500 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu' : 'text-xs'}`}>
               {language === 'en'
                 ? 'Strictly based upon the Qur’an, Sunnah, Ijma, and Hanafi school of thought.'
-                : 'قرآن کریم، سنت نبوی، اجماع امت اور فقہ حنفی کے مطابق احکام کا بیان۔'
+                : 'تمام فتاویٰ قرآنِ مجید، سنتِ نبوی ﷺ، اجماعِ امت اور فقہِ حنفی کے مستند اصولوں کے مطابق مرتب کیے جاتے ہیں۔'
+              }
+            </p>
+          </div>
+
+          <div className="bg-white p-5 rounded-lg border border-stone-200 shadow-sm space-y-3">
+            <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <Check className="w-4 h-4" />
+            </div>
+            <h4 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'}`}>
+              {language === 'en' ? 'Verified Publications' : 'مستند علمی مطبوعات'}
+            </h4>
+            <p className={`text-slate-500 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu' : 'text-xs'}`}>
+              {language === 'en'
+                ? 'Access authentic Islamic books, research journals, and publications by renowned scholars.'
+                : 'نامور علمائے کرام کی تصنیف کردہ معتبر اسلامی کتب، رسائل اور ماہانہ تحقیقی جرائد تک آسان رسائی حاصل کریں۔'
               }
             </p>
           </div>
@@ -1039,7 +1054,7 @@ export default function Home() {
             <p className={`text-slate-500 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu' : 'text-xs'}`}>
               {language === 'en'
                 ? 'Find queries instantly using our advanced categories and filters.'
-                : 'جدید زمرہ جات اور فلٹرز کے ذریعے مطلوبہ شرعی مسائل فوری تلاش کریں۔'
+                : 'جدید زمروں (Categories) اور فلٹرز کی مدد سے اپنے مطلوبہ فتاویٰ اور دینی مسائل کے جوابات فوری تلاش کریں۔'
               }
             </p>
           </div>
@@ -1049,12 +1064,12 @@ export default function Home() {
               <Check className="w-4 h-4" />
             </div>
             <h4 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'}`}>
-              {language === 'en' ? 'Confidential Questions' : 'صیغہ راز میں سوالات'}
+              {language === 'en' ? 'Confidential Guidance' : 'رازداری کے ساتھ رہنمائی'}
             </h4>
             <p className={`text-slate-500 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu' : 'text-xs'}`}>
               {language === 'en'
-                ? 'Personal religious queries are handled with strict privacy and respect.'
-                : 'آپ کے شخصیہ اور شرعی سوالات کی مکمل پردہ داری اور راز داری کا اہتمام۔'
+                ? 'Personal religious queries are handled with strict privacy. Your name and address are never published.'
+                : 'آپ کے ذاتی دینی سوالات کو مکمل رازداری، احترام اور امانت داری کے ساتھ دیکھا جاتا ہے اور ان کے مستند شرعی جوابات فراہم کیے جاتے ہیں۔ آپ کا نام و پتہ ویب سائٹ پرنشر نہیں کیا جاتا ہے۔'
               }
             </p>
           </div>
