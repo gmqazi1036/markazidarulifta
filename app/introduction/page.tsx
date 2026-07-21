@@ -109,14 +109,25 @@ export default function Introduction() {
           </div>
         </div>
 
-        <div className="bg-stone-50 border border-stone-200 p-6 rounded-lg text-center space-y-4">
-          <div className="w-12 h-12 rounded-full bg-islamic-gold/10 text-islamic-gold flex items-center justify-center mx-auto">
-            <Award className="w-6 h-6" />
+        <div className="bg-stone-50 border border-stone-200 p-6 rounded-xl text-center space-y-4 flex flex-col items-center justify-center">
+          <div className="w-28 h-28 relative flex items-center justify-center filter drop-shadow-md hover:scale-105 transition-transform duration-300">
+            <img 
+              src="/images/imam-ahmad-raza-trust-logo.png" 
+              alt="Imam Ahmad Raza Trust Logo" 
+              className="max-w-full max-h-full object-contain" 
+            />
           </div>
-          <h4 className="font-bold text-slate-800 text-sm">Under the Aegis of</h4>
-          <p className="text-xs text-slate-700 font-bold">Imam Ahmad Raza Trust</p>
-          <p className="text-[10px] text-slate-500">
-            No 82, Dargah Aala Hazrat, Saudagaran, Bareilly Shareef India
+          <h4 className={`text-slate-800 ${language === 'ur' ? 'text-base font-normal font-urdu' : 'text-sm font-bold'}`}>
+            {language === 'en' ? 'Under the Aegis of' : 'تحتِ سرپرستی'}
+          </h4>
+          <p className={`text-slate-700 font-bold ${language === 'ur' ? 'text-lg font-normal font-urdu text-islamic-green' : 'text-xs'}`}>
+            {language === 'en' ? 'Imam Ahmad Raza Trust' : 'امام احمد رضا ٹرسٹ'}
+          </p>
+          <p className={`text-slate-500 ${language === 'ur' ? 'text-xs font-urdu leading-relaxed' : 'text-[10px]'}`}>
+            {language === 'en' 
+              ? 'No 82, Dargah Aala Hazrat, Saudagaran, Bareilly Shareef India' 
+              : 'مکان نمبر ۸۲، درگاہ اعلیٰ حضرت، سوداگران، بریلی شریف انڈیا'
+            }
           </p>
         </div>
       </section>
