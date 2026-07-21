@@ -744,12 +744,12 @@ export default function Home() {
               <h3 className={`text-slate-800 ${
                 language === 'ur' ? 'text-2xl md:text-3xl font-normal font-urdu' : 'text-lg font-bold'
               }`}>
-                {language === 'en' ? 'Need Islamic Guidance?' : 'شرعی رہنمائی کی ضرورت ہے؟'}
+                {language === 'en' ? 'Need Islamic Guidance?' : 'شرعی رہنمائی درکار ہے؟'}
               </h3>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className={`mt-1 ${language === 'ur' ? 'text-sm md:text-base font-normal font-urdu text-slate-600 leading-relaxed' : 'text-xs text-slate-500'}`}>
                 {language === 'en'
                   ? 'If you cannot find your answer in our Fatwa Library, submit your question directly to our scholars. Your question will be carefully reviewed, researched, and answered according to authentic Hanafi jurisprudence.'
-                  : 'اگر آپ کو ہمارے فتاویٰ کتب خانہ میں جواب نہ ملے، تو اپنا سوال براہ راست ہمارے مفتیانِ کرام کی بارگاہ میں ارسال کریں۔ آپ کا سوال فقہ حنفی کے مطابق تفصیلی جواب دیا جائے گا۔'
+                  : 'اگر آپ کو اپنے سوال کا جواب ہمارے فتاویٰ میں نہ ملے تو اپنا سوال براہِ راست ہمارے مفتیانِ کرام کو ارسال کریں۔ آپ کے سوال کا بغور جائزہ لیا جائے گا، اس پر مکمل شرعی تحقیق کی جائے گی، اور فقہِ حنفی کے مستند اصولوں کی روشنی میں مستند اور مدلل جواب فراہم کیا جائے گا۔'
                 }
               </p>
             </div>
