@@ -963,13 +963,15 @@ export default function Home() {
             <h3 className={`text-slate-800 ${
               language === 'ur' ? 'text-2xl md:text-3xl font-normal font-urdu' : 'text-xl md:text-2xl font-bold'
             }`}>
-              {language === 'en' ? 'Preserving and Publishing Islamic Knowledge' : 'اسلامی علم کی ترویج اور اشاعت'}
+              {language === 'en' ? 'Preserving and Publishing Islamic Knowledge' : 'اسلامی علمی ورثے کی حفاظت اور اشاعت'}
             </h3>
           </div>
-          <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+          <p className={`text-slate-600 leading-relaxed ${
+            language === 'ur' ? 'text-base md:text-lg font-normal font-urdu' : 'text-sm md:text-base'
+          }`}>
             {language === 'en'
               ? 'Our Publishing & Printing Department is dedicated to preserving authentic Islamic literature through the publication of books, research papers, journals, and scholarly works. Readers can explore valuable publications prepared by renowned Islamic scholars.'
-              : 'ہمارا شعبہ نشر و اشاعت کتابوں، تحقیقی مقالوں، رسائل اور علمی کتب کی اشاعت کے ذریعے مستند اسلامی لٹریچر کو محفوظ کرنے کے لیے وقف ہے۔ قارئین نامور علمائے کرام کی تیار کردہ گراں قدر کتب مطالعہ کر سکتے ہیں۔'
+              : 'ہمارا شعبۂ اشاعت و طباعت مستند اسلامی علمی ذخیرے کے تحفظ اور فروغ کے لیے کتب، تحقیقی مقالات، رسائل اور دیگر علمی و دینی تصنیفات کی اشاعت کا اہتمام کرتا ہے۔ قارئین یہاں نامور علمائے کرام کی تیار کردہ قیمتی علمی و تحقیقی مطبوعات سے استفادہ کر سکتے ہیں۔'
             }
           </p>
         </div>
