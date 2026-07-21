@@ -62,8 +62,8 @@ export default function Contact() {
           </div>
           <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Phone & WhatsApp</h4>
           <p className="text-xs text-slate-500 leading-relaxed font-mono">
-            +91 9411699786 <br />
-            +91 9411699786 (WhatsApp)
+            9058879712 <br />
+            0581-2458543
           </p>
         </div>
 
@@ -83,7 +83,7 @@ export default function Contact() {
           </div>
           <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Office Hours</h4>
           <p className="text-xs text-slate-500 leading-relaxed">
-            Saturday - Thursday: 9:00 AM - 5:00 PM <br />
+            Saturday - Thursday: 8:00 AM - 02:30 PM <br />
             <span className="text-red-500 font-semibold">(Friday Closed)</span>
           </p>
         </div>

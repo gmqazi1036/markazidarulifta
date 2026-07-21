@@ -198,11 +198,12 @@ export default function Introduction() {
         </div>
       </section>
 
-      {/* Scholars Section */}
+      {/* Scholars Section (Temporarily Hidden) */}
+      {/* 
       <section className="space-y-4">
         <h3 className="text-lg font-bold text-slate-800 border-b border-stone-200 pb-2 flex items-center space-x-2 rtl:space-x-reverse">
           <Users className="w-5 h-5 text-islamic-gold" />
-          <span>Panel of Certified Muftis</span>
+          <span>{language === 'en' ? 'Panel of Certified Muftis' : 'مفتیانِ کرام کا پینل'}</span>
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {scholars.map((scholar, idx) => (
@@ -223,17 +224,30 @@ export default function Introduction() {
           ))}
         </div>
       </section>
+      */}
 
       {/* Office Timings & Contacts */}
       <section className="bg-stone-50 rounded-lg p-5 border border-stone-200 flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm text-slate-700">
         <div className="flex items-center space-x-3 rtl:space-x-reverse">
           <Calendar className="w-5 h-5 text-islamic-gold" />
-          <div>
-            <strong>Office Timings:</strong> Saturday to Thursday: 9:00 AM - 5:00 PM (Friday Closed)
+          <div className={language === 'ur' ? 'font-urdu text-sm' : ''}>
+            <strong>{language === 'en' ? 'Office Timings:' : 'اوقاتِ کار:'}</strong>{' '}
+            {language === 'en' 
+              ? 'Saturday to Thursday: 8:00 AM - 02:30 PM (Friday Closed)' 
+              : 'ہفتہ تا جمعرات: صبح ۸:۰۰ بجے سے دوپہر ۰۲:۳۰ بجے تک (جمعہ تعطیل)'
+            }
           </div>
         </div>
-        <div>
-          For urgent queries, call/WhatsApp: <strong>+91 9411699786</strong> or Email: <strong>askmuftijamiaturraza@gmail.com</strong>
+        <div className={language === 'ur' ? 'font-urdu text-sm' : ''}>
+          {language === 'en' ? (
+            <>
+              For urgent queries, call/WhatsApp: <strong>9058879712, 0581-2458543</strong>
+            </>
+          ) : (
+            <>
+              فوری شرعی رہنمائی اور رابطے کے لیے کال / واٹس ایپ: <strong>۹۰۵۸۸۷۹۷۱۲، ۰۵۸۱-۲۴۵۸۵۴۳</strong>
+            </>
+          )}
         </div>
       </section>
       
