@@ -460,7 +460,7 @@ export default function Home() {
             <h3 className={`text-xl md:text-2xl ${
               language === 'ur' ? 'text-2xl md:text-3xl font-normal font-urdu' : 'font-bold'
             }`}>
-              {language === 'en' ? 'Preserving Islamic Scholarship Through Authentic Guidance' : 'مستند رہنمائی کے ذریعے اسلامی اسکالرشپ کا تحفظ'}
+              {language === 'en' ? 'Preserving Islamic Scholarship Through Authentic Guidance' : 'مستند رہنمائی کے ذریعے اسلامی علمی ورثے کا تحفظ'}
             </h3>
           </div>
           <p className={`text-slate-800 leading-relaxed ${
@@ -468,19 +468,23 @@ export default function Home() {
           }`}>
             {language === 'en' 
               ? 'Markazi Darul Ifta, Bareilly Shareef, has been serving the Muslim Ummah by providing authentic Islamic rulings based on the Holy Qur’an, Sunnah, Ijma, and the Hanafi school of Islamic jurisprudence.'
-              : 'مرکزی دارالافتاء، بریلی شریف، قرآن کریم، سنت، اجماع اور فقہ حنفی کی روشنی میں مستند شرعی فتاویٰ فراہم کر کے امت مسلمہ کی خدمت کر رہا ہے۔'
+              : 'مرکزی دارالافتاء، بریلی شریف قرآنِ مجید، سنتِ نبوی ﷺ، اجماعِ امت اور فقہِ حنفی کی روشنی میں مستند شرعی فتاویٰ جاری کرکے ملتِ اسلامیہ کی دینی رہنمائی کا عظیم فریضہ انجام دے رہا ہے۔'
             }
           </p>
-          <p className="text-slate-600 text-sm leading-relaxed">
+          <p className={`text-slate-600 leading-relaxed ${
+            language === 'ur' ? 'text-base font-normal font-urdu' : 'text-sm'
+          }`}>
             {language === 'en' 
               ? 'Our mission is to provide reliable religious guidance, answer contemporary issues with scholarly research, and preserve valuable Islamic literature for future generations.'
-              : 'ہمارا مشن قابل اعتماد مذہبی رہنمائی فراہم کرنا، علمی تحقیق کے ساتھ عصری مسائل کا حل پیش کرنا اور آنے والی نسلوں کے لیے گراں قدر اسلامی ادب کو محفوظ کرنا ہے۔'
+              : 'ہمارا مقصد عوامِ مسلمین کو قابلِ اعتماد شرعی رہنمائی فراہم کرنا، پیش آمدہ اور عصری مسائل کا تحقیقی و مدلل حل پیش کرنا، اور اسلامی علمی و فقہی ذخیرے کو محفوظ کرکے آئندہ نسلوں تک منتقل کرنا ہے۔'
             }
           </p>
-          <p className="text-slate-600 text-sm leading-relaxed italic border-l-4 border-islamic-gold pl-4 rtl:border-l-0 rtl:border-r-4 rtl:pr-4">
+          <p className={`text-slate-600 leading-relaxed italic border-l-4 border-islamic-gold pl-4 rtl:border-l-0 rtl:border-r-4 rtl:pr-4 ${
+            language === 'ur' ? 'text-base font-normal font-urdu' : 'text-sm'
+          }`}>
             {language === 'en' 
               ? 'Every fatwa is issued after careful study by qualified Muftis, ensuring authenticity, clarity, and adherence to Islamic principles.'
-              : 'ہر فتویٰ مستند مفتیانِ کرام کے تفصیلی مطالعہ کے بعد جاری کیا جاتا ہے، جو صداقت، وضاحت اور اسلامی اصولوں کی پاسداری کو یقینی بناتا ہے۔'
+              : 'ہر فتویٰ مستند اور ماہر مفتیانِ کرام کی جانب سے مکمل تحقیق، غور و خوض اور شرعی اصولوں کی روشنی میں مرتب کیا جاتا ہے، تاکہ اس کی صحت، وضاحت اور اسلامی تعلیمات سے مکمل مطابقت یقینی بنائی جا سکے۔'
             }
           </p>
         </div>
