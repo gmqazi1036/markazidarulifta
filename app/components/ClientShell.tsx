@@ -119,7 +119,7 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 {language === 'en' ? (
                   <>Under the Aegis of <strong className="font-bold text-slate-800">Imam Ahmad Raza Trust</strong></>
                 ) : (
-                  <>زیر اہتمام <strong className="font-bold text-slate-800 font-urdu">امام احمد رضا ٹرسٹ</strong></>
+                  <>زیر اہتمام <strong className="font-normal text-slate-800 text-base font-urdu">امام احمد رضا ٹرسٹ</strong></>
                 )}
               </span>
             </div>
@@ -128,7 +128,7 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 <span className="text-stone-300 hidden sm:inline">|</span>
                 <div className={`flex items-center space-x-1.5 rtl:space-x-reverse ${
                   language === 'ur' 
-                    ? 'text-sm sm:text-base font-bold text-slate-700 font-urdu' 
+                    ? 'text-base sm:text-lg font-normal text-slate-700 font-urdu' 
                     : 'text-slate-500 font-medium text-[11px] sm:text-xs'
                 }`}>
                   <span>{getHijriDateString()}</span>
@@ -188,11 +188,11 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     href={item.href}
                     className={`inline-flex items-center px-1 pt-1 border-b-2 transition-all ${
                       language === 'ur'
-                        ? 'text-sm sm:text-base md:text-lg font-bold font-urdu'
+                        ? 'text-base sm:text-lg md:text-xl font-normal font-urdu'
                         : 'text-[11px] sm:text-sm font-medium'
                     } ${
                       active
-                        ? 'border-islamic-gold text-islamic-green font-bold'
+                        ? language === 'ur' ? 'border-islamic-gold text-islamic-green font-normal' : 'border-islamic-gold text-islamic-green font-bold'
                         : 'border-transparent text-slate-600 hover:text-islamic-green hover:border-islamic-gold/50'
                     }`}
                   >
@@ -234,8 +234,8 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             </div>
           </div>
           <div>
-            <h4 className={`font-semibold text-islamic-gold uppercase tracking-wider mb-3 ${
-              language === 'ur' ? 'text-base font-urdu' : 'text-sm'
+            <h4 className={`text-islamic-gold uppercase tracking-wider mb-3 ${
+              language === 'ur' ? 'text-lg md:text-xl font-normal font-urdu' : 'text-sm font-semibold'
             }`}>
               {language === 'en' ? 'Quick Navigation' : 'فوری روابط'}
             </h4>
@@ -248,8 +248,8 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             </ul>
           </div>
           <div>
-            <h4 className={`font-semibold text-islamic-gold uppercase tracking-wider mb-3 ${
-              language === 'ur' ? 'text-base font-urdu' : 'text-sm'
+            <h4 className={`text-islamic-gold uppercase tracking-wider mb-3 ${
+              language === 'ur' ? 'text-lg md:text-xl font-normal font-urdu' : 'text-sm font-semibold'
             }`}>
               {language === 'en' ? 'Preservation & Authority' : 'تحفظ فتاویٰ اور مستند سند'}
             </h4>

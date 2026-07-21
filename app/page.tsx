@@ -359,7 +359,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className={`inline-flex items-center justify-center bg-islamic-gold/10 text-islamic-gold rounded-full border border-islamic-gold/20 ${
               language === 'ur' 
-                ? 'text-base sm:text-lg md:text-xl font-bold px-6 py-2 min-h-[44px] font-urdu' 
+                ? 'text-lg sm:text-xl md:text-2xl font-normal px-6 py-2 min-h-[44px] font-urdu' 
                 : 'text-xs font-semibold px-4 py-1.5 min-h-[34px] tracking-wider uppercase'
             }`}
           >
@@ -379,10 +379,10 @@ export default function Home() {
                 }
               }
             }}
-            className={`font-extrabold tracking-tight text-slate-800 flex flex-wrap justify-center cursor-default select-none ${
+            className={`tracking-tight text-slate-800 flex flex-wrap justify-center cursor-default select-none ${
               language === 'ur'
-                ? 'text-3xl sm:text-4xl md:text-5xl font-urdu leading-normal gap-x-0.5 sm:gap-x-1 [word-spacing:-0.12em]'
-                : 'text-3xl md:text-5xl leading-tight gap-x-2 md:gap-x-3'
+                ? 'text-4xl sm:text-5xl md:text-6xl font-normal font-urdu leading-normal gap-x-0.5 sm:gap-x-1 [word-spacing:-0.12em]'
+                : 'font-extrabold text-3xl md:text-5xl leading-tight gap-x-2 md:gap-x-3'
             }`}
           >
             {(language === 'en' ? 'Authentic Islamic Fatwas & Religious Guidance' : 'مستند اسلامی فتاویٰ اور شرعی رہنمائی').split(' ').map((word, idx) => (
@@ -414,7 +414,7 @@ export default function Home() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className={`text-slate-600 max-w-3xl mx-auto leading-relaxed ${
               language === 'ur'
-                ? 'text-base sm:text-lg md:text-xl font-urdu'
+                ? 'text-lg sm:text-xl md:text-2xl font-normal font-urdu'
                 : 'text-sm md:text-base'
             }`}
           >
@@ -432,14 +432,18 @@ export default function Home() {
           >
             <a 
               href="#search-section" 
-              className="w-full sm:w-auto px-8 py-3 bg-islamic-green hover:bg-islamic-darkGreen text-white rounded-lg font-bold shadow-md transition-all transform hover:-translate-y-0.5 flex items-center justify-center space-x-2 rtl:space-x-reverse"
+              className={`w-full sm:w-auto px-8 py-3 bg-islamic-green hover:bg-islamic-darkGreen text-white rounded-lg shadow-md transition-all transform hover:-translate-y-0.5 flex items-center justify-center space-x-2 rtl:space-x-reverse ${
+                language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'
+              }`}
             >
               <Search className="w-4 h-4 text-islamic-gold" />
               <span>{language === 'en' ? 'Search Fatwas' : 'فتاویٰ تلاش کریں'}</span>
             </a>
             <a 
               href="#ask-section" 
-              className="w-full sm:w-auto px-8 py-3 bg-white hover:bg-stone-50 text-slate-700 border border-stone-300 rounded-lg font-bold shadow-sm transition-all transform hover:-translate-y-0.5 flex items-center justify-center space-x-2 rtl:space-x-reverse"
+              className={`w-full sm:w-auto px-8 py-3 bg-white hover:bg-stone-50 text-slate-700 border border-stone-300 rounded-lg shadow-sm transition-all transform hover:-translate-y-0.5 flex items-center justify-center space-x-2 rtl:space-x-reverse ${
+                language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'
+              }`}
             >
               <HelpCircle className="w-4 h-4 text-islamic-green" />
               <span>{language === 'en' ? 'Ask a Question' : 'سوال پوچھیں'}</span>
@@ -453,11 +457,15 @@ export default function Home() {
         <div className="md:col-span-2 space-y-5">
           <div className="flex items-center space-x-2.5 rtl:space-x-reverse text-islamic-green">
             <ShieldCheck className="w-6 h-6 text-islamic-gold" />
-            <h3 className="text-xl md:text-2xl font-bold">
+            <h3 className={`text-xl md:text-2xl ${
+              language === 'ur' ? 'text-2xl md:text-3xl font-normal font-urdu' : 'font-bold'
+            }`}>
               {language === 'en' ? 'Preserving Islamic Scholarship Through Authentic Guidance' : 'مستند رہنمائی کے ذریعے اسلامی اسکالرشپ کا تحفظ'}
             </h3>
           </div>
-          <p className="text-slate-800 text-sm md:text-base leading-relaxed font-semibold">
+          <p className={`text-slate-800 leading-relaxed ${
+            language === 'ur' ? 'text-base md:text-lg font-normal font-urdu' : 'text-sm md:text-base font-semibold'
+          }`}>
             {language === 'en' 
               ? 'Markazi Darul Ifta, Bareilly Shareef, has been serving the Muslim Ummah by providing authentic Islamic rulings based on the Holy Qur’an, Sunnah, Ijma, and the Hanafi school of Islamic jurisprudence.'
               : 'مرکزی دارالافتاء، بریلی شریف، قرآن کریم، سنت، اجماع اور فقہ حنفی کی روشنی میں مستند شرعی فتاویٰ فراہم کر کے امت مسلمہ کی خدمت کر رہا ہے۔'
@@ -478,8 +486,8 @@ export default function Home() {
         </div>
         <div className="bg-gradient-to-b from-stone-50 to-stone-100 p-6 rounded-lg border border-stone-200 flex flex-col justify-between h-full space-y-4">
           <div>
-            <h4 className={`font-bold text-islamic-green border-b border-stone-200 pb-2 mb-3 ${
-              language === 'ur' ? 'text-base font-urdu' : 'text-sm'
+            <h4 className={`text-islamic-green border-b border-stone-200 pb-2 mb-3 ${
+              language === 'ur' ? 'text-lg md:text-xl font-normal font-urdu' : 'text-sm font-bold'
             }`}>
               {language === 'en' ? 'Office Details' : 'دفتر کی تفصیلات'}
             </h4>
@@ -502,8 +510,8 @@ export default function Home() {
             </div>
           </div>
           <div className="pt-2 border-t border-stone-200">
-            <Link href="/introduction" className={`font-bold text-islamic-gold hover:text-amber-700 flex items-center space-x-1 rtl:space-x-reverse ${
-              language === 'ur' ? 'text-sm font-urdu' : 'text-xs'
+            <Link href="/introduction" className={`text-islamic-gold hover:text-amber-700 flex items-center space-x-1 rtl:space-x-reverse ${
+              language === 'ur' ? 'text-base font-normal font-urdu' : 'text-xs font-bold'
             }`}>
               <span>{language === 'en' ? 'Read Full History' : 'مکمل تاریخ پڑھیں'}</span>
               <ExternalLink className="w-3.5 h-3.5" />
@@ -518,7 +526,9 @@ export default function Home() {
           <div className="flex items-center space-x-3 rtl:space-x-reverse">
             <Search className="w-6 h-6 text-islamic-green" />
             <div>
-              <h3 className="text-lg font-bold text-slate-800">
+              <h3 className={`text-slate-800 ${
+                language === 'ur' ? 'text-2xl md:text-3xl font-normal font-urdu' : 'text-lg font-bold'
+              }`}>
                 {language === 'en' ? 'Find Authentic Islamic Rulings' : 'مستند اسلامی احکام تلاش کریں'}
               </h3>
               <p className="text-xs text-slate-500 mt-1">
@@ -534,7 +544,7 @@ export default function Home() {
         <form onSubmit={handleSearch} className="p-6 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="md:col-span-2 space-y-1">
-              <label className="text-xs font-bold text-slate-600">{t('searchFieldKeyword')}</label>
+              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('searchFieldKeyword')}</label>
               <input 
                 type="text" 
                 value={keyword}
@@ -544,7 +554,7 @@ export default function Home() {
               />
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-600">{t('searchFieldFatwaNo')}</label>
+              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('searchFieldFatwaNo')}</label>
               <input 
                 type="text" 
                 value={fatwaNumber}
@@ -554,7 +564,7 @@ export default function Home() {
               />
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-600">Sort By</label>
+              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>Sort By</label>
               <select 
                 value={sortBy}
                 onChange={(e: any) => setSortBy(e.target.value)}
@@ -568,7 +578,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-600">{t('searchFieldCategory')}</label>
+              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('searchFieldCategory')}</label>
               <select 
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -583,7 +593,7 @@ export default function Home() {
               </select>
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-600">{t('searchFieldSubCategory')}</label>
+              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('searchFieldSubCategory')}</label>
               <select 
                 value={selectedSubCategory}
                 disabled={selectedCategory === 'all'}
@@ -604,7 +614,9 @@ export default function Home() {
             <button 
               type="submit" 
               disabled={searchLoading}
-              className="px-6 py-2.5 bg-islamic-green hover:bg-islamic-darkGreen text-white rounded font-bold shadow text-sm transition-colors flex items-center space-x-2 rtl:space-x-reverse"
+              className={`px-6 py-2.5 bg-islamic-green hover:bg-islamic-darkGreen text-white rounded shadow transition-colors flex items-center space-x-2 rtl:space-x-reverse ${
+                language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'
+              }`}
             >
               <span>{language === 'en' ? (searchLoading ? 'Searching...' : 'Search Fatwas →') : (searchLoading ? 'تلاش جاری ہے...' : 'فتاویٰ تلاش کریں ←')}</span>
             </button>
@@ -613,7 +625,9 @@ export default function Home() {
 
         {/* Search Results */}
         <div className="bg-stone-50 border-t border-stone-200 p-6">
-          <h4 className="text-sm font-bold text-slate-700 mb-4 uppercase tracking-wider">
+          <h4 className={`text-slate-700 mb-4 ${
+            language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold uppercase tracking-wider'
+          }`}>
             {hasSearched ? t('searchResults') : 'Latest Answered Fatwas'}
           </h4>
 
@@ -631,7 +645,9 @@ export default function Home() {
                     <div className="flex items-center space-x-2 rtl:space-x-reverse text-xs text-slate-500">
                       <Clock className="w-3.5 h-3.5" />
                       <span>{fatwa.publishedAt ? formatDateSafe(fatwa.publishedAt, language) : 'Draft'}</span>
-                      <span className="px-2 py-0.5 bg-islamic-gold/10 text-islamic-gold rounded-full font-semibold">
+                      <span className={`px-2 py-0.5 bg-islamic-gold/10 text-islamic-gold rounded-full ${
+                        language === 'ur' ? 'text-sm font-normal font-urdu' : 'font-semibold'
+                      }`}>
                         Fatwa: {fatwa.fatwaNumber}
                       </span>
                     </div>
@@ -643,7 +659,9 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <h5 className="font-bold text-slate-900 text-base md:text-lg font-urdu">
+                  <h5 className={`text-slate-900 line-clamp-2 font-urdu pt-1 ${
+                    language === 'ur' ? 'text-lg md:text-xl font-normal' : 'font-bold text-base md:text-lg'
+                  }`}>
                     {language === 'en' ? fatwa.titleEn : fatwa.titleUr}
                   </h5>
 
@@ -657,7 +675,9 @@ export default function Home() {
                     </span>
                     <Link 
                       href={`/fatwa/${fatwa.id}`} 
-                      className="text-xs font-bold text-islamic-gold hover:text-amber-700 flex items-center space-x-1"
+                      className={`text-islamic-gold hover:text-amber-700 flex items-center space-x-1 ${
+                        language === 'ur' ? 'text-base font-normal font-urdu' : 'text-xs font-bold'
+                      }`}
                     >
                       <span>Read Full Fatwa</span>
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -673,7 +693,9 @@ export default function Home() {
       {/* 4. Featured Categories Section */}
       <section className="space-y-6">
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <h3 className="text-2xl font-bold text-slate-800">
+          <h3 className={`text-slate-800 ${
+            language === 'ur' ? 'text-3xl md:text-4xl font-normal font-urdu' : 'text-2xl font-bold'
+          }`}>
             {language === 'en' ? 'Browse Fatwas by Category' : 'زمرہ جات کے لحاظ سے فتاویٰ تلاش کریں'}
           </h3>
           <p className={`text-slate-500 ${language === 'ur' ? 'text-base font-urdu' : 'text-sm'}`}>
@@ -697,7 +719,9 @@ export default function Home() {
                   <Icon className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-sm text-slate-800 group-hover:text-islamic-green transition-colors">
+                  <h4 className={`text-slate-800 group-hover:text-islamic-green transition-colors ${
+                    language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'
+                  }`}>
                     {language === 'en' ? catItem.nameEn : catItem.nameUr}
                   </h4>
                 </div>
@@ -713,7 +737,9 @@ export default function Home() {
           <div className="flex items-center space-x-3 rtl:space-x-reverse">
             <HelpCircle className="w-6 h-6 text-islamic-green" />
             <div>
-              <h3 className="text-lg font-bold text-slate-800">
+              <h3 className={`text-slate-800 ${
+                language === 'ur' ? 'text-2xl md:text-3xl font-normal font-urdu' : 'text-lg font-bold'
+              }`}>
                 {language === 'en' ? 'Need Islamic Guidance?' : 'شرعی رہنمائی کی ضرورت ہے؟'}
               </h3>
               <p className="text-xs text-slate-500 mt-1">
@@ -758,7 +784,7 @@ export default function Home() {
           <form onSubmit={handleAskSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-600">{t('lblFullName')} <span className="text-red-500">*</span></label>
+                <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('lblFullName')} <span className="text-red-500">*</span></label>
                 <input 
                   type="text" 
                   required
@@ -769,7 +795,7 @@ export default function Home() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-600">{t('lblPhone')} <span className="text-red-500">*</span></label>
+                <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('lblPhone')} <span className="text-red-500">*</span></label>
                 <input 
                   type="text" 
                   required
@@ -783,7 +809,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-600">{t('lblEmail')}</label>
+                <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('lblEmail')}</label>
                 <input 
                   type="email" 
                   value={askEmail}
@@ -793,7 +819,7 @@ export default function Home() {
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-600">{t('lblCity')} <span className="text-red-500">*</span></label>
+                <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('lblCity')} <span className="text-red-500">*</span></label>
                 <input 
                   type="text" 
                   required
@@ -806,7 +832,7 @@ export default function Home() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-600">{t('lblQuestion')} <span className="text-red-500">*</span></label>
+              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('lblQuestion')} <span className="text-red-500">*</span></label>
               <textarea 
                 required
                 rows={5}
@@ -823,7 +849,9 @@ export default function Home() {
               <button 
                 type="submit" 
                 disabled={askLoading}
-                className="px-6 py-3 bg-islamic-green hover:bg-islamic-darkGreen text-white rounded font-bold shadow transition-colors flex items-center space-x-2 rtl:space-x-reverse"
+                className={`px-6 py-3 bg-islamic-green hover:bg-islamic-darkGreen text-white rounded shadow transition-colors flex items-center space-x-2 rtl:space-x-reverse ${
+                  language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'
+                }`}
               >
                 <Send className="w-4 h-4 text-islamic-gold" />
                 <span>{language === 'en' ? (askLoading ? 'Submitting...' : 'Submit') : (askLoading ? 'ارسال ہو رہا ہے...' : 'ارسال کریں')}</span>
@@ -836,8 +864,8 @@ export default function Home() {
       {/* 6. Status Tracking Box */}
       <section className="bg-white rounded-xl shadow-sm border border-stone-200 overflow-hidden">
         <div className="bg-stone-50 p-5 border-b border-stone-200">
-          <h3 className={`font-bold text-slate-800 flex items-center space-x-2 rtl:space-x-reverse ${
-            language === 'ur' ? 'text-lg font-urdu' : 'text-base'
+          <h3 className={`text-slate-800 flex items-center space-x-2 rtl:space-x-reverse ${
+            language === 'ur' ? 'text-[22px] font-normal font-urdu' : 'text-base font-bold'
           }`}>
             <Clock className="w-5 h-5 text-islamic-gold" />
             <span>{language === 'en' ? 'Track Submitted Question Status' : 'ارسال کردہ سوال کی حیثیت معلوم کریں'}</span>
@@ -858,8 +886,8 @@ export default function Home() {
             <button 
               type="submit"
               disabled={trackLoading}
-              className={`px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded font-bold shadow transition-colors ${
-                language === 'ur' ? 'text-base font-urdu' : 'text-sm'
+              className={`px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded shadow transition-colors ${
+                language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'
               }`}
             >
               {language === 'en' 
@@ -923,7 +951,9 @@ export default function Home() {
         <div className="md:col-span-2 space-y-4">
           <div className="flex items-center space-x-2 text-islamic-green">
             <BookOpen className="w-6 h-6 text-islamic-gold" />
-            <h3 className="text-xl md:text-2xl font-bold">
+            <h3 className={`text-slate-800 ${
+              language === 'ur' ? 'text-2xl md:text-3xl font-normal font-urdu' : 'text-xl md:text-2xl font-bold'
+            }`}>
               {language === 'en' ? 'Preserving and Publishing Islamic Knowledge' : 'اسلامی علم کی ترویج اور اشاعت'}
             </h3>
           </div>
@@ -937,7 +967,9 @@ export default function Home() {
         <div className="flex justify-center md:justify-end">
           <Link 
             href="/publishing" 
-            className="px-8 py-3.5 bg-islamic-green hover:bg-islamic-darkGreen text-white rounded-lg font-bold shadow-md transition-colors inline-flex items-center space-x-2"
+            className={`px-8 py-3.5 bg-islamic-green hover:bg-islamic-darkGreen text-white rounded-lg shadow-md transition-colors inline-flex items-center space-x-2 ${
+              language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'
+            }`}
           >
             <span>{language === 'en' ? 'Explore Publications →' : 'کتب اور رسائل دیکھیں →'}</span>
           </Link>
@@ -947,7 +979,9 @@ export default function Home() {
       {/* 8. Why Choose Markazi Darul Ifta */}
       <section className="space-y-8">
         <div className="text-center max-w-xl mx-auto">
-          <h3 className="text-2xl font-bold text-slate-800">
+          <h3 className={`text-slate-800 ${
+            language === 'ur' ? 'text-3xl md:text-4xl font-normal font-urdu' : 'text-2xl font-bold'
+          }`}>
             {language === 'en' ? 'Why Choose Markazi Darul Ifta?' : 'مرکزی دارالافتاء کا انتخاب کیوں کریں؟'}
           </h3>
           <div className="w-16 h-1 bg-islamic-gold mx-auto mt-2"></div>
@@ -958,7 +992,7 @@ export default function Home() {
             <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
               <Check className="w-4 h-4" />
             </div>
-            <h4 className={`font-bold text-slate-800 ${language === 'ur' ? 'text-base font-urdu' : 'text-sm'}`}>
+            <h4 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'}`}>
               {language === 'en' ? 'Authentic Fatwas' : 'مستند فتاویٰ'}
             </h4>
             <p className={`text-slate-500 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu' : 'text-xs'}`}>
@@ -973,7 +1007,7 @@ export default function Home() {
             <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
               <Check className="w-4 h-4" />
             </div>
-            <h4 className={`font-bold text-slate-800 ${language === 'ur' ? 'text-base font-urdu' : 'text-sm'}`}>
+            <h4 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'}`}>
               {language === 'en' ? 'Hanafi Jurisprudence' : 'فقہ حنفی کے مطابق'}
             </h4>
             <p className={`text-slate-500 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu' : 'text-xs'}`}>
@@ -988,7 +1022,7 @@ export default function Home() {
             <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
               <Check className="w-4 h-4" />
             </div>
-            <h4 className={`font-bold text-slate-800 ${language === 'ur' ? 'text-base font-urdu' : 'text-sm'}`}>
+            <h4 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'}`}>
               {language === 'en' ? 'Easy Search' : 'آسان اور تیز رفتار تلاش'}
             </h4>
             <p className={`text-slate-500 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu' : 'text-xs'}`}>
@@ -1003,7 +1037,7 @@ export default function Home() {
             <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
               <Check className="w-4 h-4" />
             </div>
-            <h4 className={`font-bold text-slate-800 ${language === 'ur' ? 'text-base font-urdu' : 'text-sm'}`}>
+            <h4 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'}`}>
               {language === 'en' ? 'Confidential Questions' : 'صیغہ راز میں سوالات'}
             </h4>
             <p className={`text-slate-500 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu' : 'text-xs'}`}>
@@ -1022,7 +1056,7 @@ export default function Home() {
           <div className="text-3xl md:text-4xl font-extrabold text-islamic-green">
             <ContinuousCounter target={25000} suffix="+" />
           </div>
-          <div className={`text-xs md:text-sm font-semibold text-slate-600 tracking-wider ${language === 'ur' ? 'font-urdu' : 'uppercase font-sans'}`}>
+          <div className={`text-slate-600 tracking-wider ${language === 'ur' ? 'text-base font-normal font-urdu' : 'text-xs md:text-sm font-semibold uppercase font-sans'}`}>
             {language === 'en' ? 'Published Fatwas' : 'شائع شدہ فتاویٰ'}
           </div>
         </div>
@@ -1030,7 +1064,7 @@ export default function Home() {
           <div className="text-3xl md:text-4xl font-extrabold text-islamic-green">
             <ContinuousCounter target={500} suffix="+" />
           </div>
-          <div className={`text-xs md:text-sm font-semibold text-slate-600 tracking-wider ${language === 'ur' ? 'font-urdu' : 'uppercase font-sans'}`}>
+          <div className={`text-slate-600 tracking-wider ${language === 'ur' ? 'text-base font-normal font-urdu' : 'text-xs md:text-sm font-semibold uppercase font-sans'}`}>
             {language === 'en' ? 'Books & Publications' : 'کتب و مطبوعات'}
           </div>
         </div>
@@ -1038,7 +1072,7 @@ export default function Home() {
           <div className="text-3xl md:text-4xl font-extrabold text-islamic-green">
             <ContinuousCounter target={100} suffix="+" />
           </div>
-          <div className={`text-xs md:text-sm font-semibold text-slate-600 tracking-wider ${language === 'ur' ? 'font-urdu' : 'uppercase font-sans'}`}>
+          <div className={`text-slate-600 tracking-wider ${language === 'ur' ? 'text-base font-normal font-urdu' : 'text-xs md:text-sm font-semibold uppercase font-sans'}`}>
             {language === 'en' ? 'Research Articles' : 'تحقیقی مقالہ جات'}
           </div>
         </div>
@@ -1046,7 +1080,7 @@ export default function Home() {
           <div className="text-3xl md:text-4xl font-extrabold text-islamic-green">
             <ContinuousCounter target={5990} suffix="+" />
           </div>
-          <div className={`text-xs md:text-sm font-semibold text-slate-600 tracking-wider ${language === 'ur' ? 'font-urdu' : 'uppercase font-sans'}`}>
+          <div className={`text-slate-600 tracking-wider ${language === 'ur' ? 'text-base font-normal font-urdu' : 'text-xs md:text-sm font-semibold uppercase font-sans'}`}>
             {language === 'en' ? 'Questions Answered' : 'جواب شدہ سوالات'}
           </div>
         </div>
@@ -1056,8 +1090,8 @@ export default function Home() {
       <section className="space-y-6">
         <div className="flex justify-between items-end border-b border-stone-200 pb-3">
           <div>
-            <h3 className={`font-bold text-slate-800 ${
-              language === 'ur' ? 'text-2xl md:text-3xl font-urdu' : 'text-xl md:text-2xl'
+            <h3 className={`text-slate-800 ${
+              language === 'ur' ? 'text-3xl md:text-4xl font-normal font-urdu' : 'text-xl md:text-2xl font-bold'
             }`}>
               {language === 'en' ? 'Latest Published Fatwas' : 'تازہ ترین شائع شدہ فتاویٰ'}
             </h3>
@@ -1070,8 +1104,8 @@ export default function Home() {
               }
             </p>
           </div>
-          <a href="#search-section" className={`font-bold text-islamic-gold hover:underline flex items-center space-x-1 rtl:space-x-reverse ${
-            language === 'ur' ? 'text-sm font-urdu' : 'text-xs'
+          <a href="#search-section" className={`text-islamic-gold hover:underline flex items-center space-x-1 rtl:space-x-reverse ${
+            language === 'ur' ? 'text-base font-normal font-urdu' : 'text-xs font-bold'
           }`}>
             <span>{language === 'en' ? 'View All' : 'تمام فتاویٰ دیکھیں'}</span>
             <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -1083,14 +1117,16 @@ export default function Home() {
             <div key={fatwa.id} className="bg-white rounded-lg p-5 border border-stone-200 shadow-sm hover:border-islamic-gold transition-colors flex flex-col justify-between space-y-4">
               <div className="space-y-2">
                 <div className="flex justify-between items-center text-[10px] text-slate-500">
-                  <span className={`px-2 py-0.5 bg-islamic-gold/10 text-islamic-gold rounded font-bold ${
-                    language === 'ur' ? 'font-urdu' : 'uppercase'
+                  <span className={`px-2 py-0.5 bg-islamic-gold/10 text-islamic-gold rounded ${
+                    language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-[10px] font-bold uppercase'
                   }`}>
                     {language === 'en' ? fatwa.category?.nameEn : fatwa.category?.nameUr}
                   </span>
                   <span>{formatDateSafe(fatwa.createdAt, language)}</span>
                 </div>
-                <h4 className="font-bold text-slate-900 line-clamp-2 font-urdu text-sm md:text-base pt-1">
+                <h4 className={`text-slate-900 line-clamp-2 font-urdu pt-1 ${
+                  language === 'ur' ? 'text-base md:text-lg font-normal' : 'font-bold text-sm md:text-base'
+                }`}>
                   {language === 'en' ? fatwa.titleEn : fatwa.titleUr}
                 </h4>
                 <p className="text-slate-550 text-xs line-clamp-4 leading-relaxed font-urdu italic border-l-2 border-stone-200 pl-2 rtl:border-l-0 rtl:border-r-2 rtl:border-stone-200 rtl:pl-0 rtl:pr-2">
@@ -1104,8 +1140,8 @@ export default function Home() {
                 }`}>
                   {language === 'en' ? `Fatwa: ${fatwa.fatwaNumber}` : `فتویٰ: ${fatwa.fatwaNumber}`}
                 </span>
-                <Link href={`/fatwa/${fatwa.id}`} className={`font-bold text-islamic-gold hover:underline ${
-                  language === 'ur' ? 'text-sm font-urdu' : 'text-xs'
+                <Link href={`/fatwa/${fatwa.id}`} className={`text-islamic-gold hover:underline ${
+                  language === 'ur' ? 'text-base font-normal font-urdu' : 'text-xs font-bold'
                 }`}>
                   {language === 'en' ? 'Read More →' : 'تفصیل پڑھیں ←'}
                 </Link>
@@ -1119,8 +1155,8 @@ export default function Home() {
       <section className="space-y-6">
         <div className="flex justify-between items-end border-b border-stone-200 pb-3">
           <div>
-            <h3 className={`font-bold text-slate-800 ${
-              language === 'ur' ? 'text-2xl md:text-3xl font-urdu' : 'text-xl md:text-2xl'
+            <h3 className={`text-slate-800 ${
+              language === 'ur' ? 'text-3xl md:text-4xl font-normal font-urdu' : 'text-xl md:text-2xl font-bold'
             }`}>
               {language === 'en' ? 'Latest Publications & Books' : 'تازہ ترین مطبوعات و کتب'}
             </h3>
@@ -1133,8 +1169,8 @@ export default function Home() {
               }
             </p>
           </div>
-          <Link href="/publishing" className={`font-bold text-islamic-gold hover:underline flex items-center space-x-1 rtl:space-x-reverse ${
-            language === 'ur' ? 'text-sm font-urdu' : 'text-xs'
+          <Link href="/publishing" className={`text-islamic-gold hover:underline flex items-center space-x-1 rtl:space-x-reverse ${
+            language === 'ur' ? 'text-base font-normal font-urdu' : 'text-xs font-bold'
           }`}>
             <span>{language === 'en' ? 'Explore All' : 'تمام مطبوعات دیکھیں'}</span>
             <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -1157,13 +1193,13 @@ export default function Home() {
                 </div>
               </div>
               <div className="p-4 space-y-2">
-                <span className={`bg-amber-50 text-amber-700 font-semibold px-2 py-0.5 rounded border border-amber-200/50 ${
-                  language === 'ur' ? 'text-xs font-urdu' : 'text-[10px] uppercase tracking-wider'
+                <span className={`bg-amber-50 text-amber-700 px-2 py-0.5 rounded border border-amber-200/50 ${
+                  language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-[10px] font-semibold uppercase tracking-wider'
                 }`}>
                   {language === 'en' ? book.type : (book.type === 'BOOK' ? 'کتاب' : 'رسالہ')}
                 </span>
-                <h4 className={`font-bold text-slate-800 line-clamp-1 ${
-                  language === 'ur' ? 'text-base font-urdu' : 'text-sm'
+                <h4 className={`text-slate-800 line-clamp-1 ${
+                  language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'
                 }`}>
                   {book.title}
                 </h4>
@@ -1177,8 +1213,8 @@ export default function Home() {
                     href={book.downloadUrl || '#'} 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-full py-1.5 border border-stone-300 hover:border-islamic-gold text-slate-700 hover:text-islamic-green font-bold rounded flex items-center justify-center space-x-1 rtl:space-x-reverse transition-all ${
-                      language === 'ur' ? 'text-xs font-urdu' : 'text-xs'
+                    className={`w-full py-1.5 border border-stone-300 hover:border-islamic-gold text-slate-700 hover:text-islamic-green rounded flex items-center justify-center space-x-1 rtl:space-x-reverse transition-all ${
+                      language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'
                     }`}
                   >
                     <span>{language === 'en' ? 'Download PDF' : 'پی ڈی ایف ڈاؤن لوڈ کریں'}</span>
@@ -1195,8 +1231,8 @@ export default function Home() {
       <section className="bg-gradient-to-br from-islamic-green to-islamic-darkGreen rounded-2xl p-10 md:p-14 text-white text-center space-y-6 shadow-xl relative overflow-hidden">
         <div className="absolute inset-0 bg-cover opacity-[0.05] bg-center pointer-events-none" style={{ backgroundImage: `url('/images/islamic-pattern.svg')` }}></div>
         <div className="relative z-10 max-w-2xl mx-auto space-y-4">
-          <h3 className={`font-bold tracking-tight text-islamic-gold ${
-            language === 'ur' ? 'text-2xl md:text-4xl font-urdu' : 'text-2xl md:text-4xl'
+          <h3 className={`tracking-tight text-islamic-gold ${
+            language === 'ur' ? 'text-3xl md:text-5xl font-normal font-urdu' : 'text-2xl md:text-4xl font-bold'
           }`}>
             {language === 'en' ? 'Seeking Authentic Islamic Guidance?' : 'کیا آپ کو مستند اسلامی رہنمائی کی تلاش ہے؟'}
           </h3>
@@ -1211,16 +1247,16 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
             <a 
               href="#search-section" 
-              className={`px-6 py-2.5 bg-islamic-gold hover:bg-amber-600 text-white rounded font-bold shadow transition-colors ${
-                language === 'ur' ? 'text-base font-urdu' : 'text-sm'
+              className={`px-6 py-2.5 bg-islamic-gold hover:bg-amber-600 text-white rounded shadow transition-colors ${
+                language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'
               }`}
             >
               {language === 'en' ? 'Search Fatwas' : 'فتاویٰ تلاش کریں'}
             </a>
             <a 
               href="#ask-section" 
-              className={`px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded font-bold transition-colors ${
-                language === 'ur' ? 'text-base font-urdu' : 'text-sm'
+              className={`px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded transition-colors ${
+                language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'
               }`}
             >
               {language === 'en' ? 'Ask a Question' : 'سوال پوچھیں'}
