@@ -122,34 +122,78 @@ export default function Introduction() {
       </section>
 
       {/* Working Procedure */}
-      <section className="bg-white rounded-xl p-6 shadow-sm border border-stone-200 space-y-4">
+      <section className="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-stone-200 space-y-4">
         <div className="flex items-center space-x-2 rtl:space-x-reverse text-islamic-green">
-          <ShieldCheck className="w-5 h-5 text-islamic-gold" />
-          <h3 className="text-lg font-bold">Rigorous Verification & Working Procedure</h3>
+          <ShieldCheck className="w-6 h-6 text-islamic-gold" />
+          <h3 className={`text-slate-800 ${language === 'ur' ? 'text-2xl md:text-3xl font-normal font-urdu' : 'text-lg md:text-xl font-bold'}`}>
+            {language === 'en' ? 'Rigorous Research & Working Procedure' : 'تحقیقی و تدقیقی طریقۂ کار'}
+          </h3>
         </div>
-        <p className="text-sm text-slate-600 leading-relaxed">
-          Every query submitted is processed through a strict academic workflow to guarantee theological accuracy:
+        <p className={`text-slate-600 leading-relaxed ${language === 'ur' ? 'text-base md:text-lg font-normal font-urdu' : 'text-sm md:text-base'}`}>
+          {language === 'en'
+            ? 'At Markazi Darul Ifta, Bareilly Shareef, every religious query received is processed through a structured academic methodology to ensure that every fatwa is issued based on authentic Shariah proofs and Hanafi principles.'
+            : 'مرکزی دارالافتاء، بریلی شریف میں موصول ہونے والے ہر شرعی سوال کو ایک منظم اور تحقیقی طریقۂ کار کے تحت مکمل کیا جاتا ہے، تاکہ ہر فتویٰ مستند شرعی دلائل اور فقہِ حنفی کے اصولوں کے مطابق جاری ہو۔'
+          }
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
-          <div className="bg-stone-50 p-4 rounded border border-stone-200 space-y-1">
-            <div className="text-islamic-gold font-bold text-sm">Step 1</div>
-            <h5 className="font-bold text-xs text-slate-800">Submission</h5>
-            <p className="text-[10px] text-slate-400">Question is logged, tracking number is issued, and placed in Pending Queue.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pt-2">
+          <div className="bg-stone-50 p-5 rounded-lg border border-stone-200 space-y-2 hover:border-islamic-gold transition-colors">
+            <div className="text-islamic-gold font-bold text-xs uppercase tracking-wider">
+              {language === 'en' ? 'Step 1' : 'مرحلہ ۱'}
+            </div>
+            <h5 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'}`}>
+              {language === 'en' ? 'Receipt of Query' : '① سوال کی وصولی'}
+            </h5>
+            <p className={`text-slate-600 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu font-normal' : 'text-xs'}`}>
+              {language === 'en'
+                ? 'Every question is logged, assigned a unique tracking reference number, and placed in the pending queue for review.'
+                : 'ہر سوال کا اندراج کیا جاتا ہے، اسے ایک منفرد حوالہ نمبر دیا جاتا ہے اور قابلِ غور ہونے کی صورت میں اس سوال کو زیرِ التواء رکھا جاتا ہے۔'
+              }
+            </p>
           </div>
-          <div className="bg-stone-50 p-4 rounded border border-stone-200 space-y-1">
-            <div className="text-islamic-gold font-bold text-sm">Step 2</div>
-            <h5 className="font-bold text-xs text-slate-800">Research & Writing</h5>
-            <p className="text-[10px] text-slate-400">Assigned Mufti conducts cross-referencing with classical Arabic and Urdu books.</p>
+
+          <div className="bg-stone-50 p-5 rounded-lg border border-stone-200 space-y-2 hover:border-islamic-gold transition-colors">
+            <div className="text-islamic-gold font-bold text-xs uppercase tracking-wider">
+              {language === 'en' ? 'Step 2' : 'مرحلہ ۲'}
+            </div>
+            <h5 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'}`}>
+              {language === 'en' ? 'Research & Drafting' : '② تحقیق و تدوین'}
+            </h5>
+            <p className={`text-slate-600 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu font-normal' : 'text-xs'}`}>
+              {language === 'en'
+                ? 'The assigned Mufti conducts thorough research and drafts the response in light of the Holy Qur’an, Sunnah, and authoritative Hanafi texts.'
+                : 'مفتی صاحب قرآنِ کریم، سنتِ نبوی ﷺ اور فقہِ حنفی کی معتبر کتب کی روشنی میں مکمل تحقیق کے بعد جواب تیار کرتے ہیں۔'
+              }
+            </p>
           </div>
-          <div className="bg-stone-50 p-4 rounded border border-stone-200 space-y-1">
-            <div className="text-islamic-gold font-bold text-sm">Step 3</div>
-            <h5 className="font-bold text-xs text-slate-800">Review Board</h5>
-            <p className="text-[10px] text-slate-400">Senior board reviews and confirms accuracy, formatting, and references list.</p>
+
+          <div className="bg-stone-50 p-5 rounded-lg border border-stone-200 space-y-2 hover:border-islamic-gold transition-colors">
+            <div className="text-islamic-gold font-bold text-xs uppercase tracking-wider">
+              {language === 'en' ? 'Step 3' : 'مرحلہ ۳'}
+            </div>
+            <h5 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'}`}>
+              {language === 'en' ? 'Review of Fatwa' : '③ فتوے کا جائزہ'}
+            </h5>
+            <p className={`text-slate-600 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu font-normal' : 'text-xs'}`}>
+              {language === 'en'
+                ? 'Once drafted, the response undergoes a deep and meticulous review by senior scholars to prevent any errors.'
+                : 'جواب تیار ہونے کے بعد اس کو دوبارہ بنظر عمیق ملاحظہ کیا جاتا ہے، تاکہ غلطیوں سے بچا جا سکے۔'
+              }
+            </p>
           </div>
-          <div className="bg-stone-50 p-4 rounded border border-stone-200 space-y-1">
-            <div className="text-islamic-gold font-bold text-sm">Step 4</div>
-            <h5 className="font-bold text-xs text-slate-800">Publication</h5>
-            <p className="text-[10px] text-slate-400">Fatwa receives a permanent sequence ID and automatically goes live in archives.</p>
+
+          <div className="bg-stone-50 p-5 rounded-lg border border-stone-200 space-y-2 hover:border-islamic-gold transition-colors">
+            <div className="text-islamic-gold font-bold text-xs uppercase tracking-wider">
+              {language === 'en' ? 'Step 4' : 'مرحلہ ۴'}
+            </div>
+            <h5 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'}`}>
+              {language === 'en' ? 'Publication' : '④ اشاعت'}
+            </h5>
+            <p className={`text-slate-600 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu font-normal' : 'text-xs'}`}>
+              {language === 'en'
+                ? 'Upon final approval, the fatwa is assigned a permanent sequence number and published in the online archive as a permanent record.'
+                : 'فتویٰ تیار ہونے کے بعد اسے مستقل نمبر دیا جاتا ہے اور پھر آن لائن ذخیرۂ فتاویٰ میں شائع کر دیا جاتا ہے، جہاں وہ مستقل ریکارڈ کا حصہ بن جاتا ہے۔'
+              }
+            </p>
           </div>
         </div>
       </section>
