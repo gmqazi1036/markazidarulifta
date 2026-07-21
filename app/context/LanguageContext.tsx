@@ -90,7 +90,20 @@ const translations: TranslationDict = {
   pubLoadingCatalog: { en: "Loading publications catalog...", ur: "مطبوعات کا کیٹلاگ لوڈ ہو رہا ہے..." },
   pubNoResults: { en: "No publications found matching your selection.", ur: "آپ کے منتخب کردہ معیار کے مطابق کوئی مطبوعات نہیں ملیں۔" },
   pubDownloadPdf: { en: "Download PDF", ur: "پی ڈی ایف ڈاؤن لوڈ کریں" },
-  pubDownloadingMsg: { en: "Downloading PDF...", ur: "پی ڈی ایف ڈاؤن لوڈ ہو رہی ہے..." }
+  pubDownloadingMsg: { en: "Downloading PDF...", ur: "پی ڈی ایف ڈاؤن لوڈ ہو رہی ہے..." },
+
+  // Wazaif Page
+  wazifaTitle: { en: "Spiritual Wazaif & Remedies", ur: "روحانی وظائف و مجربات" },
+  wazifaSubtitle: { en: "A collection of authenticated spiritual remedies, prayers, and Duas compiled from classical Islamic texts and guidelines of Dargah Aala Hazrat.", ur: "جامع و مستند روحانی وظائف، مسنون دعائیں اور مجرب نقوش کا مجموعہ جو علماء و مفتیانِ درگاہ اعلیٰ حضرت کی تصدیق شدہ کتب سے ماخوذ ہے۔" },
+  wazifaFilterTitle: { en: "Filter Category", ur: "زمرہ جات" },
+  wazifaAll: { en: "All Wazaif", ur: "تمام وظائف" },
+  wazifaLoading: { en: "Loading wazaif...", ur: "وظائف لوڈ ہو رہے ہیں..." },
+  wazifaNoResults: { en: "No Wazaif found in this category.", ur: "اس زمرے میں کوئی وظیفہ دستیاب نہیں ہے۔" },
+  wazifaUrduTrans: { en: "Urdu Translation:", ur: "اردو ترجمہ:" },
+  wazifaEngTrans: { en: "English Translation:", ur: "انگریزی ترجمہ:" },
+  wazifaMethod: { en: "Recitation Method:", ur: "پڑھنے کا طریقہ:" },
+  wazifaBenefits: { en: "Benefits & Virtue:", ur: "فضائل و برکات:" },
+  wazifaSource: { en: "Source Reference:", ur: "حوالہ و مآخذ:" }
 };
 
 interface LanguageContextType {
