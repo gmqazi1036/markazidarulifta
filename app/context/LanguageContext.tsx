@@ -70,8 +70,8 @@ const translations: TranslationDict = {
   timingsText: { en: "Saturday to Thursday: 9:00 AM - 5:00 PM (Friday Closed)", ur: "ہفتہ تا جمعرات: صبح 9:00 بجے سے شام 5:00 بجے تک (جمعہ تعطیل)" },
 
   // Publishing Page
-  pubTitle: { en: "Department of Publishing & Printing", ur: "شعبہ نشر و اشاعت و طباعت" },
-  pubSubtitle: { en: "Preserving Islamic knowledge through physical printing and digital open access. Access books, research magazines, and booklets from Dargah Aala Hazrat.", ur: "طباعت اور ڈیجیٹل رسائی کے ذریعے اسلامی علوم کا تحفظ۔ درگاہ اعلیٰ حضرت کی کتب، تحقیقی مجلات اور رسائل تک رسائی حاصل کریں۔" },
+  pubTitle: { en: "Department of Publishing & Printing", ur: "شعبۂ نشر و اشاعت" },
+  pubSubtitle: { en: "Preserving Islamic knowledge through physical printing and digital open access. Access books, research magazines, and booklets from Dargah Aala Hazrat.", ur: "الرضا مرکزی دار الاشاعت کے تحت اسلامی علمی ورثے کے تحفظ اور فروغ کے لیے مطبوعہ اور ڈیجیٹل ذرائع کے ذریعے مستند اسلامی کتب، تحقیقی رسائل، مجلات اور کتابچوں کی اشاعت کا اہتمام کیا جاتا ہے۔ درگاہِ اعلیٰ حضرت کی علمی و تحقیقی مطبوعات کا مطالعہ کریں اور انہیں بآسانی حاصل کریں۔" },
   pubLitTitle: { en: "Islamic Literature Dissemination", ur: "اسلامی ادبیات کی ترویج و اشاعت" },
   pubLitText1: { en: "The publishing house is dedicated to editing, translating, printing, and publishing classical works of Hanafi Fiqh, theology (Aqeedah), and spirituality. In particular, we work to distribute the writings of Ala Hazrat Imam Ahmad Raza Khan Al-Qadri in modern readable prints and digital editions.", ur: "یہ شعبہ فقہ حنفی، عقائد، اور تصوف کی کلاسیکی کتب کی تحقیق، ترجمہ، طباعت اور اشاعت کے لیے وقف ہے۔ خصوصاً، اعلیٰ حضرت امام احمد رضا خان القادری کی تصنیفات کو جدید دلکش طباعت اور ڈیجیٹل ایڈیشنز میں شائع کیا جاتا ہے۔" },
   pubLitText2: { en: "Additionally, we publish the monthly research journal \"Monthly Sunni Duniya\" Urdu Magazine, containing peer-reviewed research papers and contemporary Fatwas addressing current affairs.", ur: "مزید برآں، ہم ماہنامہ تحقیقی مجلہ \"ماہنامہ سنی دنیا\" شائع کرتے ہیں، جس میں علمی و تحقیقی مضامین اور عصر حاضر کے مسائل پر مبنی فتاویٰ شامل ہوتے ہیں۔" },
