@@ -141,7 +141,7 @@ export default function Introduction() {
               {language === 'en' ? 'Step 1' : 'مرحلہ ۱'}
             </div>
             <h5 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'}`}>
-              {language === 'en' ? 'Receipt of Query' : '① سوال کی وصولی'}
+              {language === 'en' ? 'Receipt of Query' : 'سوال کی وصولی'}
             </h5>
             <p className={`text-slate-600 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu font-normal' : 'text-xs'}`}>
               {language === 'en'
@@ -156,7 +156,7 @@ export default function Introduction() {
               {language === 'en' ? 'Step 2' : 'مرحلہ ۲'}
             </div>
             <h5 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'}`}>
-              {language === 'en' ? 'Research & Drafting' : '② تحقیق و تدوین'}
+              {language === 'en' ? 'Research & Drafting' : 'تحقیق و تدوین'}
             </h5>
             <p className={`text-slate-600 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu font-normal' : 'text-xs'}`}>
               {language === 'en'
@@ -171,7 +171,7 @@ export default function Introduction() {
               {language === 'en' ? 'Step 3' : 'مرحلہ ۳'}
             </div>
             <h5 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'}`}>
-              {language === 'en' ? 'Review of Fatwa' : '③ فتوے کا جائزہ'}
+              {language === 'en' ? 'Review of Fatwa' : 'فتوے کا جائزہ'}
             </h5>
             <p className={`text-slate-600 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu font-normal' : 'text-xs'}`}>
               {language === 'en'
@@ -186,7 +186,7 @@ export default function Introduction() {
               {language === 'en' ? 'Step 4' : 'مرحلہ ۴'}
             </div>
             <h5 className={`text-slate-800 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'font-bold text-sm'}`}>
-              {language === 'en' ? 'Publication' : '④ اشاعت'}
+              {language === 'en' ? 'Publication' : 'اشاعت'}
             </h5>
             <p className={`text-slate-600 leading-relaxed ${language === 'ur' ? 'text-sm font-urdu font-normal' : 'text-xs'}`}>
               {language === 'en'
