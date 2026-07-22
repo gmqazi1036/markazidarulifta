@@ -223,12 +223,12 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               {language === 'en' ? (
                 <>
                   <div><strong>Address 1:</strong> 82, Saudagaran, Dargah Aala Hazrat, Bareilly Shareef India</div>
-                  <div><strong>Address 2:</strong> Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly Shareef India</div>
+                  <div><strong>Address 2:</strong> Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly, India</div>
                 </>
               ) : (
                 <>
                   <div><strong>پتہ ۱:</strong> ۸۲، سوداگران، درگاہ اعلیٰ حضرت بریلی شریف انڈیا</div>
-                  <div><strong>پتہ ۲:</strong> جامعۃ الرضا اسلامی ریسرچ سینٹر، مٹھوراپور، سی بی گنج، بریلی شریف انڈیا</div>
+                  <div><strong>پتہ ۲:</strong> مرکز الدراسات الإسلامیہ، جامعۃ الرضا، متھوراپور، سی بی گنج، بریلی،انڈیا</div>
                 </>
               )}
             </div>

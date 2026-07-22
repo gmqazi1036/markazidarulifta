@@ -111,7 +111,7 @@ const translations: TranslationDict = {
   contactAddr1Lbl: { en: "Address 1:", ur: "پتہ 1:" },
   contactAddr1Txt: { en: "82, Saudagaran, Dargah Aala Hazrat, Bareilly Shareef India", ur: "۸۲، سوداگران، درگاہ اعلیٰ حضرت بریلی شریف انڈیا" },
   contactAddr2Lbl: { en: "Address 2:", ur: "پتہ 2:" },
-  contactAddr2Txt: { en: "Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly Shareef India", ur: "جامعۃ الرضا ریسرچ سینٹر، مٹھوراپور، سی بی گنج، بریلی شریف، انڈیا" },
+  contactAddr2Txt: { en: "Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly, India", ur: "مرکز الدراسات الإسلامیہ، جامعۃ الرضا، متھوراپور، سی بی گنج، بریلی،انڈیا" },
   contactPhoneTitle: { en: "Phone & WhatsApp", ur: "فون و واٹس ایپ" },
   contactEmailTitle: { en: "Email", ur: "ای میل ایڈریس" },
   contactHoursTitle: { en: "Office Hours", ur: "دفتر کے اوقات" },

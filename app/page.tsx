@@ -501,13 +501,13 @@ export default function Home() {
               {language === 'en' ? (
                 <>
                   <p><strong>Address 1:</strong> 82, Saudagaran, Dargah Aala Hazrat, Bareilly Shareef India</p>
-                  <p><strong>Address 2:</strong> Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly Shareef India</p>
+                  <p><strong>Address 2:</strong> Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly, India</p>
                   <p><strong>Timings:</strong> Saturday to Thursday: 8:00 AM - 02:30 PM (Friday Closed)</p>
                 </>
               ) : (
                 <>
                   <p><strong>پتہ ۱:</strong> ۸۲، سوداگران، درگاہ اعلیٰ حضرت بریلی شریف انڈیا</p>
-                  <p><strong>پتہ ۲:</strong> جامعۃ الرضا اسلامی ریسرچ سینٹر، مٹھوراپور، سی بی گنج، بریلی شریف انڈیا</p>
+                  <p><strong>پتہ ۲:</strong> مرکز الدراسات الإسلامیہ، جامعۃ الرضا، متھوراپور، سی بی گنج، بریلی،انڈیا</p>
                   <p><strong>اوقات:</strong> ہفتہ تا جمعرات: صبح ۸:۰۰ بجے سے دوپہر ۰۲:۳۰ بجے تک (جمعہ تعطیل)</p>
                 </>
               )}
