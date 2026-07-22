@@ -64,10 +64,10 @@ export default function Contact() {
           {/* Bi-Directional Isolation (<bdi dir="ltr">) forces +91 to stay on the left of mobile number */}
           <div className="text-sm md:text-base text-slate-800 font-sans font-medium tracking-wide text-center space-y-1">
             <p className="hover:text-islamic-green transition-colors">
-              <bdi dir="ltr" className="inline-block" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>+91 9058879712</bdi>
+              <bdi dir="ltr" className="inline-block" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>+91 9058879712 (WhatsApp / Call)</bdi>
             </p>
             <p className="hover:text-islamic-green transition-colors">
-              <bdi dir="ltr" className="inline-block" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>0581-2458543</bdi>
+              <bdi dir="ltr" className="inline-block" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>2458543 (STD Code: 0581)</bdi>
             </p>
           </div>
         </div>
