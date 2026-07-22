@@ -109,7 +109,7 @@ const translations: TranslationDict = {
   contactSubtitle: { en: "Get in touch with the administrative office of Markazi Darul Ifta Bareilly Shareef.", ur: "مرکزی دارالافتاء بریلی شریف کے انتظامی دفتر سے رابطہ کریں۔" },
   contactAddressTitle: { en: "Address", ur: "پتہ" },
   contactAddr1Lbl: { en: "Address 1:", ur: "پتہ 1:" },
-  contactAddr1Txt: { en: "No 82, Dargah Aala Hazrat, Saudagaran, Bareilly Shareef India", ur: "نمبر 82، درگاہ اعلیٰ حضرت، سوداگران، بریلی شریف، انڈیا" },
+  contactAddr1Txt: { en: "82, Saudagaran, Dargah Aala Hazrat, Bareilly Shareef India", ur: "۸۲، سوداگران، درگاہ اعلیٰ حضرت بریلی شریف انڈیا" },
   contactAddr2Lbl: { en: "Address 2:", ur: "پتہ 2:" },
   contactAddr2Txt: { en: "Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly Shareef India", ur: "جامعۃ الرضا ریسرچ سینٹر، مٹھوراپور، سی بی گنج، بریلی شریف، انڈیا" },
   contactPhoneTitle: { en: "Phone & WhatsApp", ur: "فون و واٹس ایپ" },

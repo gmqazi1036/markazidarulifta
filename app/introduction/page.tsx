@@ -118,15 +118,15 @@ export default function Introduction() {
             />
           </div>
           <h4 className={`text-slate-800 ${language === 'ur' ? 'text-base font-normal font-urdu' : 'text-sm font-bold'}`}>
-            {language === 'en' ? 'Under the Aegis of' : 'تحتِ سرپرستی'}
+            {language === 'en' ? 'Under the Aegis of' : 'زیر اہتمام'}
           </h4>
-          <p className={`text-slate-700 font-bold ${language === 'ur' ? 'text-lg font-normal font-urdu text-islamic-green' : 'text-xs'}`}>
+          <p className={`text-slate-700 font-bold ${language === 'ur' ? 'text-[22px] font-normal font-urdu text-islamic-green' : 'text-sm'}`}>
             {language === 'en' ? 'Imam Ahmad Raza Trust' : 'امام احمد رضا ٹرسٹ'}
           </p>
           <p className={`text-slate-500 ${language === 'ur' ? 'text-xs font-urdu leading-relaxed' : 'text-[10px]'}`}>
             {language === 'en' 
-              ? 'No 82, Dargah Aala Hazrat, Saudagaran, Bareilly Shareef India' 
-              : 'مکان نمبر ۸۲، درگاہ اعلیٰ حضرت، سوداگران، بریلی شریف انڈیا'
+              ? '82, Saudagaran, Dargah Aala Hazrat, Bareilly Shareef India' 
+              : '۸۲، سوداگران، درگاہ اعلیٰ حضرت بریلی شریف انڈیا'
             }
           </p>
         </div>

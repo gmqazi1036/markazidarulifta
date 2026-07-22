@@ -222,12 +222,12 @@ const InnerShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <div className={`text-stone-400 mt-3 space-y-2 ${language === 'ur' ? 'text-sm font-urdu' : 'text-xs'}`}>
               {language === 'en' ? (
                 <>
-                  <div><strong>Address 1:</strong> No 82, Dargah Aala Hazrat, Saudagaran, Bareilly Shareef India</div>
+                  <div><strong>Address 1:</strong> 82, Saudagaran, Dargah Aala Hazrat, Bareilly Shareef India</div>
                   <div><strong>Address 2:</strong> Center of Islamic Studies Jamiatur Raza, Mathurapur, C B Ganj, Bareilly Shareef India</div>
                 </>
               ) : (
                 <>
-                  <div><strong>پتہ ۱:</strong> مکان نمبر ۸۲، درگاہ اعلیٰ حضرت، سوداگران، بریلی شریف انڈیا</div>
+                  <div><strong>پتہ ۱:</strong> ۸۲، سوداگران، درگاہ اعلیٰ حضرت بریلی شریف انڈیا</div>
                   <div><strong>پتہ ۲:</strong> جامعۃ الرضا اسلامی ریسرچ سینٹر، مٹھوراپور، سی بی گنج، بریلی شریف انڈیا</div>
                 </>
               )}
