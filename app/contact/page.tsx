@@ -66,9 +66,6 @@ export default function Contact() {
             <p className="hover:text-islamic-green transition-colors">
               <bdi dir="ltr" className="inline-block" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>+91 9058879712 (WhatsApp / Call)</bdi>
             </p>
-            <p className="hover:text-islamic-green transition-colors">
-              <bdi dir="ltr" className="inline-block" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>2458543 (STD Code: 0581)</bdi>
-            </p>
           </div>
         </div>
 

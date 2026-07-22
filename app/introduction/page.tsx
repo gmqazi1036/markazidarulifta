@@ -252,11 +252,11 @@ export default function Introduction() {
         <div className={language === 'ur' ? 'font-urdu text-sm' : ''}>
           {language === 'en' ? (
             <>
-              For urgent queries, Call/WhatsApp: <strong>9058879712</strong> | Telephone (STD Code 0581): <strong>2458543</strong>
+              For urgent queries, Call/WhatsApp: <strong>9058879712</strong>
             </>
           ) : (
             <>
-              فوری شرعی رہنمائی اور رابطے کے لیے، کال / واٹس ایپ: <strong>9058879712</strong> | ٹیلی فون (ایس ٹی ڈی کوڈ 0581): <strong>2458543</strong>
+              فوری شرعی رہنمائی اور رابطے کے لیے، کال / واٹس ایپ: <strong>9058879712</strong>
             </>
           )}
         </div>
