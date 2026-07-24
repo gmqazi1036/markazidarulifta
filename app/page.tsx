@@ -326,6 +326,7 @@ export default function Home() {
     });
     setAskLoading(false);
     if (res.success && res.data) {
+      const trackingNumber = res.data.trackingNumber;
       setTrackingInfo(res.data);
       // Reset form
       setAskName('');
@@ -334,6 +335,16 @@ export default function Home() {
       setAskCity('');
       setAskText('');
       setAttachment(null);
+
+      // Show alert with tracking details
+      const alertMsg = language === 'ur'
+        ? `آپ کا سوال کامیابی سے جمع ہو گیا ہے!\n\nٹریکنگ نمبر: ${trackingNumber}\n\nبراہ کرم اس ٹریکنگ نمبر کو نوٹ کر لیں تاکہ آپ اپنے سوال کا جواب ٹریک کر سکیں۔`
+        : `Your question has been submitted successfully!\n\nTracking Number: ${trackingNumber}\n\nPlease save this tracking number to check your answer status later.`;
+      
+      alert(alertMsg);
+
+      // Redirect to home page
+      window.location.href = '/';
     } else {
       alert(res.error || "Submission failed. Please try again.");
     }
@@ -850,14 +861,14 @@ export default function Home() {
             </div>
 
             <div className="space-y-1">
-              <label className={`text-slate-600 ${language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'}`}>{t('lblQuestion')} <span className="text-red-500">*</span></label>
+              <label className={`text-slate-600 ${language === 'ur' ? 'text-lg font-normal font-urdu' : 'text-sm font-bold'}`}>{t('lblQuestion')} <span className="text-red-500">*</span></label>
               <textarea 
                 required
                 rows={5}
                 value={askText}
                 onChange={(e) => setAskText(e.target.value)}
                 placeholder="Write your Islamic query details clearly..."
-                className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-islamic-gold font-urdu"
+                className={`w-full border border-stone-300 rounded px-3.5 py-2.5 text-lg focus:outline-none focus:border-islamic-gold ${language === 'ur' ? 'font-urdu' : ''}`}
               ></textarea>
             </div>
 

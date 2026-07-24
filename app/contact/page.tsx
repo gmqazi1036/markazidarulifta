@@ -122,43 +122,43 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs md:text-sm font-medium text-slate-700 font-urdu">{t('contactLblName')} <span className="text-red-500">*</span></label>
+                <label className={`text-xs md:text-sm font-medium text-slate-700 ${language === 'ur' ? 'font-urdu' : ''}`}>{t('contactLblName')} <span className="text-red-500">*</span></label>
                 <input 
                   type="text" 
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm md:text-base font-urdu focus:outline-none focus:border-islamic-gold"
+                  className={`w-full border border-stone-300 rounded-lg px-3 py-2 text-sm md:text-base focus:outline-none focus:border-islamic-gold ${language === 'ur' ? 'font-urdu' : ''}`}
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs md:text-sm font-medium text-slate-700 font-urdu">{t('contactLblEmail')} <span className="text-red-500">*</span></label>
+                <label className={`text-xs md:text-sm font-medium text-slate-700 ${language === 'ur' ? 'font-urdu' : ''}`}>{t('contactLblEmail')} <span className="text-red-500">*</span></label>
                 <input 
                   type="email" 
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm md:text-base font-urdu focus:outline-none focus:border-islamic-gold"
+                  className={`w-full border border-stone-300 rounded-lg px-3 py-2 text-sm md:text-base focus:outline-none focus:border-islamic-gold ${language === 'ur' ? 'font-urdu' : ''}`}
                 />
               </div>
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs md:text-sm font-medium text-slate-700 font-urdu">{t('contactLblSubject')}</label>
+              <label className={`text-xs md:text-sm font-medium text-slate-700 ${language === 'ur' ? 'font-urdu' : ''}`}>{t('contactLblSubject')}</label>
               <input 
                 type="text" 
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm md:text-base font-urdu focus:outline-none focus:border-islamic-gold"
+                className={`w-full border border-stone-300 rounded-lg px-3 py-2 text-sm md:text-base focus:outline-none focus:border-islamic-gold ${language === 'ur' ? 'font-urdu' : ''}`}
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs md:text-sm font-medium text-slate-700 font-urdu">{t('contactLblMessage')} <span className="text-red-500">*</span></label>
+              <label className={`text-xs md:text-sm font-medium text-slate-700 ${language === 'ur' ? 'font-urdu' : ''}`}>{t('contactLblMessage')} <span className="text-red-500">*</span></label>
               <textarea 
                 required
                 rows={4}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm md:text-base font-urdu focus:outline-none focus:border-islamic-gold leading-relaxed"
+                className={`w-full border border-stone-300 rounded-lg px-3 py-2 text-sm md:text-base focus:outline-none focus:border-islamic-gold leading-relaxed ${language === 'ur' ? 'font-urdu' : ''}`}
               ></textarea>
             </div>
             <div className="flex justify-end pt-2">

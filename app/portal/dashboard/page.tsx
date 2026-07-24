@@ -132,7 +132,11 @@ export default function PortalDashboard() {
     if (currSession.role === 'SUPER_ADMIN' || currSession.role === 'ADMIN_MUFTI') {
       const muftisRes = await getMuftiProfiles();
       if (muftisRes.success && muftisRes.data) {
-        setMuftis(muftisRes.data.filter((m: any) => m.status === 'ACTIVE'));
+        setMuftis(
+          muftisRes.data
+            .map((u: any) => u.muftiProfile)
+            .filter((p: any) => p && p.status === 'ACTIVE')
+        );
       } else if (!muftisRes.success) {
         throw new Error(muftisRes.error || "Failed to load scholar profiles.");
       }
