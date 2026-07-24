@@ -252,11 +252,11 @@ export default function Introduction() {
         <div className={language === 'ur' ? 'font-urdu text-sm' : ''}>
           {language === 'en' ? (
             <>
-              For urgent queries, Call/WhatsApp: <strong>9058879712</strong>
+              For urgent queries, WhatsApp: <a href="https://wa.me/919058879712" target="_blank" rel="noopener noreferrer" className="text-islamic-green hover:underline font-bold">9058879712</a> or Call: <a href="tel:+919058879712" className="text-islamic-green hover:underline font-bold">9058879712</a>
             </>
           ) : (
             <>
-              فوری شرعی رہنمائی اور رابطے کے لیے، کال / واٹس ایپ: <strong>9058879712</strong>
+              فوری شرعی رہنمائی اور رابطے کے لیے، واٹس ایپ: <a href="https://wa.me/919058879712" target="_blank" rel="noopener noreferrer" className="text-islamic-gold hover:underline font-bold">9058879712</a> یا کال: <a href="tel:+919058879712" className="text-islamic-gold hover:underline font-bold">9058879712</a>
             </>
           )}
         </div>

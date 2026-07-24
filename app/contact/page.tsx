@@ -62,10 +62,21 @@ export default function Contact() {
           </div>
           <h4 className="font-medium text-slate-800 text-base md:text-lg font-urdu">{t('contactPhoneTitle')}</h4>
           {/* Bi-Directional Isolation (<bdi dir="ltr">) forces +91 to stay on the left of mobile number */}
-          <div className="text-sm md:text-base text-slate-800 font-sans font-medium tracking-wide text-center space-y-1">
-            <p className="hover:text-islamic-green transition-colors">
-              <bdi dir="ltr" className="inline-block" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>+91 9058879712 (WhatsApp / Call)</bdi>
-            </p>
+          <div className="text-sm md:text-base text-slate-800 font-sans font-medium tracking-wide text-center flex flex-col space-y-2">
+            <a 
+              href="https://wa.me/919058879712"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-emerald-600 transition-colors inline-flex items-center justify-center gap-1.5 hover:underline"
+            >
+              <bdi dir="ltr" className="inline-block" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>+91 9058879712 (WhatsApp)</bdi>
+            </a>
+            <a 
+              href="tel:+919058879712"
+              className="hover:text-islamic-green transition-colors inline-flex items-center justify-center gap-1.5 hover:underline text-xs text-slate-500"
+            >
+              <bdi dir="ltr" className="inline-block" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>+91 9058879712 (Call)</bdi>
+            </a>
           </div>
         </div>
 
@@ -74,9 +85,12 @@ export default function Contact() {
             <Mail className="w-6 h-6" />
           </div>
           <h4 className="font-medium text-slate-800 text-base md:text-lg font-urdu">{t('contactEmailTitle')}</h4>
-          <p className="text-xs md:text-sm text-slate-700 leading-relaxed font-sans">
+          <a 
+            href="mailto:askmuftijamiaturraza@gmail.com"
+            className="text-xs md:text-sm text-slate-700 hover:text-islamic-green hover:underline transition-colors leading-relaxed font-sans"
+          >
             askmuftijamiaturraza@gmail.com
-          </p>
+          </a>
         </div>
 
         <div className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center space-y-3">
