@@ -83,7 +83,7 @@ export default function AdminPanel() {
   const [bookDescription, setBookDescription] = useState('');
   const [bookType, setBookType] = useState('BOOK');
   const [bookCover, setBookCover] = useState<{ base64: string; fileName: string } | null>(null);
-  const [bookPdf, setBookPdf] = useState<{ base64: string; fileName: string } | null>(null);
+  const [bookDownloadUrl, setBookDownloadUrl] = useState('');
 
   // Load Data
   const loadData = async () => {
@@ -424,18 +424,14 @@ export default function AdminPanel() {
     }
   };
 
-  // Handle Book Files Change
-  const handleBookFileChange = (e: React.ChangeEvent<HTMLInputElement>, fileType: 'cover' | 'pdf') => {
+  // Handle Book Files Change (Only Cover image now)
+  const handleBookFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result as string;
-      if (fileType === 'cover') {
-        setBookCover({ base64, fileName: file.name });
-      } else {
-        setBookPdf({ base64, fileName: file.name });
-      }
+      setBookCover({ base64, fileName: file.name });
     };
     reader.readAsDataURL(file);
   };
@@ -456,8 +452,7 @@ export default function AdminPanel() {
       type: bookType,
       coverBase64: bookCover?.base64,
       coverFileName: bookCover?.fileName,
-      pdfBase64: bookPdf?.base64,
-      pdfFileName: bookPdf?.fileName
+      downloadUrl: bookDownloadUrl.trim() || undefined
     });
     setActionLoading(false);
 
@@ -466,7 +461,7 @@ export default function AdminPanel() {
       setBookTitle('');
       setBookDescription('');
       setBookCover(null);
-      setBookPdf(null);
+      setBookDownloadUrl('');
       const fileInputs = document.querySelectorAll('input[type="file"]') as NodeListOf<HTMLInputElement>;
       fileInputs.forEach(input => { input.value = ''; });
       loadData();
@@ -1253,7 +1248,7 @@ export default function AdminPanel() {
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => handleBookFileChange(e, 'cover')}
+                      onChange={handleBookFileChange}
                       className="w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-[10px] file:font-semibold file:bg-stone-50 file:text-slate-700 hover:file:bg-stone-100"
                     />
                     {bookCover && (
@@ -1261,16 +1256,15 @@ export default function AdminPanel() {
                     )}
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">PDF Document File</label>
+                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Google Drive Link (URL)</label>
                     <input
-                      type="file"
-                      accept=".pdf"
-                      onChange={(e) => handleBookFileChange(e, 'pdf')}
-                      className="w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-[10px] file:font-semibold file:bg-stone-50 file:text-slate-700 hover:file:bg-stone-100"
+                      type="url"
+                      required
+                      value={bookDownloadUrl}
+                      onChange={(e) => setBookDownloadUrl(e.target.value)}
+                      placeholder="e.g. https://drive.google.com/..."
+                      className="w-full border border-stone-300 rounded px-2.5 py-1.5 text-xs focus:outline-none"
                     />
-                    {bookPdf && (
-                      <span className="text-[9px] text-emerald-600 block mt-1 font-semibold">✓ Attached: {bookPdf.fileName}</span>
-                    )}
                   </div>
                 </div>
 

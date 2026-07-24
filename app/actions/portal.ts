@@ -696,14 +696,13 @@ export async function createBook(data: {
   type: string;
   coverBase64?: string;
   coverFileName?: string;
-  pdfBase64?: string;
-  pdfFileName?: string;
+  downloadUrl?: string;
 }) {
   const session = await checkAuth(['SUPER_ADMIN']);
   
   try {
     let coverUrl = null;
-    let downloadUrl = null;
+    let downloadUrl = data.downloadUrl || null;
 
     const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'books');
     if (!fs.existsSync(uploadDir)) {
@@ -718,16 +717,6 @@ export async function createBook(data: {
       const base64Data = data.coverBase64.replace(/^data:.*?;base64,/, "");
       fs.writeFileSync(coverPath, base64Data, 'base64');
       coverUrl = `/uploads/books/${uniqueCoverName}`;
-    }
-
-    // Save PDF if provided
-    if (data.pdfBase64 && data.pdfFileName) {
-      const pdfExtension = path.extname(data.pdfFileName);
-      const uniquePdfName = `pdf-${Date.now()}${pdfExtension}`;
-      const pdfPath = path.join(uploadDir, uniquePdfName);
-      const base64Data = data.pdfBase64.replace(/^data:.*?;base64,/, "");
-      fs.writeFileSync(pdfPath, base64Data, 'base64');
-      downloadUrl = `/uploads/books/${uniquePdfName}`;
     }
 
     const book = await db.book.create({
