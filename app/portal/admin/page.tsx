@@ -1399,9 +1399,9 @@ export default function AdminPanel() {
               <span>Published Wazaif List</span>
             </div>
             <div className="p-6 overflow-x-auto">
-              <table className="w-full text-xs text-slate-600 text-left border-collapse">
+              <table className="w-full text-[13.5px] text-slate-600 text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-stone-200 bg-stone-50 text-slate-700 font-semibold">
+                  <tr className="border-b border-stone-200 bg-stone-50 text-slate-700 font-semibold text-xs uppercase tracking-wider">
                     <th className="p-3">Title & Category</th>
                     <th className="p-3">Arabic Text</th>
                     <th className="p-3">Urdu Translation</th>
@@ -1412,13 +1412,13 @@ export default function AdminPanel() {
                   {wazaif.map((w) => (
                     <tr key={w.id} className="border-b border-stone-100 hover:bg-stone-50/50">
                       <td className="p-3">
-                        <div className="font-semibold text-slate-800">{w.title}</div>
-                        <span className="px-2 py-0.5 bg-islamic-gold/15 text-islamic-darkGold rounded text-[9px] font-medium font-urdu mt-1 inline-block">
+                        <div className="font-semibold text-slate-800 text-[14px]">{w.title}</div>
+                        <span className="px-2 py-0.5 bg-islamic-gold/15 text-islamic-darkGold rounded text-[10.5px] font-medium font-urdu mt-1.5 inline-block">
                           {w.category}
                         </span>
                       </td>
-                      <td className="p-3 font-arabic text-right text-lg text-islamic-green leading-loose max-w-[200px] truncate select-all">{w.arabicText}</td>
-                      <td className="p-3 font-urdu max-w-[250px] truncate">{w.translationUr}</td>
+                      <td className="p-3 font-arabic text-right text-xl text-islamic-green leading-loose max-w-[200px] truncate select-all">{w.arabicText}</td>
+                      <td className="p-3 font-urdu text-[16px] leading-relaxed max-w-[280px] truncate select-all">{w.translationUr}</td>
                       <td className="p-3 text-right flex justify-end space-x-1.5">
                         <button
                           onClick={() => handleStartEditWazifa(w)}
@@ -1456,9 +1456,9 @@ export default function AdminPanel() {
               <span>Published Books & Magazines Catalog</span>
             </div>
             <div className="p-6 overflow-x-auto">
-              <table className="w-full text-xs text-slate-600 text-left border-collapse">
+              <table className="w-full text-[13.5px] text-slate-600 text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-stone-200 bg-stone-50 text-slate-700 font-semibold">
+                  <tr className="border-b border-stone-200 bg-stone-50 text-slate-700 font-semibold text-xs uppercase tracking-wider">
                     <th className="p-3">Book Title</th>
                     <th className="p-3">Category & Type</th>
                     <th className="p-3">Download Link</th>
@@ -1468,14 +1468,14 @@ export default function AdminPanel() {
                 <tbody>
                   {books.map((b) => (
                     <tr key={b.id} className="border-b border-stone-100 hover:bg-stone-50/50">
-                      <td className="p-3 font-semibold text-slate-800">{b.title}</td>
+                      <td className="p-3 font-semibold text-slate-800 text-[14.5px] font-urdu-desc leading-relaxed">{b.title}</td>
                       <td className="p-3">
-                        <span className="px-2 py-0.5 bg-stone-100 rounded text-[9px] border border-stone-200 mr-1.5 font-medium">
+                        <span className="px-2 py-0.5 bg-stone-100 rounded text-[10px] border border-stone-200 mr-1.5 font-medium">
                           {b.type}
                         </span>
-                        <span className="text-[10px] text-slate-400 font-urdu">{b.category}</span>
+                        <span className="text-[12px] text-slate-500 font-urdu">{b.category}</span>
                       </td>
-                      <td className="p-3 font-mono text-[10px] text-blue-600">
+                      <td className="p-3 font-mono text-[11px] text-blue-600">
                         {b.downloadUrl ? (
                           <a href={b.downloadUrl} target="_blank" rel="noreferrer" className="hover:underline">
                             {b.downloadUrl.split('/').pop()}
