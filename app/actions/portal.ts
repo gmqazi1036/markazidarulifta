@@ -784,3 +784,112 @@ export async function deleteBook(id: string) {
     return { success: false, error: error.message || 'Failed to delete Book' };
   }
 }
+
+// Update an existing Wazifa (Admin only)
+export async function updateWazifa(id: string, data: {
+  title: string;
+  arabicText: string;
+  translationUr: string;
+  translationEn: string;
+  benefits: string;
+  method: string;
+  references?: string;
+  category: string;
+}) {
+  const session = await checkAuth(['SUPER_ADMIN']);
+  try {
+    const updated = await db.wazifa.update({
+      where: { id },
+      data: {
+        title: data.title,
+        arabicText: data.arabicText,
+        translationUr: data.translationUr,
+        translationEn: data.translationEn,
+        benefits: data.benefits,
+        method: data.method,
+        references: data.references || null,
+        category: data.category
+      }
+    });
+
+    await db.activityLog.create({
+      data: {
+        userId: session.id,
+        action: 'UPDATE_WAZIFA',
+        details: `Updated Wazifa: "${data.title}" (ID: ${id})`
+      }
+    });
+
+    return { success: true, data: updated };
+  } catch (error: any) {
+    console.error('Update Wazifa error:', error);
+    return { success: false, error: error.message || 'Failed to update Wazifa' };
+  }
+}
+
+// Update an existing Book (Admin only)
+export async function updateBook(id: string, data: {
+  title: string;
+  category: string;
+  description?: string;
+  type: string;
+  coverBase64?: string;
+  coverFileName?: string;
+  downloadUrl?: string;
+}) {
+  const session = await checkAuth(['SUPER_ADMIN']);
+  try {
+    const book = await db.book.findUnique({ where: { id } });
+    if (!book) throw new Error("Book not found");
+
+    let coverUrl = book.coverUrl;
+
+    // If new cover image is provided, upload and delete old one
+    if (data.coverBase64 && data.coverFileName) {
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'books');
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+
+      // Delete old cover
+      if (book.coverUrl) {
+        const oldCoverPath = path.join(process.cwd(), 'public', book.coverUrl);
+        if (fs.existsSync(oldCoverPath)) {
+          fs.unlinkSync(oldCoverPath);
+        }
+      }
+
+      const coverExtension = path.extname(data.coverFileName);
+      const uniqueCoverName = `cover-${Date.now()}${coverExtension}`;
+      const coverPath = path.join(uploadDir, uniqueCoverName);
+      const base64Data = data.coverBase64.replace(/^data:.*?;base64,/, "");
+      fs.writeFileSync(coverPath, base64Data, 'base64');
+      coverUrl = `/uploads/books/${uniqueCoverName}`;
+    }
+
+    const updated = await db.book.update({
+      where: { id },
+      data: {
+        title: data.title,
+        category: data.category,
+        description: data.description || null,
+        type: data.type,
+        coverUrl,
+        downloadUrl: data.downloadUrl || null
+      }
+    });
+
+    await db.activityLog.create({
+      data: {
+        userId: session.id,
+        action: 'UPDATE_BOOK',
+        details: `Updated Book/Magazine: "${data.title}" (ID: ${id})`
+      }
+    });
+
+    return { success: true, data: updated };
+  } catch (error: any) {
+    console.error('Update Book error:', error);
+    return { success: false, error: error.message || 'Failed to update Book' };
+  }
+}

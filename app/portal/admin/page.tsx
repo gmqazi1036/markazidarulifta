@@ -15,8 +15,10 @@ import {
   updateMuftiProfile,
   createWazifa,
   deleteWazifa,
+  updateWazifa,
   createBook,
   deleteBook,
+  updateBook,
   translateArabicText
 } from '../../actions/portal';
 import { getWazaif, getBooks } from '../../actions/public';
@@ -84,6 +86,10 @@ export default function AdminPanel() {
   const [bookType, setBookType] = useState('BOOK');
   const [bookCover, setBookCover] = useState<{ base64: string; fileName: string } | null>(null);
   const [bookDownloadUrl, setBookDownloadUrl] = useState('');
+
+  // Editing States
+  const [editingWazifaId, setEditingWazifaId] = useState<string | null>(null);
+  const [editingBookId, setEditingBookId] = useState<string | null>(null);
 
   // Load Data
   const loadData = async () => {
@@ -375,7 +381,7 @@ export default function AdminPanel() {
     }
   };
 
-  // Upload Wazifa Form submit
+  // Upload/Edit Wazifa Form submit
   const handleUploadWazifa = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!wazifaTitle || !wazifaArabic || !wazifaUrdu || !wazifaEnglish || !wazifaBenefits || !wazifaMethod || !wazifaCategory) {
@@ -384,20 +390,35 @@ export default function AdminPanel() {
     }
 
     setActionLoading(true);
-    const res = await createWazifa({
-      title: wazifaTitle.trim(),
-      arabicText: wazifaArabic.trim(),
-      translationUr: wazifaUrdu.trim(),
-      translationEn: wazifaEnglish.trim(),
-      benefits: wazifaBenefits.trim(),
-      method: wazifaMethod.trim(),
-      references: wazifaReferences.trim() || undefined,
-      category: wazifaCategory
-    });
+    let res;
+    if (editingWazifaId) {
+      res = await updateWazifa(editingWazifaId, {
+        title: wazifaTitle.trim(),
+        arabicText: wazifaArabic.trim(),
+        translationUr: wazifaUrdu.trim(),
+        translationEn: wazifaEnglish.trim(),
+        benefits: wazifaBenefits.trim(),
+        method: wazifaMethod.trim(),
+        references: wazifaReferences.trim() || undefined,
+        category: wazifaCategory
+      });
+    } else {
+      res = await createWazifa({
+        title: wazifaTitle.trim(),
+        arabicText: wazifaArabic.trim(),
+        translationUr: wazifaUrdu.trim(),
+        translationEn: wazifaEnglish.trim(),
+        benefits: wazifaBenefits.trim(),
+        method: wazifaMethod.trim(),
+        references: wazifaReferences.trim() || undefined,
+        category: wazifaCategory
+      });
+    }
     setActionLoading(false);
 
     if (res.success) {
-      alert("Wazifa uploaded successfully!");
+      alert(editingWazifaId ? "Wazifa updated successfully!" : "Wazifa uploaded successfully!");
+      setEditingWazifaId(null);
       setWazifaTitle('');
       setWazifaArabic('');
       setWazifaUrdu('');
@@ -409,6 +430,34 @@ export default function AdminPanel() {
     } else {
       alert("Error: " + res.error);
     }
+  };
+
+  const handleStartEditWazifa = (w: any) => {
+    setEditingWazifaId(w.id);
+    setWazifaTitle(w.title);
+    setWazifaArabic(w.arabicText || '');
+    setWazifaUrdu(w.translationUr || '');
+    setWazifaEnglish(w.translationEn || '');
+    setWazifaBenefits(w.benefits || '');
+    setWazifaMethod(w.method || '');
+    setWazifaReferences(w.references || '');
+    setWazifaCategory(w.category);
+    
+    const element = document.getElementById("wazifa-form");
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleCancelEditWazifa = () => {
+    setEditingWazifaId(null);
+    setWazifaTitle('');
+    setWazifaArabic('');
+    setWazifaUrdu('');
+    setWazifaEnglish('');
+    setWazifaBenefits('');
+    setWazifaMethod('');
+    setWazifaReferences('');
   };
 
   // Delete Wazifa handler
@@ -436,7 +485,7 @@ export default function AdminPanel() {
     reader.readAsDataURL(file);
   };
 
-  // Upload Book Form submit
+  // Upload/Edit Book Form submit
   const handleUploadBook = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!bookTitle || !bookCategory || !bookType) {
@@ -445,19 +494,33 @@ export default function AdminPanel() {
     }
 
     setActionLoading(true);
-    const res = await createBook({
-      title: bookTitle.trim(),
-      category: bookCategory.trim(),
-      description: bookDescription.trim() || undefined,
-      type: bookType,
-      coverBase64: bookCover?.base64,
-      coverFileName: bookCover?.fileName,
-      downloadUrl: bookDownloadUrl.trim() || undefined
-    });
+    let res;
+    if (editingBookId) {
+      res = await updateBook(editingBookId, {
+        title: bookTitle.trim(),
+        category: bookCategory.trim(),
+        description: bookDescription.trim() || undefined,
+        type: bookType,
+        coverBase64: bookCover?.base64,
+        coverFileName: bookCover?.fileName,
+        downloadUrl: bookDownloadUrl.trim() || undefined
+      });
+    } else {
+      res = await createBook({
+        title: bookTitle.trim(),
+        category: bookCategory.trim(),
+        description: bookDescription.trim() || undefined,
+        type: bookType,
+        coverBase64: bookCover?.base64,
+        coverFileName: bookCover?.fileName,
+        downloadUrl: bookDownloadUrl.trim() || undefined
+      });
+    }
     setActionLoading(false);
 
     if (res.success) {
-      alert("Book/Magazine uploaded successfully!");
+      alert(editingBookId ? "Book/Magazine updated successfully!" : "Book/Magazine uploaded successfully!");
+      setEditingBookId(null);
       setBookTitle('');
       setBookDescription('');
       setBookCover(null);
@@ -468,6 +531,31 @@ export default function AdminPanel() {
     } else {
       alert("Error: " + res.error);
     }
+  };
+
+  const handleStartEditBook = (b: any) => {
+    setEditingBookId(b.id);
+    setBookTitle(b.title);
+    setBookCategory(b.category);
+    setBookDescription(b.description || '');
+    setBookType(b.type);
+    setBookDownloadUrl(b.downloadUrl || '');
+    setBookCover(null);
+
+    const element = document.getElementById("book-form");
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleCancelEditBook = () => {
+    setEditingBookId(null);
+    setBookTitle('');
+    setBookCategory('Islamic Jurisprudence');
+    setBookDescription('');
+    setBookType('BOOK');
+    setBookDownloadUrl('');
+    setBookCover(null);
   };
 
   // Delete Book handler
@@ -1059,11 +1147,22 @@ export default function AdminPanel() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
             {/* Upload Wazifa Form */}
-            <div className="bg-white rounded-xl p-5 border border-stone-200 shadow-sm space-y-4">
-              <h3 className="font-bold text-slate-800 text-sm uppercase tracking-wider flex items-center space-x-1.5">
-                <Sparkles className="w-4 h-4 text-islamic-gold" />
-                <span>Upload New Wazifa</span>
-              </h3>
+            <div id="wazifa-form" className="bg-white rounded-xl p-5 border border-stone-200 shadow-sm space-y-4 font-urdu-desc">
+              <div className="flex justify-between items-center">
+                <h3 className="font-bold text-slate-800 text-sm uppercase tracking-wider flex items-center space-x-1.5">
+                  <Sparkles className="w-4 h-4 text-islamic-gold" />
+                  <span>{editingWazifaId ? "Edit Wazifa" : "Upload New Wazifa"}</span>
+                </h3>
+                {editingWazifaId && (
+                  <button
+                    type="button"
+                    onClick={handleCancelEditWazifa}
+                    className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded text-[9px] font-bold border border-stone-300 transition-all"
+                  >
+                    Cancel Edit
+                  </button>
+                )}
+              </div>
               <form onSubmit={handleUploadWazifa} className="space-y-4">
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Wazifa Title (English)</label>
@@ -1180,18 +1279,29 @@ export default function AdminPanel() {
                     disabled={actionLoading}
                     className="px-5 py-2 bg-islamic-green hover:bg-islamic-darkGreen text-white text-xs font-bold rounded shadow transition-colors"
                   >
-                    Upload Wazifa
+                    {editingWazifaId ? "Save Changes" : "Upload Wazifa"}
                   </button>
                 </div>
               </form>
             </div>
 
             {/* Upload Book Form */}
-            <div className="bg-white rounded-xl p-5 border border-stone-200 shadow-sm space-y-4">
-              <h3 className="font-bold text-slate-800 text-sm uppercase tracking-wider flex items-center space-x-1.5">
-                <Book className="w-4 h-4 text-islamic-gold" />
-                <span>Upload Book or Magazine</span>
-              </h3>
+            <div id="book-form" className="bg-white rounded-xl p-5 border border-stone-200 shadow-sm space-y-4">
+              <div className="flex justify-between items-center">
+                <h3 className="font-bold text-slate-800 text-sm uppercase tracking-wider flex items-center space-x-1.5">
+                  <Book className="w-4 h-4 text-islamic-gold" />
+                  <span>{editingBookId ? "Edit Book or Magazine" : "Upload Book or Magazine"}</span>
+                </h3>
+                {editingBookId && (
+                  <button
+                    type="button"
+                    onClick={handleCancelEditBook}
+                    className="px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded text-[9px] font-bold border border-stone-300 transition-all"
+                  >
+                    Cancel Edit
+                  </button>
+                )}
+              </div>
               <form onSubmit={handleUploadBook} className="space-y-4">
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Book/Magazine Title</label>
@@ -1274,7 +1384,7 @@ export default function AdminPanel() {
                     disabled={actionLoading}
                     className="px-5 py-2 bg-islamic-green hover:bg-islamic-darkGreen text-white text-xs font-bold rounded shadow transition-colors"
                   >
-                    Upload Book/Magazine
+                    {editingBookId ? "Save Changes" : "Upload Book/Magazine"}
                   </button>
                 </div>
               </form>
@@ -1309,10 +1419,17 @@ export default function AdminPanel() {
                       </td>
                       <td className="p-3 font-arabic text-right text-lg text-islamic-green leading-loose max-w-[200px] truncate select-all">{w.arabicText}</td>
                       <td className="p-3 font-urdu max-w-[250px] truncate">{w.translationUr}</td>
-                      <td className="p-3 text-right">
+                      <td className="p-3 text-right flex justify-end space-x-1.5">
+                        <button
+                          onClick={() => handleStartEditWazifa(w)}
+                          className="p-1.5 bg-islamic-green/10 hover:bg-islamic-green/20 text-islamic-green rounded border border-islamic-green/30 transition-all"
+                          title="Edit Wazifa"
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                        </button>
                         <button
                           onClick={() => handleDeleteWazifa(w.id)}
-                          className="p-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded border border-red-200"
+                          className="p-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded border border-red-200 transition-all"
                           title="Delete Wazifa"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -1367,10 +1484,17 @@ export default function AdminPanel() {
                           'No File Attached'
                         )}
                       </td>
-                      <td className="p-3 text-right">
+                      <td className="p-3 text-right flex justify-end space-x-1.5 font-sans">
+                        <button
+                          onClick={() => handleStartEditBook(b)}
+                          className="p-1.5 bg-islamic-green/10 hover:bg-islamic-green/20 text-islamic-green rounded border border-islamic-green/30 transition-all"
+                          title="Edit Book/Magazine"
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                        </button>
                         <button
                           onClick={() => handleDeleteBook(b.id)}
-                          className="p-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded border border-red-200"
+                          className="p-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded border border-red-200 transition-all"
                           title="Delete Book/Magazine"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
