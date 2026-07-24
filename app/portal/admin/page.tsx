@@ -342,17 +342,36 @@ export default function AdminPanel() {
     }
   };
 
-  // Handle Arabic Translation
+  // Handle Arabic Translation (Client-Side fetch to bypass server sandboxing restrictions)
   const handleTranslateArabicText = async () => {
     if (!wazifaArabic.trim()) return;
     setTranslating(true);
-    const res = await translateArabicText(wazifaArabic);
-    setTranslating(false);
-    if (res.success && res.translationUr && res.translationEn) {
-      setWazifaUrdu(res.translationUr);
-      setWazifaEnglish(res.translationEn);
-    } else {
-      alert("Translation failed: " + (res.error || "Please check connection."));
+    try {
+      const encodedText = encodeURIComponent(wazifaArabic.trim());
+      
+      // Fetch Urdu Translation
+      const urRes = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ar&tl=ur&dt=t&q=${encodedText}`);
+      if (!urRes.ok) throw new Error("Urdu translation request failed.");
+      const urData = await urRes.json();
+      const translationUr = urData?.[0]?.map((s: any) => s[0]).join('') || '';
+
+      // Fetch English Translation
+      const enRes = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ar&tl=en&dt=t&q=${encodedText}`);
+      if (!enRes.ok) throw new Error("English translation request failed.");
+      const enData = await enRes.json();
+      const translationEn = enData?.[0]?.map((s: any) => s[0]).join('') || '';
+
+      if (translationUr && translationEn) {
+        setWazifaUrdu(translationUr);
+        setWazifaEnglish(translationEn);
+      } else {
+        alert("Translation succeeded but returned empty values.");
+      }
+    } catch (err: any) {
+      console.error("Client translation error:", err);
+      alert("Translation failed: " + (err.message || "Network error."));
+    } finally {
+      setTranslating(false);
     }
   };
 
