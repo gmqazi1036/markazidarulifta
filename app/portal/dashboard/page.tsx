@@ -70,27 +70,35 @@ export default function PortalDashboard() {
 
   // Loading States
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadDashboard() {
-      setLoading(true);
-      const userSession = await getMe();
-      if (!userSession) {
-        router.push('/portal/login');
-        return;
-      }
-      setSession(userSession);
+      try {
+        setLoading(true);
+        setError(null);
+        const userSession = await getMe();
+        if (!userSession) {
+          router.push('/portal/login');
+          return;
+        }
+        setSession(userSession);
 
-      // Determine initial tab based on role
-      if (userSession.role === 'MUFTI') {
-        setActiveTab('MY_ASSIGNMENTS');
-      } else {
-        setActiveTab('NEW');
-      }
+        // Determine initial tab based on role
+        if (userSession.role === 'MUFTI') {
+          setActiveTab('MY_ASSIGNMENTS');
+        } else {
+          setActiveTab('NEW');
+        }
 
-      await refreshData(userSession);
-      setLoading(false);
+        await refreshData(userSession);
+      } catch (err: any) {
+        console.error("loadDashboard error:", err);
+        setError(err.message || "An unexpected error occurred while loading the dashboard.");
+      } finally {
+        setLoading(false);
+      }
     }
     loadDashboard();
   }, [router]);
@@ -108,12 +116,16 @@ export default function PortalDashboard() {
     const statsRes = await getPortalStats();
     if (statsRes.success) {
       setStats(statsRes.stats);
+    } else {
+      throw new Error(statsRes.error || "Failed to load dashboard statistics.");
     }
 
     // Load Notifications
     const notifRes = await getPortalNotifications();
     if (notifRes.success && notifRes.data) {
       setNotifications(notifRes.data);
+    } else if (!notifRes.success) {
+      throw new Error(notifRes.error || "Failed to retrieve notifications.");
     }
 
     // Load active Mufti profiles (for assignments/Tasdeeq selects)
@@ -121,12 +133,16 @@ export default function PortalDashboard() {
       const muftisRes = await getMuftiProfiles();
       if (muftisRes.success && muftisRes.data) {
         setMuftis(muftisRes.data.filter((m: any) => m.status === 'ACTIVE'));
+      } else if (!muftisRes.success) {
+        throw new Error(muftisRes.error || "Failed to load scholar profiles.");
       }
 
       // Load system publish settings
       const settingRes = await getSystemSetting('tasdeeq_publish_rule');
       if (settingRes.success && settingRes.value) {
         setPublishRule(settingRes.value);
+      } else if (!settingRes.success) {
+        throw new Error(settingRes.error || "Failed to retrieve system configurations.");
       }
     }
   };
@@ -146,8 +162,7 @@ export default function PortalDashboard() {
       else if (activeTab === 'ALL') queryStatus = 'ALL';
     } else {
       // Mufti Roles
-      if (activeTab === 'ALL_QUESTIONS') queryStatus = 'ALL';
-      else if (activeTab === 'MY_ASSIGNMENTS') queryStatus = 'ASSIGNED';
+      if (activeTab === 'MY_ASSIGNMENTS') queryStatus = 'ASSIGNED';
       else if (activeTab === 'PENDING_TASDEEQ') queryStatus = 'PENDING_TASDEEQ';
       else if (activeTab === 'MY_HISTORY') queryStatus = 'PUBLISHED';
     }
@@ -326,6 +341,22 @@ export default function PortalDashboard() {
   const getUnreadNotificationsCount = () => {
     return notifications.filter(n => !n.read).length;
   };
+
+  if (error) {
+    return (
+      <div className="text-center py-20 max-w-lg mx-auto space-y-4">
+        <AlertCircle className="w-12 h-12 text-red-500 mx-auto animate-pulse" />
+        <h2 className="text-lg font-bold text-slate-800">Failed to Load Dashboard</h2>
+        <p className="text-xs text-slate-500 font-mono bg-stone-50 border p-3.5 rounded text-left whitespace-pre-wrap leading-relaxed">{error}</p>
+        <button 
+          onClick={() => window.location.reload()}
+          className="px-4 py-2 bg-islamic-gold hover:bg-amber-600 text-white rounded text-xs font-bold shadow transition-colors"
+        >
+          Retry Load
+        </button>
+      </div>
+    );
+  }
 
   if (loading) {
     return <div className="text-center py-20 text-slate-500 text-sm">Loading dashboard workspace...</div>;
@@ -573,7 +604,7 @@ export default function PortalDashboard() {
             ) : (
               // Mufti Tabs
               <>
-                {(['MY_ASSIGNMENTS', 'PENDING_TASDEEQ', 'MY_HISTORY', 'ALL_QUESTIONS'] as const).map((tab) => (
+                {(['MY_ASSIGNMENTS', 'PENDING_TASDEEQ', 'MY_HISTORY'] as const).map((tab) => (
                   <button
                     key={tab}
                     onClick={() => { setActiveTab(tab); setSelectedQuestion(null); }}
@@ -889,7 +920,9 @@ export default function PortalDashboard() {
                         )}
 
                         {/* 5. Publish Button (Super Admin / Admin Mufti only) */}
-                        {(session.role === 'SUPER_ADMIN' || session.role === 'ADMIN_MUFTI') && q.status !== 'PUBLISHED' && q.fatwa && (
+                        {(session.role === 'SUPER_ADMIN' || session.role === 'ADMIN_MUFTI') && 
+                         (q.status === 'APPROVED' || q.status === 'PENDING_TASDEEQ' || q.status === 'TASDEEQ_COMPLETED') && 
+                         q.fatwa && (
                           <div className="flex justify-between items-center pt-2">
                             <span className="text-[10px] text-slate-400">
                               (Tasdeeq verified: {q.fatwa.tasdeeqRecords?.filter((t: any) => t.status === 'VERIFIED').length || 0})

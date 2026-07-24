@@ -171,12 +171,20 @@ export async function getPortalStats() {
 
 // Get Questions by Status
 export async function getQuestions(status: string) {
-  await checkAuth(['SUPER_ADMIN', 'MUFTI', 'ADMIN_MUFTI']);
+  const session = await checkAuth(['SUPER_ADMIN', 'MUFTI', 'ADMIN_MUFTI']);
 
   try {
     const where: Prisma.QuestionWhereInput = {};
     if (status !== 'ALL') {
       where.status = status;
+    }
+
+    if (session.role === 'MUFTI') {
+      where.OR = [
+        { assignedToId: session.muftiId },
+        { fatwa: { answeredById: session.muftiId } },
+        { fatwa: { tasdeeqRecords: { some: { muftiId: session.muftiId } } } }
+      ];
     }
 
     const questions = await db.question.findMany({
@@ -206,7 +214,7 @@ export async function getQuestions(status: string) {
 
 // Get Question Details
 export async function getPortalQuestionDetails(id: string) {
-  await checkAuth(['SUPER_ADMIN', 'MUFTI', 'ADMIN_MUFTI']);
+  const session = await checkAuth(['SUPER_ADMIN', 'MUFTI', 'ADMIN_MUFTI']);
 
   try {
     const question = await db.question.findUnique({
@@ -232,6 +240,15 @@ export async function getPortalQuestionDetails(id: string) {
       return { success: false, error: 'Question not found' };
     }
 
+    if (session.role === 'MUFTI') {
+      const hasAccess = question.assignedToId === session.muftiId ||
+                        question.fatwa?.answeredById === session.muftiId ||
+                        question.fatwa?.tasdeeqRecords?.some(r => r.muftiId === session.muftiId);
+      if (!hasAccess) {
+        return { success: false, error: 'Forbidden. You do not have permission to view this question.' };
+      }
+    }
+
     return { success: true, data: question };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -240,7 +257,7 @@ export async function getPortalQuestionDetails(id: string) {
 
 // Put Question on Hold
 export async function holdQuestion(questionId: string) {
-  const session = await checkAuth(['SUPER_ADMIN', 'MUFTI']);
+  const session = await checkAuth(['SUPER_ADMIN', 'ADMIN_MUFTI', 'MUFTI']);
 
   try {
     const question = await db.question.update({
@@ -419,7 +436,7 @@ export async function submitFatwaAnswer(data: {
 
 // Get All Categories (For Admin)
 export async function getAdminCategories() {
-  await checkAuth(['SUPER_ADMIN', 'MUFTI']);
+  await checkAuth(['SUPER_ADMIN', 'ADMIN_MUFTI', 'MUFTI']);
 
   try {
     const categories = await db.category.findMany({
@@ -463,7 +480,7 @@ export async function createCategory(nameEn: string, nameUr: string) {
 
 // Create Subcategory
 export async function createSubCategory(categoryId: string, nameEn: string, nameUr: string) {
-  const session = await checkAuth(['SUPER_ADMIN', 'MUFTI']);
+  const session = await checkAuth(['SUPER_ADMIN', 'ADMIN_MUFTI', 'MUFTI']);
 
   try {
     const subcategory = await db.subCategory.create({
@@ -633,9 +650,9 @@ export async function getAuditLogs() {
   }
 }
 
-// Get Mufti Profiles list (Super Admin Only)
+// Get Mufti Profiles list (Super Admin & Admin Mufti)
 export async function getMuftiProfiles() {
-  await checkAuth(['SUPER_ADMIN']);
+  await checkAuth(['SUPER_ADMIN', 'ADMIN_MUFTI']);
   try {
     const muftis = await db.user.findMany({
       where: { role: 'MUFTI' },
@@ -1347,6 +1364,10 @@ export async function publishFatwa(fatwaId: string) {
       include: { question: true, answeredBy: true }
     });
     if (!fatwa) throw new Error("Fatwa not found");
+
+    if (!['APPROVED', 'PENDING_TASDEEQ', 'TASDEEQ_COMPLETED'].includes(fatwa.question.status)) {
+      throw new Error("Cannot publish. Answer must be reviewed and approved by Admin Mufti first.");
+    }
 
     const ruleSetting = await db.setting.findUnique({
       where: { key: 'tasdeeq_publish_rule' }
