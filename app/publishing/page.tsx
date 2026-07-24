@@ -6,6 +6,15 @@ import { BookOpen, Search, Download, FileText, ArrowRight, Library, Book } from 
 import { useLanguage } from '../context/LanguageContext';
 import { formatDateSafe } from '../utils/date';
 
+function getDownloadUrl(url: string | null) {
+  if (!url) return '#';
+  const driveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch && driveMatch[1]) {
+    return `https://drive.google.com/uc?export=download&id=${driveMatch[1]}`;
+  }
+  return url;
+}
+
 export default function Publishing() {
   const { language, t } = useLanguage();
   const [query, setQuery] = useState('');
@@ -153,13 +162,23 @@ export default function Publishing() {
                   </p>
                 </div>
                 
-                <div className="mt-4 pt-3 border-t border-stone-200 flex justify-end">
+                <div className="mt-4 pt-3 border-t border-stone-200 flex items-center justify-between gap-3">
                   <a 
                     href={book.downloadUrl || '#'} 
-                    onClick={() => alert(t('pubDownloadingMsg'))}
-                    className="px-4 py-2 bg-islamic-green hover:bg-islamic-darkGreen text-white text-sm md:text-base font-normal font-urdu rounded-md shadow transition-colors flex items-center space-x-1.5 rtl:space-x-reverse"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 px-3 py-1.5 border border-islamic-green text-islamic-green hover:bg-islamic-green hover:text-white text-xs md:text-sm font-normal font-urdu rounded-md transition-all flex items-center justify-center space-x-1.5 rtl:space-x-reverse"
                   >
-                    <Download className="w-4 h-4 text-islamic-gold" />
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>{t('pubReadBook')}</span>
+                  </a>
+                  <a 
+                    href={getDownloadUrl(book.downloadUrl)} 
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 px-3 py-1.5 bg-islamic-green hover:bg-islamic-darkGreen text-white text-xs md:text-sm font-normal font-urdu rounded-md shadow transition-all flex items-center justify-center space-x-1.5 rtl:space-x-reverse"
+                  >
+                    <Download className="w-3.5 h-3.5 text-islamic-gold" />
                     <span>{t('pubDownloadPdf')}</span>
                   </a>
                 </div>

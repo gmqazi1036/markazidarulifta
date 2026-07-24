@@ -89,6 +89,7 @@ const translations: TranslationDict = {
   pubAllCategories: { en: "All Categories", ur: "تمام زمرہ جات" },
   pubLoadingCatalog: { en: "Loading publications catalog...", ur: "مطبوعات کا کیٹلاگ لوڈ ہو رہا ہے..." },
   pubNoResults: { en: "No publications found matching your selection.", ur: "آپ کے منتخب کردہ معیار کے مطابق کوئی مطبوعات نہیں ملیں۔" },
+  pubReadBook: { en: "Read Book", ur: "مطالعہ کریں" },
   pubDownloadPdf: { en: "Download PDF", ur: "پی ڈی ایف ڈاؤن لوڈ کریں" },
   pubDownloadingMsg: { en: "Downloading PDF...", ur: "پی ڈی ایف ڈاؤن لوڈ ہو رہی ہے..." },
 

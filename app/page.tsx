@@ -12,6 +12,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { formatDateSafe } from './utils/date';
 
+function getDownloadUrl(url: string | null) {
+  if (!url) return '#';
+  const driveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch && driveMatch[1]) {
+    return `https://drive.google.com/uc?export=download&id=${driveMatch[1]}`;
+  }
+  return url;
+}
+
 const ContinuousCounter: React.FC<{ target: number; suffix?: string; duration?: number }> = ({ target, suffix = '', duration = 1500 }) => {
   const [count, setCount] = useState(0);
 
@@ -1246,17 +1255,26 @@ export default function Home() {
                   </p>
                 </div>
                 
-                <div className="pt-2 border-t border-stone-100">
+                <div className="pt-2 border-t border-stone-100 flex items-center justify-between gap-2.5">
                   <a 
                     href={book.downloadUrl || '#'} 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-full py-2 bg-stone-50 group-hover:bg-islamic-green group-hover:text-white text-slate-700 border border-stone-300 group-hover:border-islamic-green rounded-lg shadow-sm transition-all duration-300 flex items-center justify-center space-x-1.5 rtl:space-x-reverse ${
-                      language === 'ur' ? 'text-sm font-normal font-urdu' : 'text-xs font-bold'
+                    className={`flex-1 py-1.5 border border-stone-300 hover:border-islamic-green hover:bg-islamic-green hover:text-white text-slate-700 rounded-lg shadow-sm transition-all flex items-center justify-center space-x-1 rtl:space-x-reverse ${
+                      language === 'ur' ? 'text-[11px] font-normal font-urdu' : 'text-[10px] font-bold'
                     }`}
                   >
-                    <span>{language === 'en' ? 'Download PDF' : 'پی ڈی ایف ڈاؤن لوڈ کریں'}</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>{language === 'en' ? 'Read Book' : 'مطالعہ کریں'}</span>
+                  </a>
+                  <a 
+                    href={getDownloadUrl(book.downloadUrl)} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex-1 py-1.5 bg-stone-50 hover:bg-islamic-green hover:text-white text-slate-700 border border-stone-300 hover:border-islamic-green rounded-lg shadow-sm transition-all flex items-center justify-center space-x-1 rtl:space-x-reverse ${
+                      language === 'ur' ? 'text-[11px] font-normal font-urdu' : 'text-[10px] font-bold'
+                    }`}
+                  >
+                    <span>{language === 'en' ? 'Download' : 'ڈاؤن لوڈ'}</span>
                   </a>
                 </div>
               </div>
