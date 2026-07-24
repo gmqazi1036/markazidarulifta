@@ -32,7 +32,7 @@ export async function login(email: string, password: string): Promise<{ success:
     }
 
     // Check if deactivated
-    if (user.role === 'MUFTI' && user.muftiProfile?.status === 'INACTIVE') {
+    if ((user.role === 'MUFTI' || user.role === 'ADMIN_MUFTI') && user.muftiProfile?.status === 'INACTIVE') {
       return { success: false, error: 'Your account has been deactivated. Please contact Super Admin.' };
     }
 

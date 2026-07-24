@@ -196,8 +196,18 @@ export default function FatwaDetails({ params }: { params: { id: string } }) {
             <strong>فقہ (Jurisprudence):</strong> <span className="font-urdu">فقہ حنفی (مستند دارالافتاء)</span>
           </div>
           <div>
-            <strong>جواب بحوالہ (Mufti Answerer):</strong> <span className="font-urdu">{fatwa.answeredBy?.nameUr}</span>
+            <strong>جواب بحوالہ (Mufti Answerer):</strong> <span className="font-urdu">{fatwa.answeredBy?.nameUr} ({fatwa.answeredBy?.designation})</span>
           </div>
+          {fatwa.reviewedBy && (
+            <div>
+              <strong>تصحیح و نظر ثانی (Reviewed By):</strong> <span className="font-urdu">{fatwa.reviewedBy.nameUr} ({fatwa.reviewedBy.designation})</span>
+            </div>
+          )}
+          {fatwa.tasdeeqRecords && fatwa.tasdeeqRecords.filter((t: any) => t.status === 'VERIFIED').length > 0 && (
+            <div className="sm:col-span-2 border-t pt-2 mt-1">
+              <strong>تصدیق کنندگان (Verified By):</strong> <span className="font-urdu">{fatwa.tasdeeqRecords.filter((t: any) => t.status === 'VERIFIED').map((t: any) => `مفتی ${t.mufti.nameUr}`).join('، ')}</span>
+            </div>
+          )}
         </div>
 
         {/* Question Section */}
@@ -342,8 +352,18 @@ export default function FatwaDetails({ params }: { params: { id: string } }) {
             <strong>Jurisprudence:</strong> Hanafi School of Islamic Law (Bareilly Shareef)
           </div>
           <div>
-            <strong>Reviewed & Approved By:</strong> {fatwa.answeredBy?.nameEn}
+            <strong>Answered By:</strong> {fatwa.answeredBy?.nameEn} ({fatwa.answeredBy?.designation})
           </div>
+          {fatwa.reviewedBy && (
+            <div>
+              <strong>Reviewed By:</strong> {fatwa.reviewedBy.nameEn} ({fatwa.reviewedBy.designation})
+            </div>
+          )}
+          {fatwa.tasdeeqRecords && fatwa.tasdeeqRecords.filter((t: any) => t.status === 'VERIFIED').length > 0 && (
+            <div className="sm:col-span-2 border-t pt-2 mt-1">
+              <strong>Verified By (Tasdeeq):</strong> {fatwa.tasdeeqRecords.filter((t: any) => t.status === 'VERIFIED').map((t: any) => `Mufti ${t.mufti.nameEn}`).join(', ')}
+            </div>
+          )}
         </div>
 
         {/* English Question Section */}

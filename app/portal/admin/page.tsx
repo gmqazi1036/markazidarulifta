@@ -66,6 +66,7 @@ export default function AdminPanel() {
   const [muftiSpec, setMuftiSpec] = useState('Fiqh Hanafi (Islamic Jurisprudence)');
   const [muftiMobile, setMuftiMobile] = useState('');
   const [muftiStatus, setMuftiStatus] = useState('ACTIVE');
+  const [muftiRole, setMuftiRole] = useState('MUFTI');
   const [adminHijriOffset, setAdminHijriOffset] = useState(0);
 
   // Wazifa Form States
@@ -234,6 +235,7 @@ export default function AdminPanel() {
     setMuftiSpec('Fiqh Hanafi (Islamic Jurisprudence)');
     setMuftiMobile('');
     setMuftiStatus('ACTIVE');
+    setMuftiRole('MUFTI');
   };
 
   // Populate form for editing
@@ -252,6 +254,7 @@ export default function AdminPanel() {
     setMuftiSpec(p.specialization);
     setMuftiMobile(p.mobile);
     setMuftiStatus(p.status);
+    setMuftiRole(user.role || 'MUFTI');
     window.scrollTo({ top: document.getElementById('mufti-form-container')?.offsetTop || 0, behavior: 'smooth' });
   };
 
@@ -277,12 +280,13 @@ export default function AdminPanel() {
         qualification: muftiQual.trim(),
         specialization: muftiSpec.trim(),
         mobile: muftiMobile.trim(),
-        status: muftiStatus
+        status: muftiStatus,
+        role: muftiRole
       });
       setActionLoading(false);
 
       if (res.success) {
-        alert("Mufti Profile updated successfully!");
+        alert("Scholar Profile updated successfully!");
         resetMuftiForm();
         loadData();
       } else {
@@ -305,12 +309,13 @@ export default function AdminPanel() {
         joiningDate: muftiJoinDate,
         qualification: muftiQual.trim(),
         specialization: muftiSpec.trim(),
-        mobile: muftiMobile.trim()
+        mobile: muftiMobile.trim(),
+        role: muftiRole
       });
       setActionLoading(false);
 
       if (res.success) {
-        alert("Mufti Account and Profile created successfully!");
+        alert("Scholar Account and Profile created successfully!");
         resetMuftiForm();
         loadData();
       } else {
@@ -899,21 +904,32 @@ export default function AdminPanel() {
                     />
                   </div>
                   
-                  {/* Show Status Field ONLY during edit mode */}
-                  {editingMuftiId && (
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-bold text-slate-500">Profile Status</label>
-                      <select 
-                        value={muftiStatus}
-                        onChange={(e) => setMuftiStatus(e.target.value)}
-                        className="w-full border border-stone-300 rounded px-2.5 py-1.5 text-xs bg-white focus:outline-none"
-                      >
-                        <option value="ACTIVE">ACTIVE (Authorized to Answer)</option>
-                        <option value="INACTIVE">DEACTIVATED (Locked Out)</option>
-                      </select>
-                    </div>
-                  )}
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-slate-500">Authorized Role</label>
+                    <select 
+                      value={muftiRole}
+                      onChange={(e) => setMuftiRole(e.target.value)}
+                      className="w-full border border-stone-300 rounded px-2.5 py-1.5 text-xs bg-white focus:outline-none"
+                    >
+                      <option value="MUFTI">Mufti (Write answers when assigned)</option>
+                      <option value="ADMIN_MUFTI">Admin Mufti (Manage & review fatwa work)</option>
+                    </select>
+                  </div>
                 </div>
+
+                {editingMuftiId && (
+                  <div className="space-y-1 pt-1">
+                    <label className="text-[10px] font-bold text-slate-500">Profile Status</label>
+                    <select 
+                      value={muftiStatus}
+                      onChange={(e) => setMuftiStatus(e.target.value)}
+                      className="w-full border border-stone-300 rounded px-2.5 py-1.5 text-xs bg-white focus:outline-none"
+                    >
+                      <option value="ACTIVE">ACTIVE (Authorized to Log In)</option>
+                      <option value="INACTIVE">DEACTIVATED (Locked Out)</option>
+                    </select>
+                  </div>
+                )}
 
                 <div className="flex justify-end space-x-2 pt-2">
                   {editingMuftiId && (

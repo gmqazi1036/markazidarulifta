@@ -1,11 +1,12 @@
 "use server";
-
+ 
 import db from '../../lib/db';
 import { getMe } from './auth';
 import { Prisma } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import fs from 'fs';
 import path from 'path';
+import { headers } from 'next/headers';
 
 // Helper to check user authentication and role
 async function checkAuth(allowedRoles: string[]) {
@@ -16,8 +17,8 @@ async function checkAuth(allowedRoles: string[]) {
   if (!allowedRoles.includes(session.role)) {
     throw new Error('Forbidden. You do not have permission.');
   }
-  // If Mufti, check active status in DB
-  if (session.role === 'MUFTI') {
+  // If Mufti or Admin Mufti, check active status in DB
+  if ((session.role === 'MUFTI' || session.role === 'ADMIN_MUFTI') && session.muftiId) {
     const mufti = await db.mufti.findUnique({
       where: { id: session.muftiId }
     });
@@ -30,61 +31,138 @@ async function checkAuth(allowedRoles: string[]) {
 
 // Get Dashboard Stats
 export async function getPortalStats() {
-  await checkAuth(['SUPER_ADMIN', 'MUFTI']);
+  const session = await getMe();
+  if (!session) return { success: false, error: 'Unauthorized' };
 
   try {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
+    // Common query parameters
     const [
       totalQuestions,
-      pendingCount,
-      answeredCount,
-      holdCount,
-      todayQuestionsCount,
-      categoryStats,
-      recentActivity
+      newQuestions,
+      assignedQuestions,
+      pendingReview,
+      pendingTasdeeq,
+      published,
+      rejected,
+      sentBackCount,
+      totalMuftis,
+      totalAdminMuftis,
+      publishedToday
     ] = await Promise.all([
       db.question.count(),
-      db.question.count({ where: { status: 'PENDING' } }),
-      db.question.count({ where: { status: 'ANSWERED' } }),
-      db.question.count({ where: { status: 'HOLD' } }),
-      db.question.count({ where: { createdAt: { gte: today } } }),
-      db.category.findMany({
-        include: {
-          _count: {
-            select: { fatwas: true }
-          }
-        }
-      }),
-      db.activityLog.findMany({
-        take: 10,
-        orderBy: { timestamp: 'desc' },
-        include: {
-          user: {
-            include: { muftiProfile: true }
+      db.question.count({ where: { status: 'NEW' } }),
+      db.question.count({ where: { status: 'ASSIGNED' } }),
+      db.question.count({ where: { status: 'PENDING_REVIEW' } }),
+      db.question.count({ where: { status: 'PENDING_TASDEEQ' } }),
+      db.question.count({ where: { status: 'PUBLISHED' } }),
+      db.question.count({ where: { status: 'REJECTED' } }),
+      db.question.count({ where: { status: 'SENT_BACK' } }),
+      db.user.count({ where: { role: 'MUFTI' } }),
+      db.user.count({ where: { role: 'ADMIN_MUFTI' } }),
+      db.question.count({
+        where: {
+          status: 'PUBLISHED',
+          fatwa: {
+            publishedAt: { gte: today }
           }
         }
       })
     ]);
 
-    const formattedCategoryStats = categoryStats.map(cat => ({
-      nameEn: cat.nameEn,
-      nameUr: cat.nameUr,
-      count: cat._count.fatwas
-    }));
+    // Fetch categories and activity logs for Admins
+    let categoryStatsFormatted: any[] = [];
+    let recentActivity: any[] = [];
+
+    if (session.role === 'SUPER_ADMIN' || session.role === 'ADMIN_MUFTI') {
+      const [cats, logs] = await Promise.all([
+        db.category.findMany({
+          include: { _count: { select: { fatwas: true } } }
+        }),
+        db.activityLog.findMany({
+          take: 10,
+          orderBy: { timestamp: 'desc' },
+          include: {
+            user: {
+              include: { muftiProfile: true }
+            }
+          }
+        })
+      ]);
+
+      categoryStatsFormatted = cats.map(cat => ({
+        nameEn: cat.nameEn,
+        nameUr: cat.nameUr,
+        count: cat._count.fatwas
+      }));
+      recentActivity = logs;
+    }
+
+    // Role-specific metrics
+    let roleStats = {};
+    if (session.role === 'SUPER_ADMIN') {
+      roleStats = {
+        totalQuestions,
+        pendingQuestions: newQuestions,
+        assignedQuestions,
+        pendingReview,
+        pendingTasdeeq,
+        published,
+        rejected,
+        totalMuftis,
+        totalAdminMuftis
+      };
+    } else if (session.role === 'ADMIN_MUFTI') {
+      roleStats = {
+        newQuestions,
+        assigned: assignedQuestions,
+        pendingReview,
+        pendingTasdeeq,
+        publishedToday,
+        sentBack: sentBackCount,
+        rejected
+      };
+    } else if (session.role === 'MUFTI') {
+      if (!session.muftiId) {
+        return { success: false, error: 'Mufti profile not found.' };
+      }
+
+      const [
+        myAssigned,
+        myDrafts,
+        mySubmitted,
+        myPendingTasdeeqCount,
+        myPublished
+      ] = await Promise.all([
+        db.question.count({ where: { status: 'ASSIGNED', assignedToId: session.muftiId } }),
+        db.question.count({ where: { status: { in: ['SENT_BACK', 'IN_PROGRESS'] }, assignedToId: session.muftiId } }),
+        db.question.count({ 
+          where: { 
+            status: { in: ['PENDING_REVIEW', 'APPROVED', 'PENDING_TASDEEQ', 'TASDEEQ_COMPLETED'] }, 
+            fatwa: { answeredById: session.muftiId } 
+          } 
+        }),
+        db.tasdeeqRecord.count({ where: { status: 'PENDING', muftiId: session.muftiId } }),
+        db.question.count({ where: { status: 'PUBLISHED', fatwa: { answeredById: session.muftiId } } })
+      ]);
+
+      roleStats = {
+        assignedQuestions: myAssigned,
+        draftAnswers: myDrafts,
+        submittedAnswers: mySubmitted,
+        pendingTasdeeq: myPendingTasdeeqCount,
+        publishedFatwas: myPublished
+      };
+    }
 
     return {
       success: true,
-      data: {
-        totalQuestions,
-        pendingCount,
-        answeredCount,
-        holdCount,
-        todayQuestionsCount,
-        categoryStats: formattedCategoryStats,
-        recentActivity
-      }
+      role: session.role,
+      stats: roleStats,
+      categoryStats: categoryStatsFormatted,
+      recentActivity
     };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -92,8 +170,8 @@ export async function getPortalStats() {
 }
 
 // Get Questions by Status
-export async function getQuestions(status: 'PENDING' | 'ANSWERED' | 'HOLD' | 'ALL') {
-  await checkAuth(['SUPER_ADMIN', 'MUFTI']);
+export async function getQuestions(status: string) {
+  await checkAuth(['SUPER_ADMIN', 'MUFTI', 'ADMIN_MUFTI']);
 
   try {
     const where: Prisma.QuestionWhereInput = {};
@@ -105,7 +183,18 @@ export async function getQuestions(status: 'PENDING' | 'ANSWERED' | 'HOLD' | 'AL
       where,
       orderBy: { createdAt: 'desc' },
       include: {
-        fatwa: true
+        fatwa: {
+          include: {
+            answeredBy: true,
+            reviewedBy: true,
+            tasdeeqRecords: {
+              include: {
+                mufti: true
+              }
+            }
+          }
+        },
+        assignedTo: true
       }
     });
 
@@ -117,7 +206,7 @@ export async function getQuestions(status: 'PENDING' | 'ANSWERED' | 'HOLD' | 'AL
 
 // Get Question Details
 export async function getPortalQuestionDetails(id: string) {
-  await checkAuth(['SUPER_ADMIN', 'MUFTI']);
+  await checkAuth(['SUPER_ADMIN', 'MUFTI', 'ADMIN_MUFTI']);
 
   try {
     const question = await db.question.findUnique({
@@ -125,9 +214,17 @@ export async function getPortalQuestionDetails(id: string) {
       include: {
         fatwa: {
           include: {
-            references: true
+            references: true,
+            answeredBy: true,
+            reviewedBy: true,
+            tasdeeqRecords: {
+              include: {
+                mufti: true
+              }
+            }
           }
-        }
+        },
+        assignedTo: true
       }
     });
 
@@ -197,7 +294,7 @@ export async function generateFatwaNumber() {
   return `${islamicYear}-${paddedSeq}`;
 }
 
-// Answer and Publish a Fatwa
+// Answer a Question (Submits to Review queue, does not publish immediately)
 export async function submitFatwaAnswer(data: {
   questionId: string;
   titleEn: string;
@@ -209,64 +306,109 @@ export async function submitFatwaAnswer(data: {
   visibility: 'PUBLIC' | 'PRIVATE' | 'INTERNAL' | 'DRAFT';
   references: Array<{ type: 'QURAN' | 'HADITH' | 'BOOK' | 'ARABIC' | 'URDU'; bookTitle: string; volume?: string; page?: string; text: string }>;
 }) {
-  const session = await checkAuth(['SUPER_ADMIN', 'MUFTI']);
+  const session = await checkAuth(['SUPER_ADMIN', 'MUFTI', 'ADMIN_MUFTI']);
   
   if (!session.muftiId) {
     return { success: false, error: 'Only accounts with a Mufti Profile can answer questions' };
   }
 
   try {
-    // Generate Fatwa Number
-    const fatwaNumber = await generateFatwaNumber();
-
-    // Check if question exists and not already answered
+    // Check if question exists
     const question = await db.question.findUnique({
-      where: { id: data.questionId }
+      where: { id: data.questionId },
+      include: { fatwa: true }
     });
 
     if (!question) {
       return { success: false, error: 'Question not found' };
     }
 
-    // Create Fatwa
-    const fatwa = await db.fatwa.create({
-      data: {
-        fatwaNumber,
-        questionId: data.questionId,
-        answeredById: session.muftiId,
-        titleEn: data.titleEn,
-        titleUr: data.titleUr,
-        answerEn: data.answerEn,
-        answerUr: data.answerUr,
-        categoryId: data.categoryId,
-        subCategoryId: data.subCategoryId,
-        visibility: data.visibility,
-        publishedAt: data.visibility === 'PUBLIC' ? new Date() : null,
-        references: {
-          create: data.references.map(ref => ({
-            type: ref.type,
-            bookTitle: ref.bookTitle,
-            volume: ref.volume || null,
-            page: ref.page || null,
-            text: ref.text
-          }))
-        }
-      }
-    });
+    // Check if the Mufti is assigned to this question (unless they are SUPER_ADMIN or ADMIN_MUFTI)
+    if (session.role === 'MUFTI' && question.assignedToId !== session.muftiId) {
+      return { success: false, error: 'You are not assigned to answer this question.' };
+    }
 
-    // Update Question Status to ANSWERED
+    // Check if Mufti is trying to edit after submission when NOT sent back/assigned
+    if (session.role === 'MUFTI' && question.status !== 'ASSIGNED' && question.status !== 'SENT_BACK' && question.status !== 'IN_PROGRESS' && question.status !== 'NEW') {
+      return { success: false, error: 'You cannot edit this answer after submission unless it is sent back for correction.' };
+    }
+
+    let fatwa;
+    if (question.fatwa) {
+      // Update existing fatwa (e.g. resubmission after Sent Back)
+      // Delete old references first
+      await db.reference.deleteMany({
+        where: { fatwaId: question.fatwa.id }
+      });
+
+      fatwa = await db.fatwa.update({
+        where: { id: question.fatwa.id },
+        data: {
+          titleEn: data.titleEn,
+          titleUr: data.titleUr,
+          answerEn: data.answerEn,
+          answerUr: data.answerUr,
+          categoryId: data.categoryId,
+          subCategoryId: data.subCategoryId,
+          visibility: 'PRIVATE', // remain private during review
+          references: {
+            create: data.references.map(ref => ({
+              type: ref.type,
+              bookTitle: ref.bookTitle,
+              volume: ref.volume || null,
+              page: ref.page || null,
+              text: ref.text
+            }))
+          }
+        }
+      });
+    } else {
+      // Create new fatwa
+      const fatwaNumber = await generateFatwaNumber();
+      fatwa = await db.fatwa.create({
+        data: {
+          fatwaNumber,
+          questionId: data.questionId,
+          answeredById: session.muftiId,
+          titleEn: data.titleEn,
+          titleUr: data.titleUr,
+          answerEn: data.answerEn,
+          answerUr: data.answerUr,
+          categoryId: data.categoryId,
+          subCategoryId: data.subCategoryId,
+          visibility: 'PRIVATE', // remain private during review
+          references: {
+            create: data.references.map(ref => ({
+              type: ref.type,
+              bookTitle: ref.bookTitle,
+              volume: ref.volume || null,
+              page: ref.page || null,
+              text: ref.text
+            }))
+          }
+        }
+      });
+    }
+
+    // Update Question Status to PENDING_REVIEW
     await db.question.update({
       where: { id: data.questionId },
-      data: { status: 'ANSWERED' }
+      data: { status: 'PENDING_REVIEW' }
     });
 
-    await db.activityLog.create({
-      data: {
-        userId: session.id,
-        action: 'FATWA_PUBLISH',
-        details: `Fatwa #${fatwaNumber} published for tracking number ${question.trackingNumber} by Mufti ${session.muftiNameEn}`
-      }
-    });
+    // Create Notification for Admin Mufti and Super Admin
+    await createNotificationForAdmins(
+      'Answer Submitted',
+      `Mufti ${session.muftiNameEn} submitted an answer for question tracking number ${question.trackingNumber}`,
+      'SUBMITTED'
+    );
+
+    // Create Activity Log
+    await createActivityLogWithDetails(
+      session.id,
+      'ANSWER_SUBMIT',
+      `Mufti ${session.muftiNameEn} submitted answer for question: ${question.trackingNumber}`
+    );
 
     return { success: true, data: fatwa };
   } catch (error: any) {
@@ -420,6 +562,7 @@ export async function createMuftiProfile(data: {
   qualification: string;
   specialization: string;
   mobile: string;
+  role?: string; // 'MUFTI' | 'ADMIN_MUFTI'
 }) {
   const session = await checkAuth(['SUPER_ADMIN']);
 
@@ -433,7 +576,7 @@ export async function createMuftiProfile(data: {
         data: {
           email: data.email,
           passwordHash: hashed,
-          role: 'MUFTI'
+          role: data.role || 'MUFTI'
         }
       });
 
@@ -518,14 +661,18 @@ export async function updateMuftiProfile(userId: string, data: {
   specialization: string;
   mobile: string;
   status: string; // "ACTIVE" | "INACTIVE"
+  role?: string; // "MUFTI" | "ADMIN_MUFTI"
 }) {
   const session = await checkAuth(['SUPER_ADMIN']);
   try {
     await db.$transaction(async (tx) => {
-      // Update User email
+      // Update User email and role
       const userUpdateData: any = { email: data.email };
       if (data.password && data.password.trim() !== '') {
         userUpdateData.passwordHash = await bcrypt.hash(data.password, 10);
+      }
+      if (data.role) {
+        userUpdateData.role = data.role;
       }
       await tx.user.update({
         where: { id: userId },
@@ -891,5 +1038,423 @@ export async function updateBook(id: string, data: {
   } catch (error: any) {
     console.error('Update Book error:', error);
     return { success: false, error: error.message || 'Failed to update Book' };
+  }
+}
+
+// ----------------------------------------------------
+// WORKFLOW REDESIGN & ROLE MANAGEMENT SERVER ACTIONS
+// ----------------------------------------------------
+
+async function getHijriDateStringBackend(date: Date) {
+  try {
+    const offsetSetting = await db.setting.findUnique({
+      where: { key: 'hijriOffset' }
+    });
+    const offset = offsetSetting ? parseInt(offsetSetting.value, 10) || 0 : 0;
+    
+    const d = new Date(date);
+    d.setDate(d.getDate() + offset);
+    
+    const formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+    return formatter.format(d);
+  } catch (e) {
+    return '';
+  }
+}
+
+async function createActivityLogWithDetails(userId: string, action: string, details: string) {
+  try {
+    const reqHeaders = headers();
+    const ipAddress = reqHeaders.get('x-forwarded-for') || reqHeaders.get('x-real-ip') || '127.0.0.1';
+    
+    const now = new Date();
+    const hijriDate = await getHijriDateStringBackend(now);
+    
+    await db.activityLog.create({
+      data: {
+        userId,
+        action,
+        details,
+        timestamp: now,
+        hijriDate,
+        ipAddress
+      }
+    });
+  } catch (e) {
+    console.error('Error logging activity:', e);
+  }
+}
+
+async function createNotificationForAdmins(title: string, message: string, type: string) {
+  try {
+    const adminUsers = await db.user.findMany({
+      where: {
+        role: { in: ['SUPER_ADMIN', 'ADMIN_MUFTI'] }
+      }
+    });
+    
+    await Promise.all(
+      adminUsers.map(user => 
+        db.notification.create({
+          data: {
+            userId: user.id,
+            title,
+            message,
+            type
+          }
+        })
+      )
+    );
+  } catch (e) {
+    console.error('Error creating notifications:', e);
+  }
+}
+
+async function createNotificationForUser(userId: string, title: string, message: string, type: string) {
+  try {
+    await db.notification.create({
+      data: {
+        userId,
+        title,
+        message,
+        type
+      }
+    });
+  } catch (e) {
+    console.error('Error creating user notification:', e);
+  }
+}
+
+// Assign Question to a Mufti (Admin / Super Admin only)
+export async function assignQuestion(questionId: string, muftiId: string) {
+  const session = await checkAuth(['SUPER_ADMIN', 'ADMIN_MUFTI']);
+  try {
+    const question = await db.question.findUnique({ where: { id: questionId } });
+    if (!question) throw new Error("Question not found");
+
+    const mufti = await db.mufti.findUnique({ 
+      where: { id: muftiId },
+      include: { user: true }
+    });
+    if (!mufti) throw new Error("Mufti not found");
+
+    const updatedQuestion = await db.question.update({
+      where: { id: questionId },
+      data: {
+        status: 'ASSIGNED',
+        assignedToId: muftiId
+      }
+    });
+
+    await createNotificationForUser(
+      mufti.userId,
+      'Question Assigned',
+      `You have been assigned to answer question tracking number: ${question.trackingNumber}`,
+      'ASSIGNED'
+    );
+
+    await createActivityLogWithDetails(
+      session.id,
+      'QUESTION_ASSIGN',
+      `Question ${question.trackingNumber} assigned to Mufti ${mufti.nameEn} by ${session.email}`
+    );
+
+    return { success: true, data: updatedQuestion };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+// Review Submitted Fatwa Draft (Admin / Super Admin only)
+export async function reviewFatwa(fatwaId: string, action: 'APPROVED' | 'REJECTED' | 'SENT_BACK', remarks?: string) {
+  const session = await checkAuth(['SUPER_ADMIN', 'ADMIN_MUFTI']);
+  try {
+    const fatwa = await db.fatwa.findUnique({
+      where: { id: fatwaId },
+      include: { question: true, answeredBy: true }
+    });
+    if (!fatwa) throw new Error("Fatwa not found");
+
+    let newStatus = 'PENDING_REVIEW';
+    if (action === 'APPROVED') {
+      newStatus = 'APPROVED';
+    } else if (action === 'REJECTED') {
+      newStatus = 'REJECTED';
+    } else if (action === 'SENT_BACK') {
+      newStatus = 'SENT_BACK';
+    }
+
+    await db.fatwa.update({
+      where: { id: fatwaId },
+      data: {
+        reviewedById: session.muftiId || null
+      }
+    });
+
+    await db.question.update({
+      where: { id: fatwa.questionId },
+      data: { status: newStatus }
+    });
+
+    await createNotificationForUser(
+      fatwa.answeredBy.userId,
+      `Answer ${action.replace('_', ' ')}`,
+      `Your submitted answer for question ${fatwa.question.trackingNumber} has been ${action.toLowerCase()}. Remarks: ${remarks || 'None'}`,
+      action
+    );
+
+    await createActivityLogWithDetails(
+      session.id,
+      `FATWA_REVIEW_${action}`,
+      `Fatwa #${fatwa.fatwaNumber} was ${action.toLowerCase()} by ${session.email}. Remarks: ${remarks || ''}`
+    );
+
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+// Request Tasdeeq verification from other Muftis (Admin / Super Admin only)
+export async function requestTasdeeq(fatwaId: string, muftiIds: string[]) {
+  const session = await checkAuth(['SUPER_ADMIN', 'ADMIN_MUFTI']);
+  try {
+    const fatwa = await db.fatwa.findUnique({
+      where: { id: fatwaId },
+      include: { question: true }
+    });
+    if (!fatwa) throw new Error("Fatwa not found");
+
+    await Promise.all(
+      muftiIds.map(async (muftiId) => {
+        const existing = await db.tasdeeqRecord.findUnique({
+          where: {
+            fatwaId_muftiId: { fatwaId, muftiId }
+          }
+        });
+        if (!existing) {
+          await db.tasdeeqRecord.create({
+            data: {
+              fatwaId,
+              muftiId,
+              status: 'PENDING'
+            }
+          });
+
+          const mufti = await db.mufti.findUnique({ where: { id: muftiId } });
+          if (mufti) {
+            await createNotificationForUser(
+              mufti.userId,
+              'Tasdeeq Requested',
+              `Verification (Tasdeeq) requested for Fatwa #${fatwa.fatwaNumber}`,
+              'TASDEEQ_REQUESTED'
+            );
+          }
+        }
+      })
+    );
+
+    await db.question.update({
+      where: { id: fatwa.questionId },
+      data: { status: 'PENDING_TASDEEQ' }
+    });
+
+    await createActivityLogWithDetails(
+      session.id,
+      'TASDEEQ_REQUEST',
+      `Tasdeeq verification requested for Fatwa #${fatwa.fatwaNumber}`
+    );
+
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+// Submit Tasdeeq feedback (Mufti / Admin / Super Admin)
+export async function submitTasdeeqFeedback(fatwaId: string, status: 'VERIFIED' | 'REJECTED', remarks?: string) {
+  const session = await checkAuth(['SUPER_ADMIN', 'MUFTI', 'ADMIN_MUFTI']);
+  if (!session.muftiId) {
+    return { success: false, error: 'Only accounts with a Mufti Profile can submit Tasdeeq' };
+  }
+
+  try {
+    const fatwa = await db.fatwa.findUnique({
+      where: { id: fatwaId },
+      include: { question: true, answeredBy: true }
+    });
+    if (!fatwa) throw new Error("Fatwa not found");
+
+    const record = await db.tasdeeqRecord.findUnique({
+      where: {
+        fatwaId_muftiId: { fatwaId, muftiId: session.muftiId }
+      }
+    });
+    if (!record) throw new Error("No pending Tasdeeq request found for your profile.");
+
+    const now = new Date();
+    const hijriDate = await getHijriDateStringBackend(now);
+
+    await db.tasdeeqRecord.update({
+      where: { id: record.id },
+      data: {
+        status,
+        remarks: remarks || null,
+        verifiedAt: now,
+        verifiedHijri: hijriDate
+      }
+    });
+
+    await createNotificationForAdmins(
+      'Tasdeeq Submitted',
+      `Mufti ${session.muftiNameEn} submitted verification status [${status}] for Fatwa #${fatwa.fatwaNumber}`,
+      'TASDEEQ_COMPLETED'
+    );
+
+    await createActivityLogWithDetails(
+      session.id,
+      `TASDEEQ_SUBMIT_${status}`,
+      `Mufti ${session.muftiNameEn} verified Fatwa #${fatwa.fatwaNumber} with status: ${status}`
+    );
+
+    const pendingRecords = await db.tasdeeqRecord.count({
+      where: { fatwaId, status: 'PENDING' }
+    });
+
+    if (pendingRecords === 0) {
+      await db.question.update({
+        where: { id: fatwa.questionId },
+        data: { status: 'TASDEEQ_COMPLETED' }
+      });
+    }
+
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+// Publish Fatwa (Admin / Super Admin only)
+export async function publishFatwa(fatwaId: string) {
+  const session = await checkAuth(['SUPER_ADMIN', 'ADMIN_MUFTI']);
+  try {
+    const fatwa = await db.fatwa.findUnique({
+      where: { id: fatwaId },
+      include: { question: true, answeredBy: true }
+    });
+    if (!fatwa) throw new Error("Fatwa not found");
+
+    const ruleSetting = await db.setting.findUnique({
+      where: { key: 'tasdeeq_publish_rule' }
+    });
+    const rule = ruleSetting ? ruleSetting.value : 'FIRST_VERIFIED';
+
+    const totalRequested = await db.tasdeeqRecord.count({ where: { fatwaId } });
+    const verifiedCount = await db.tasdeeqRecord.count({ where: { fatwaId, status: 'VERIFIED' } });
+
+    if (totalRequested > 0) {
+      if (rule === 'ALL_VERIFIED' && verifiedCount < totalRequested) {
+        throw new Error(`Cannot publish. Rules require all assigned Tasdeeq Muftis to verify (${verifiedCount}/${totalRequested} verified).`);
+      }
+      if (rule === 'FIRST_VERIFIED' && verifiedCount < 1) {
+        throw new Error("Cannot publish. Rules require at least one Tasdeeq Mufti verification.");
+      }
+    }
+
+    const updatedFatwa = await db.fatwa.update({
+      where: { id: fatwaId },
+      data: {
+        visibility: 'PUBLIC',
+        publishedAt: new Date()
+      }
+    });
+
+    await db.question.update({
+      where: { id: fatwa.questionId },
+      data: { status: 'PUBLISHED' }
+    });
+
+    await createNotificationForUser(
+      fatwa.answeredBy.userId,
+      'Fatwa Published',
+      `Your answered Fatwa #${fatwa.fatwaNumber} is now live and published!`,
+      'PUBLISHED'
+    );
+
+    await createActivityLogWithDetails(
+      session.id,
+      'FATWA_PUBLISH',
+      `Fatwa #${fatwa.fatwaNumber} was published live by ${session.email}`
+    );
+
+    return { success: true, data: updatedFatwa };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+// Get User in-app notifications
+export async function getPortalNotifications() {
+  const session = await getMe();
+  if (!session) return { success: false, error: 'Unauthorized' };
+  try {
+    const notifications = await db.notification.findMany({
+      where: { userId: session.id },
+      orderBy: { createdAt: 'desc' },
+      take: 20
+    });
+    return { success: true, data: notifications };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+// Mark in-app notification as read
+export async function markNotificationAsRead(id: string) {
+  const session = await getMe();
+  if (!session) return { success: false, error: 'Unauthorized' };
+  try {
+    await db.notification.updateMany({
+      where: { id, userId: session.id },
+      data: { read: true }
+    });
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+// System settings managers
+export async function updateSystemSettings(key: string, value: string) {
+  const session = await checkAuth(['SUPER_ADMIN', 'ADMIN_MUFTI']);
+  try {
+    const setting = await db.setting.upsert({
+      where: { key },
+      update: { value, updatedAt: new Date() },
+      create: { key, value }
+    });
+
+    await createActivityLogWithDetails(
+      session.id,
+      'SETTING_UPDATE',
+      `System setting key "${key}" updated to "${value}" by ${session.email}`
+    );
+
+    return { success: true, data: setting };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+export async function getSystemSetting(key: string) {
+  try {
+    const setting = await db.setting.findUnique({ where: { key } });
+    return { success: true, value: setting ? setting.value : null };
+  } catch (error: any) {
+    return { success: false, error: error.message };
   }
 }

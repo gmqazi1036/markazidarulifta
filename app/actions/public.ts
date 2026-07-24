@@ -15,7 +15,10 @@ export async function searchFatwas(filters: {
 }) {
   try {
     const whereClause: Prisma.FatwaWhereInput = {
-      visibility: 'PUBLIC'
+      visibility: 'PUBLIC',
+      question: {
+        status: 'PUBLISHED'
+      }
     };
 
     if (filters.fatwaNumber) {
@@ -90,7 +93,7 @@ export async function getFatwaDetails(id: string) {
       }
     });
 
-    if (fatwa && fatwa.visibility === 'PUBLIC') {
+    if (fatwa && fatwa.visibility === 'PUBLIC' && fatwa.question?.status === 'PUBLISHED') {
       // Increment views asynchronously
       await db.fatwa.update({
         where: { id },
@@ -151,7 +154,7 @@ export async function askQuestion(data: {
         city: data.city,
         questionText: data.questionText,
         attachmentUrl,
-        status: 'PENDING'
+        status: 'NEW'
       }
     });
 
